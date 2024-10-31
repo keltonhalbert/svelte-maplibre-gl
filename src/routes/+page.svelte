@@ -1,7 +1,11 @@
-<article class="prose">
-	<h1>Welcome to your library project</h1>
-	<p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
-	<p>
-		Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation
-	</p>
-</article>
+<div class="mx-auto w-full p-8 py-16 2xl:container">
+	<main class="prose">
+		<h1>Svelte MapLibre GL</h1>
+		<p>
+			<a href="/examples/">Examples</a>
+		</p>
+	</main>
+	<footer class="font-zinc-500 mt-8 border-t pt-6 text-sm">
+		<p>&copy; 2024 MIERUNE Inc.</p>
+	</footer>
+</div>
