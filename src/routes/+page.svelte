@@ -1,5 +1,5 @@
 <div class="mx-auto w-full p-8 py-16 2xl:container">
-	<main class="prose">
+	<main class="prose dark:prose-invert">
 		<h1>Svelte MapLibre GL</h1>
 		<p>
 			<a href="/examples/">Examples</a>

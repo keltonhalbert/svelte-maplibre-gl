@@ -5,7 +5,7 @@
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"package": "svelte-kit sync && svelte-package && publint",
+		"package": "svelte-kit sync && svelte-package -i src/lib/maplibre && publint",
 		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -45,10 +45,13 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
 		"autoprefixer": "^10.4.20",
+		"bits-ui": "1.0.0-next.35",
+		"clsx": "^2.1.1",
 		"eslint": "^9.13.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.0",
 		"globals": "^15.11.0",
+		"lucide-svelte": "^0.454.0",
 		"mdsvex": "^0.12.3",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.7",
@@ -56,11 +59,17 @@
 		"publint": "^0.2.12",
 		"svelte": "^5.1.9",
 		"svelte-check": "^4.0.5",
+		"tailwind-merge": "^2.5.4",
+		"tailwind-variants": "^0.2.1",
 		"tailwindcss": "^3.4.14",
+		"tailwindcss-animate": "^1.0.7",
 		"typescript": "^5.6.3",
 		"typescript-eslint": "^8.12.2",
 		"vite": "^5.4.10",
 		"vitest": "^2.1.4"
 	},
-	"packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
+	"packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
+	"dependencies": {
+		"mode-watcher": "^0.4.1"
+	}
 }
