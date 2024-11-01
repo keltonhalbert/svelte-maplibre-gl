@@ -10,6 +10,12 @@
 			"options": {
 				"parser": "svelte"
 			}
+		},
+		{
+			"files": ["*.svx", "*.svelte.md", "*.md"],
+			"options": {
+				"parser": "markdown"
+			}
 		}
 	]
 }
