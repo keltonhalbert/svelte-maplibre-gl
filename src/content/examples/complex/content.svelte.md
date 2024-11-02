@@ -4,9 +4,9 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiu
 ---
 
 <script lang="ts">
-  import Demo from "./Demo.svelte";
+  import Complex from "./Complex.svelte";
 </script>
 
 ## Demo
 
-<Demo />
+<Complex />

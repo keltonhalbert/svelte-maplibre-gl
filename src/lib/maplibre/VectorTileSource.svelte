@@ -14,22 +14,25 @@
 
 	let { id, tiles, minzoom, maxzoom, attribution, children }: Props = $props();
 
-	const { map } = getMapContext();
-	if (!map) {
+	const mapCtx = getMapContext();
+	if (!mapCtx.map) {
 		throw new Error('Map is not initialized');
 	}
 
-	map.addSource(id, {
+	mapCtx.map.addSource(id, {
 		type: 'vector',
 		tiles,
 		minzoom,
 		maxzoom,
 		attribution
 	});
-	const sourceContext = prepareSourceContext();
-	sourceContext.sourceId = id;
+	const sourceCtx = prepareSourceContext();
+	sourceCtx.id = id;
 
-	const source = map.getSource(id) as VectorTileSource;
+	const source = mapCtx.map.getSource<VectorTileSource>(id);
+	if (!source) {
+		throw new Error(`Failed to add source {id}`);
+	}
 
 	let firstRun = true; // prevent reactivity on first run
 
@@ -48,7 +51,7 @@
 	});
 
 	onDestroy(() => {
-		map?.removeSource(id);
+		mapCtx.map?.removeSource(id);
 	});
 </script>
 

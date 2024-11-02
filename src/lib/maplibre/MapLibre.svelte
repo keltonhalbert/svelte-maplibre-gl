@@ -11,7 +11,7 @@
 		[K in keyof MapEventType as `on${K}`]?: (ev: MapEventType[K]) => void;
 	};
 	interface Props extends EventProps {
-		container: HTMLElement;
+		class?: string;
 		map?: maplibre.Map | null;
 		loaded?: boolean;
 		center?: LngLat;
@@ -28,10 +28,11 @@
 		children?: Snippet;
 	}
 
-	const mapContext = prepareMapContext();
+	let container: HTMLElement | undefined = $state();
+	const mapCtx = prepareMapContext();
 
 	let {
-		container,
+		class: className = '',
 		map = $bindable(null),
 		loaded = $bindable(false),
 		center = $bindable(undefined),
@@ -86,7 +87,7 @@
 		map = new maplibre.Map(options);
 
 		map.on('load', () => {
-			mapContext.map = map;
+			mapCtx.map = map;
 			loaded = true;
 		});
 
@@ -166,10 +167,12 @@
 	});
 
 	onDestroy(() => {
-		mapContext.map = null;
+		mapCtx.map = null;
 		map?.remove();
 	});
 </script>
+
+<div class={className} bind:this={container}></div>
 
 {#if map && loaded}
 	{@render children?.()}

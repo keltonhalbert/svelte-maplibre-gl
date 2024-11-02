@@ -8,38 +8,41 @@
 		children?: Snippet;
 	}
 
-	let { id, children, ...sourceSpec }: Props = $props();
+	let { id, children, data, ...sourceSpec }: Props = $props();
 
-	const { map } = getMapContext();
-	if (!map) {
+	const mapCtx = getMapContext();
+	if (!mapCtx.map) {
 		throw new Error('Map is not initialized');
 	}
 
-	map.addSource(id, {
+	mapCtx.map.addSource(id, {
 		type: 'geojson',
+		data,
 		...sourceSpec
 	});
-	const sourceContext = prepareSourceContext();
-	sourceContext.sourceId = id;
+	const sourceCtx = prepareSourceContext();
+	sourceCtx.id = id;
 
-	const source = map.getSource(id) as GeoJSONSource;
+	const source = mapCtx.map.getSource<GeoJSONSource>(id);
+	if (!source) {
+		throw new Error(`Failed to add source {id}`);
+	}
 
-	// let firstRun = true;
+	let firstRun = true;
 
-	// $effect(() => {
-	// 	if (firstRun) {
-	// 		return;
-	// 	}
+	$effect(() => {
+		data;
+		if (!firstRun) {
+			source.setData(data);
+		}
+	});
 
-	// 	source.setData(sourceSpec.data);
-	// });
-
-	// $effect(() => {
-	// 	firstRun = false;
-	// });
+	$effect(() => {
+		firstRun = false;
+	});
 
 	onDestroy(() => {
-		map?.removeSource(id);
+		mapCtx.map?.removeSource(id);
 	});
 </script>
 

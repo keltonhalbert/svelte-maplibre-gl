@@ -14,21 +14,21 @@
 	}
 	let { position, ...options }: Props & ControlOptions = $props();
 
-	const { map } = getMapContext();
-	if (!map) {
+	const mapCtx = getMapContext();
+	if (!mapCtx.map) {
 		throw new Error('Map is not initialized');
 	}
 
 	let control: ControlType | null = null;
 	$effect(() => {
-		control && map?.removeControl(control);
+		control && mapCtx.map?.removeControl(control);
 		control = new Control(options);
-		map.addControl(control, position);
+		mapCtx.map?.addControl(control, position);
 	});
 
 	onDestroy(() => {
 		if (control) {
-			map?.removeControl(control);
+			mapCtx.map?.removeControl(control);
 		}
 	});
 </script>

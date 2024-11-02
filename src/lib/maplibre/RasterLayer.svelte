@@ -11,19 +11,19 @@
 
 	let { id, paint, layout, beforeId, sourceLayer, maxzoom, minzoom, children }: Props = $props();
 
-	const { map } = getMapContext();
-	if (!map) {
+	const mapCtx = getMapContext();
+	if (!mapCtx.map) {
 		throw new Error('Map is not initialized');
 	}
 
-	const sourceContext = getSourceContext();
+	const sourceCtx = getSourceContext();
 
 	const addLayerObj = {
 		id,
 		type: 'raster',
-		source: sourceContext.sourceId,
-		layout: layout || {},
-		paint: paint || {}
+		source: sourceCtx.id,
+		layout: $state.snapshot(layout) || {},
+		paint: $state.snapshot(paint) || {}
 	} as RasterLayerSpecification;
 
 	if (maxzoom !== undefined) {
@@ -36,13 +36,14 @@
 		addLayerObj['source-layer'] = sourceLayer;
 	}
 
-	map.addLayer(addLayerObj, beforeId);
+	mapCtx.map.addLayer(addLayerObj, beforeId);
 
 	let firstRun = true;
 
 	let prevPaint = $state.snapshot(paint) as Record<string, unknown>;
 	$effect(() => {
-		if (paint && !firstRun) {
+		const map = mapCtx.map;
+		if (paint && !firstRun && map) {
 			Object.entries((paint || {}) as object).forEach(([key, value]) => {
 				if (prevPaint[key] !== value) {
 					map.setPaintProperty(id, key, value);
@@ -54,7 +55,8 @@
 
 	let prevLayout = $state.snapshot(layout) as Record<string, unknown>;
 	$effect(() => {
-		if (layout && !firstRun) {
+		const map = mapCtx.map;
+		if (layout && !firstRun && map) {
 			Object.entries((layout || {}) as object).forEach(([key, value]) => {
 				if (prevLayout[key] !== value) {
 					map.setLayoutProperty(id, key, value);
@@ -68,14 +70,14 @@
 		minzoom;
 		maxzoom;
 		if ((minzoom !== undefined || maxzoom !== undefined) && !firstRun) {
-			map.setLayerZoomRange(id, minzoom || 0, maxzoom || 24);
+			mapCtx.map?.setLayerZoomRange(id, minzoom || 0, maxzoom || 24);
 		}
 	});
 
 	$effect(() => {
 		beforeId;
 		if (!firstRun) {
-			map.moveLayer(id, beforeId);
+			mapCtx.map?.moveLayer(id, beforeId);
 		}
 	});
 
@@ -84,7 +86,7 @@
 	});
 
 	onDestroy(() => {
-		map?.removeLayer(id);
+		mapCtx.map?.removeLayer(id);
 	});
 </script>
 
