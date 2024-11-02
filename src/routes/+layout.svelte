@@ -17,3 +17,7 @@
 <div>
 	{@render children()}
 </div>
+
+<svelte:head>
+	<title>Svelte MapLibre GL</title>
+</svelte:head>

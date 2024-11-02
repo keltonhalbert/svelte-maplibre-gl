@@ -109,7 +109,7 @@
 </div>
 
 <MapLibre
-	class="h-[70vh] min-h-[300px] w-full"
+	class="h-[60vh] min-h-[300px]"
 	bind:map
 	bind:zoom
 	bind:center

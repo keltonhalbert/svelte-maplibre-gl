@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       maplibre-gl:
-        specifier: ^4.7.0
+        specifier: ^4.0.0
         version: 4.7.1
       mode-watcher:
         specifier: ^0.4.1
