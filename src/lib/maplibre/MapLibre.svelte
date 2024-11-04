@@ -1,11 +1,15 @@
 <script lang="ts">
 	import maplibre from 'maplibre-gl';
-	import type { MapOptions, MapEventType, AttributionControlOptions } from 'maplibre-gl';
+	import type {
+		MapOptions,
+		MapEventType,
+		AttributionControlOptions,
+		LngLatBoundsLike
+	} from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onDestroy, type Snippet } from 'svelte';
 	import { prepareMapContext } from './context.svelte.js';
-
-	type LngLat = { lng: number; lat: number };
+	import type { LngLat } from './common.js';
 
 	type EventProps = {
 		[K in keyof MapEventType as `on${K}`]?: (ev: MapEventType[K]) => void;
@@ -13,7 +17,8 @@
 	interface Props extends EventProps {
 		class?: string;
 		map?: maplibre.Map | null;
-		loaded?: boolean;
+		interactive?: boolean;
+		style?: MapOptions['style'];
 		center?: LngLat;
 		zoom?: number;
 		pitch?: number;
@@ -23,7 +28,7 @@
 		minPitch?: number | null;
 		maxPitch?: number | null;
 		antialias?: boolean;
-		maxBounds?: [LngLat, LngLat];
+		maxBounds?: LngLatBoundsLike;
 		attributionControl?: false | AttributionControlOptions;
 		children?: Snippet;
 	}
@@ -34,7 +39,8 @@
 	let {
 		class: className = '',
 		map = $bindable(null),
-		loaded = $bindable(false),
+		interactive = undefined,
+		style = { version: 8, sources: {}, layers: [] },
 		center = $bindable(undefined),
 		zoom = $bindable(undefined),
 		pitch = $bindable(undefined),
@@ -48,7 +54,9 @@
 		antialias,
 		children,
 		...events
-	}: Props & EventProps = $props();
+	}: Props = $props();
+
+	let loaded = $state(false);
 
 	$effect(() => {
 		if (map || !container) {
@@ -56,18 +64,17 @@
 		}
 		const options: MapOptions = {
 			container,
+			style,
 			center,
 			minZoom,
 			maxZoom,
 			minPitch,
 			maxPitch,
-			antialias,
-			style: {
-				version: 8,
-				sources: {},
-				layers: []
-			}
+			antialias
 		};
+		if (interactive !== undefined) {
+			options.interactive = interactive;
+		}
 		if (attributionControl !== undefined) {
 			options.attributionControl = attributionControl;
 		}
@@ -80,7 +87,7 @@
 		if (bearing !== undefined) {
 			options.bearing = bearing;
 		}
-		if (maxBounds !== undefined) {
+		if (maxBounds) {
 			options.maxBounds = maxBounds;
 		}
 
@@ -102,15 +109,19 @@
 				center = map.getCenter();
 				pitch = map.getPitch();
 				bearing = map.getBearing();
+				zoom = map?.getZoom();
 			}
-		});
-		map.on('zoom', () => {
-			zoom = map?.getZoom();
 		});
 	});
 
 	let firstRun = true;
 
+	$effect(() => {
+		style;
+		if (!firstRun) {
+			map?.setStyle(style);
+		}
+	});
 	$effect(() => {
 		maxZoom;
 		if (!firstRun) {

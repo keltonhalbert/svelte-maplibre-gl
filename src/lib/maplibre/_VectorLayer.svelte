@@ -2,6 +2,7 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, getSourceContext } from './context.svelte';
 	import type maplibregl from 'maplibre-gl';
+	import { generateLayerID } from './utils.js';
 
 	type VectorLayerSpecification =
 		| maplibregl.FillLayerSpecification
@@ -10,21 +11,32 @@
 		| maplibregl.FillExtrusionLayerSpecification
 		| maplibregl.HeatmapLayerSpecification;
 
-	interface Props extends Omit<VectorLayerSpecification, 'source' | 'source-layer'> {
+	interface Props extends Omit<VectorLayerSpecification, 'id' | 'source' | 'source-layer'> {
+		id?: string;
 		beforeId?: string;
 		sourceLayer?: string;
 		children?: Snippet;
 	}
 
-	let { id, type, paint, layout, beforeId, sourceLayer, maxzoom, minzoom, children }: Props =
-		$props();
+	let {
+		id: _id,
+		type,
+		paint,
+		layout,
+		beforeId,
+		sourceLayer,
+		maxzoom,
+		minzoom,
+		children
+	}: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('Map is not initialized');
+		throw new Error('MapLibre is not initialized');
 	}
 
 	const sourceCtx = getSourceContext();
+	const id = _id || generateLayerID();
 
 	const addLayerObj = {
 		id,

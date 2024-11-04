@@ -2,9 +2,11 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, prepareSourceContext } from './context.svelte';
 	import type { VectorTileSource } from 'maplibre-gl';
+	import { generateSourceID } from './utils.js';
 
+	// TODO: extends VectorTileSourceSpecification ?
 	interface Props {
-		id: string;
+		id?: string;
 		tiles: string[];
 		minzoom: number;
 		maxzoom: number;
@@ -12,13 +14,14 @@
 		children?: Snippet;
 	}
 
-	let { id, tiles, minzoom, maxzoom, attribution, children }: Props = $props();
+	let { id: _id, tiles, minzoom, maxzoom, attribution, children }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('Map is not initialized');
+		throw new Error('MapLibre is not initialized');
 	}
 
+	const id = _id || generateSourceID();
 	mapCtx.map.addSource(id, {
 		type: 'vector',
 		tiles,
@@ -28,7 +31,6 @@
 	});
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-
 	const source = mapCtx.map.getSource<VectorTileSource>(id);
 	if (!source) {
 		throw new Error(`Failed to add source {id}`);

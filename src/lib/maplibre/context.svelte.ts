@@ -24,7 +24,7 @@ export function prepareMapContext(): MapContext {
 export function getMapContext(): MapContext {
 	const mapCtx = getContext<MapContext>(MAP_CONTEXT_KEY);
 	if (!mapCtx) {
-		throw new Error('Map is not initialized');
+		throw new Error('MapLibre is not initialized');
 	}
 	return mapCtx;
 }

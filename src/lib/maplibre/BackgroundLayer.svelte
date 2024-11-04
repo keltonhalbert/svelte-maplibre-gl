@@ -2,25 +2,28 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import type { BackgroundLayerSpecification } from 'maplibre-gl';
 	import { getMapContext } from './context.svelte.js';
+	import { generateLayerID } from './utils.js';
 
-	interface Props extends Omit<BackgroundLayerSpecification, 'type'> {
+	interface Props extends Omit<BackgroundLayerSpecification, 'id' | 'type'> {
+		id?: string;
 		beforeId?: string;
 		children?: Snippet;
 	}
 
-	let { id, layout, paint, beforeId, maxzoom, minzoom }: Props = $props();
+	let { id: _id, layout, paint, beforeId, maxzoom, minzoom }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('Map is not initialized');
+		throw new Error('MapLibre is not initialized');
 	}
 
-	const addLayerObj = {
+	const id = _id || generateLayerID();
+	const addLayerObj: BackgroundLayerSpecification = {
 		id,
 		type: 'background',
-		layout: $state.snapshot(layout) || {},
-		paint: $state.snapshot(paint) || {}
-	} as BackgroundLayerSpecification;
+		layout: ($state.snapshot(layout) as BackgroundLayerSpecification['layout']) || {},
+		paint: ($state.snapshot(paint) as BackgroundLayerSpecification['paint']) || {}
+	};
 
 	if (maxzoom !== undefined) {
 		addLayerObj.maxzoom = maxzoom;

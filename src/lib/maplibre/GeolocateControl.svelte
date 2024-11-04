@@ -16,7 +16,7 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('Map is not initialized');
+		throw new Error('MapLibre is not initialized');
 	}
 
 	let control: ControlType | null = null;

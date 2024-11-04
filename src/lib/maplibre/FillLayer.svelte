@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
-	import VectorLayer from './_VectorLayer.svelte';
 	import type { FillLayerSpecification } from 'maplibre-gl';
+	import VectorLayer from './_VectorLayer.svelte';
 
-	interface Props extends Omit<FillLayerSpecification, 'source' | 'type' | 'source-layer'> {
+	interface Props extends Omit<FillLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+		id?: string;
 		sourceLayer?: FillLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;

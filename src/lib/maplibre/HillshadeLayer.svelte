@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getSourceContext } from './context.svelte';
-	import type { RasterLayerSpecification } from 'maplibre-gl';
+	import { getMapContext, getSourceContext } from './context.svelte.js';
+	import type { HillshadeLayerSpecification } from 'maplibre-gl';
 	import { generateLayerID } from './utils.js';
 
 	interface Props
-		extends Omit<RasterLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+		extends Omit<HillshadeLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
 		id?: string;
 		beforeId?: string;
 		sourceLayer?: string;
@@ -31,12 +31,12 @@
 	const sourceCtx = getSourceContext();
 	const id = _id || generateLayerID();
 
-	const addLayerObj: RasterLayerSpecification = {
+	const addLayerObj: HillshadeLayerSpecification = {
 		id,
-		type: 'raster',
+		type: 'hillshade',
 		source: sourceCtx.id,
-		layout: ($state.snapshot(layout) as RasterLayerSpecification['layout']) || {},
-		paint: ($state.snapshot(paint) as RasterLayerSpecification['paint']) || {}
+		layout: ($state.snapshot(layout) as HillshadeLayerSpecification['layout']) || {},
+		paint: ($state.snapshot(paint) as HillshadeLayerSpecification['paint']) || {}
 	};
 
 	if (maxzoom !== undefined) {

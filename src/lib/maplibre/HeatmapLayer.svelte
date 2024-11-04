@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
-	import VectorLayer from './_VectorLayer.svelte';
 	import type { HeatmapLayerSpecification } from 'maplibre-gl';
+	import VectorLayer from './_VectorLayer.svelte';
 
-	interface Props extends Omit<HeatmapLayerSpecification, 'source' | 'type' | 'source-layer'> {
+	interface Props
+		extends Omit<HeatmapLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+		id?: string;
 		sourceLayer?: HeatmapLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;
