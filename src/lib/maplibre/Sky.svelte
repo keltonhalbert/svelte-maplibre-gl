@@ -10,6 +10,8 @@
 		throw new Error('MapLibre is not initialized');
 	}
 
+	const prevSky = mapCtx.map.getSky();
+
 	$effect(() => {
 		mapCtx.map?.setSky({
 			...spec
@@ -17,6 +19,6 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.setSky(undefined as unknown as SkySpecification);
+		mapCtx.map?.setSky(prevSky);
 	});
 </script>

@@ -11,6 +11,8 @@
 		throw new Error('MapLibre is not initialized');
 	}
 
+	const prevProjection = mapCtx.map.getProjection();
+
 	$effect(() => {
 		mapCtx.map?.setProjection({
 			...spec
@@ -18,6 +20,6 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.setProjection(undefined as unknown as ProjectionSpecification);
+		mapCtx.map?.setProjection(prevProjection || { type: 'mercator' });
 	});
 </script>

@@ -10,6 +10,8 @@
 		throw new Error('MapLibre is not initialized');
 	}
 
+	const prevLight = mapCtx.map.getLight();
+
 	$effect(() => {
 		mapCtx.map?.setLight({
 			...spec
@@ -17,6 +19,6 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.setLight(undefined as unknown as LightSpecification);
+		mapCtx.map?.setLight(prevLight || {});
 	});
 </script>
