@@ -287,7 +287,7 @@
 	</GeoJSONSource>
 	<Marker bind:lnglat={markerLnglat} draggable color="#99dd55">
 		{#snippet content()}
-			foo
+			<span class="text-3xl">✅</span>
 		{/snippet}
 	</Marker>
 </MapLibre>
