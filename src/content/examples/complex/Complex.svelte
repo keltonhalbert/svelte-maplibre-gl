@@ -26,7 +26,8 @@
 		Sky,
 		Projection,
 		Light,
-		Marker
+		Marker,
+		Popup
 	} from 'svelte-maplibre-gl';
 
 	let map: maplibregl.Map | null = $state.raw(null);
@@ -289,5 +290,8 @@
 		{#snippet content()}
 			<span class="text-3xl">✅</span>
 		{/snippet}
+		<Popup class="text-black">
+			{`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}
+		</Popup>
 	</Marker>
 </MapLibre>

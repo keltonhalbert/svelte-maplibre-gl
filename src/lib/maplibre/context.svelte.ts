@@ -1,8 +1,9 @@
-import type { Map as MapLibre } from 'maplibre-gl';
+import type { Map as MapLibre, Marker } from 'maplibre-gl';
 import { setContext, getContext } from 'svelte';
 
 const MAP_CONTEXT_KEY = Symbol('MapLibre map context');
 const SOURCE_CONTEXT_KEY = Symbol('MapLibre source context');
+const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 
 // https://svelte.dev/docs/svelte/$state#Classes
 class MapContext {
@@ -15,6 +16,10 @@ class SourceContext {
 	id: string = $state('');
 }
 
+class MarkerContext {
+	marker: Marker | null = $state.raw(null);
+}
+
 export function prepareMapContext(): MapContext {
 	const mapCtx = new MapContext();
 	setContext(MAP_CONTEXT_KEY, mapCtx);
@@ -24,7 +29,7 @@ export function prepareMapContext(): MapContext {
 export function getMapContext(): MapContext {
 	const mapCtx = getContext<MapContext>(MAP_CONTEXT_KEY);
 	if (!mapCtx) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Component must be used inside MapLibre component');
 	}
 	return mapCtx;
 }
@@ -38,7 +43,21 @@ export function prepareSourceContext(): SourceContext {
 export function getSourceContext(): SourceContext {
 	const sourceCtx = getContext<SourceContext>(SOURCE_CONTEXT_KEY);
 	if (!sourceCtx || !sourceCtx.id) {
-		throw new Error('Source is not found');
+		throw new Error('Must be used inside map Source context');
 	}
 	return sourceCtx;
+}
+
+export function prepareMarkerContext(): MarkerContext {
+	const markerCtx = new MarkerContext();
+	setContext(MARKER_CONTEXT_KEY, markerCtx);
+	return markerCtx;
+}
+
+export function getMarkerContext(): MarkerContext | null {
+	const markerCtx = getContext<MarkerContext>(MARKER_CONTEXT_KEY);
+	if (!markerCtx) {
+		return null;
+	}
+	return markerCtx;
 }

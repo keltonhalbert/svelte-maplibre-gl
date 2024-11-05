@@ -6,6 +6,8 @@
 
 - [ ] Coexistence of style spec and additional sources/layers
 - [ ] Event handlers
+- [ ] Hover on features
+- [ ] PMTiles
 
 ### Components
 

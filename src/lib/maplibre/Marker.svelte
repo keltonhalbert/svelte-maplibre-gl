@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext } from './context.svelte.js';
+	import { getMapContext, prepareMarkerContext } from './context.svelte.js';
 	import maplibregl from 'maplibre-gl';
 	import type { MarkerOptions, Point, Marker, Listener } from 'maplibre-gl';
 	import type { LngLat } from './common.js';
 
-	interface Props extends Omit<MarkerOptions, 'className' | 'offset'> {
+	interface Props extends Omit<MarkerOptions, 'className'> {
 		lnglat: LngLat;
-		offset?: Point;
 		class?: string;
 		/** HTML content of the marker */
 		content?: Snippet;
@@ -44,13 +43,14 @@
 
 	let marker: Marker | null = $state.raw(null);
 
-	$effect(() => {
-		if (!mapCtx.map) {
-			throw new Error('MapLibre is not initialized');
-		}
+	const markerCtx = prepareMarkerContext();
 
+	$effect(() => {
 		if (marker) {
 			return;
+		}
+		if (!mapCtx.map) {
+			throw new Error('MapLibre is not initialized');
 		}
 
 		const options: MarkerOptions = {
@@ -74,7 +74,10 @@
 			options.element = container;
 		}
 
-		marker = new maplibregl.Marker(options).setLngLat($state.snapshot(lnglat)).addTo(mapCtx.map);
+		marker = new maplibregl.Marker(options);
+		markerCtx.marker = marker;
+
+		marker.setLngLat($state.snapshot(lnglat)).addTo(mapCtx.map);
 
 		marker.on('drag', (e) => {
 			if (marker) {
@@ -89,22 +92,22 @@
 	let firstRun = true;
 
 	$effect(() => {
-		if (ondragstart) {
-			marker?.on('dragstart', ondragstart);
-			const prevListener = $state.snapshot(ondragstart) as Listener;
-			return () => {
+		ondragstart && marker?.on('dragstart', ondragstart);
+		const prevListener = ondragstart;
+		return () => {
+			if (prevListener) {
 				marker?.off('dragstart', prevListener);
-			};
-		}
+			}
+		};
 	});
 	$effect(() => {
-		if (ondragend) {
-			marker?.on('dragend', ondragend);
-			const prevListener = $state.snapshot(ondragend) as Listener;
-			return () => {
+		ondragend && marker?.on('dragend', ondragend);
+		const prevListener = ondragend;
+		return () => {
+			if (prevListener) {
 				marker?.off('dragend', prevListener);
-			};
-		}
+			}
+		};
 	});
 
 	$effect(() => {
