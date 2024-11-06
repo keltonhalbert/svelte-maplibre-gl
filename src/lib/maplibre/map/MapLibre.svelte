@@ -3,8 +3,8 @@
 	import type { MapOptions, MapEventType, AttributionControlOptions, LngLatBoundsLike } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onDestroy, type Snippet } from 'svelte';
-	import { prepareMapContext } from './context.svelte.js';
-	import type { LngLat } from './common.js';
+	import { prepareMapContext } from '../context.svelte.js';
+	import type { LngLat } from '../common.js';
 
 	type EventProps = {
 		[K in keyof MapEventType as `on${K}`]?: (ev: MapEventType[K]) => void;

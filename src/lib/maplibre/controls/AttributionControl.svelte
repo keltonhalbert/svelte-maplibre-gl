@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from './context.svelte.js';
+	import { getMapContext } from '../context.svelte.js';
 	import {
-		type NavigationControlOptions as ControlOptions,
-		type NavigationControl as ControlType
+		type AttributionControlOptions as ControlOptions,
+		type AttributionControl as ControlType
 	} from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 
-	const Control = maplibregl.NavigationControl;
+	const Control = maplibregl.AttributionControl;
 
 	interface Props {
 		position?: maplibregl.ControlPosition;

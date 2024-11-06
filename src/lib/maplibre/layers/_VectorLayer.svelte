@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getSourceContext } from './context.svelte';
+	import { getMapContext, getSourceContext } from '../context.svelte.js';
 	import type maplibregl from 'maplibre-gl';
-	import { generateLayerID } from './utils.js';
+	import { generateLayerID } from '../utils.js';
 
 	type VectorLayerSpecification =
 		| maplibregl.FillLayerSpecification
@@ -18,17 +18,7 @@
 		children?: Snippet;
 	}
 
-	let {
-		id: _id,
-		type,
-		paint,
-		layout,
-		beforeId,
-		sourceLayer,
-		maxzoom,
-		minzoom,
-		children
-	}: Props = $props();
+	let { id: _id, type, paint, layout, beforeId, sourceLayer, maxzoom, minzoom, children }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {

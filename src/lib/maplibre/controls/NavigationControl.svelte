@@ -1,13 +1,10 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from './context.svelte.js';
-	import {
-		type FullscreenControlOptions as ControlOptions,
-		type FullscreenControl as ControlType
-	} from 'maplibre-gl';
+	import { getMapContext } from '../context.svelte.js';
+	import { type NavigationControlOptions as ControlOptions, type NavigationControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 
-	const Control = maplibregl.FullscreenControl;
+	const Control = maplibregl.NavigationControl;
 
 	interface Props {
 		position?: maplibregl.ControlPosition;

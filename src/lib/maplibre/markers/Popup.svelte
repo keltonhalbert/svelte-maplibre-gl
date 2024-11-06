@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getMarkerContext } from './context.svelte.js';
+	import { getMapContext, getMarkerContext } from '../context.svelte.js';
 	import maplibregl from 'maplibre-gl';
 	import type { PopupOptions, Popup, Point, Listener } from 'maplibre-gl';
-	import type { LngLat } from './common.js';
+	import type { LngLat } from '../common.js';
 
 	interface Props extends Omit<PopupOptions, 'className'> {
 		lnglat?: LngLat;

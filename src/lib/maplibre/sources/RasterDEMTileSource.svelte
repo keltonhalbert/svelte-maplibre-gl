@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareSourceContext } from './context.svelte.js';
+	import { getMapContext, prepareSourceContext } from '../context.svelte.js';
 	import type { DEMEncoding, RasterDEMTileSource, RasterDEMSourceSpecification } from 'maplibre-gl';
-	import { generateSourceID } from './utils.js';
+	import { generateSourceID } from '../utils.js';
 
 	// TODO: extends RasterDEMSourceSpecification ?
 	interface Props {

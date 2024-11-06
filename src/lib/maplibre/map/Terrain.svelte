@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext, getSourceContext } from './context.svelte.js';
+	import { getMapContext, getSourceContext } from '../context.svelte.js';
 	import type { TerrainSpecification } from 'maplibre-gl';
 
 	interface Props extends Omit<TerrainSpecification, 'source'> {

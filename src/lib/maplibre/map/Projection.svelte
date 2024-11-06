@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from './context.svelte.js';
+	import { getMapContext } from '../context.svelte.js';
 	import type { ProjectionSpecification } from 'maplibre-gl';
 
 	interface Props extends ProjectionSpecification {}

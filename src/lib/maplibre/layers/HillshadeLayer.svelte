@@ -1,27 +1,17 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getSourceContext } from './context.svelte.js';
+	import { getMapContext, getSourceContext } from '../context.svelte.js';
 	import type { HillshadeLayerSpecification } from 'maplibre-gl';
-	import { generateLayerID } from './utils.js';
+	import { generateLayerID } from '../utils.js';
 
-	interface Props
-		extends Omit<HillshadeLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+	interface Props extends Omit<HillshadeLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
 		id?: string;
 		beforeId?: string;
 		sourceLayer?: string;
 		children?: Snippet;
 	}
 
-	let {
-		id: _id,
-		paint,
-		layout,
-		beforeId,
-		sourceLayer,
-		maxzoom,
-		minzoom,
-		children
-	}: Props = $props();
+	let { id: _id, paint, layout, beforeId, sourceLayer, maxzoom, minzoom, children }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {

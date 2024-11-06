@@ -1,13 +1,10 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from './context.svelte.js';
-	import {
-		type AttributionControlOptions as ControlOptions,
-		type AttributionControl as ControlType
-	} from 'maplibre-gl';
+	import { getMapContext } from '../context.svelte.js';
+	import { type LogoControlOptions as ControlOptions, type LogoControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 
-	const Control = maplibregl.AttributionControl;
+	const Control = maplibregl.LogoControl;
 
 	interface Props {
 		position?: maplibregl.ControlPosition;

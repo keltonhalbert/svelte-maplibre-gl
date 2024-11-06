@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareSourceContext } from './context.svelte';
+	import { getMapContext, prepareSourceContext } from '../context.svelte.js';
 	import type { GeoJSONSource, GeoJSONSourceSpecification } from 'maplibre-gl';
-	import { generateSourceID } from './utils.js';
+	import { generateSourceID } from '../utils.js';
 
 	interface Props extends Omit<GeoJSONSourceSpecification, 'type'> {
 		id?: string;

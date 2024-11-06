@@ -1,42 +1,28 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getSourceContext } from './context.svelte';
-	import type { RasterLayerSpecification } from 'maplibre-gl';
-	import { generateLayerID } from './utils.js';
+	import type { BackgroundLayerSpecification } from 'maplibre-gl';
+	import { getMapContext } from '../context.svelte.js';
+	import { generateLayerID } from '../utils.js';
 
-	interface Props
-		extends Omit<RasterLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+	interface Props extends Omit<BackgroundLayerSpecification, 'id' | 'type'> {
 		id?: string;
 		beforeId?: string;
-		sourceLayer?: string;
 		children?: Snippet;
 	}
 
-	let {
-		id: _id,
-		paint,
-		layout,
-		beforeId,
-		sourceLayer,
-		maxzoom,
-		minzoom,
-		children
-	}: Props = $props();
+	let { id: _id, layout, paint, beforeId, maxzoom, minzoom }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
 		throw new Error('MapLibre is not initialized');
 	}
 
-	const sourceCtx = getSourceContext();
 	const id = _id || generateLayerID();
-
-	const addLayerObj: RasterLayerSpecification = {
+	const addLayerObj: BackgroundLayerSpecification = {
 		id,
-		type: 'raster',
-		source: sourceCtx.id,
-		layout: ($state.snapshot(layout) as RasterLayerSpecification['layout']) || {},
-		paint: ($state.snapshot(paint) as RasterLayerSpecification['paint']) || {}
+		type: 'background',
+		layout: ($state.snapshot(layout) as BackgroundLayerSpecification['layout']) || {},
+		paint: ($state.snapshot(paint) as BackgroundLayerSpecification['paint']) || {}
 	};
 
 	if (maxzoom !== undefined) {
@@ -44,9 +30,6 @@
 	}
 	if (minzoom !== undefined) {
 		addLayerObj.minzoom = minzoom;
-	}
-	if (sourceLayer) {
-		addLayerObj['source-layer'] = sourceLayer;
 	}
 
 	mapCtx.addLayer(addLayerObj, beforeId);
@@ -102,5 +85,3 @@
 		mapCtx.removeLayer(id);
 	});
 </script>
-
-{@render children?.()}

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareMarkerContext } from './context.svelte.js';
+	import { getMapContext, prepareMarkerContext } from '../context.svelte.js';
 	import maplibregl from 'maplibre-gl';
 	import type { MarkerOptions, Point, Marker, Listener } from 'maplibre-gl';
-	import type { LngLat } from './common.js';
+	import type { LngLat } from '../common.js';
 
 	interface Props extends Omit<MarkerOptions, 'className'> {
 		lnglat: LngLat;

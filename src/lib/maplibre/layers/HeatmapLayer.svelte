@@ -3,8 +3,7 @@
 	import type { HeatmapLayerSpecification } from 'maplibre-gl';
 	import VectorLayer from './_VectorLayer.svelte';
 
-	interface Props
-		extends Omit<HeatmapLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+	interface Props extends Omit<HeatmapLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
 		id?: string;
 		sourceLayer?: HeatmapLayerSpecification['source-layer'];
 		beforeId?: string;
