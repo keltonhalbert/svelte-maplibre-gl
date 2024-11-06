@@ -93,13 +93,7 @@
 			loaded = true;
 		});
 
-		for (const [key, value] of Object.entries(events)) {
-			if (key.startsWith('on')) {
-				map?.on(key.slice(2), value);
-			}
-		}
-
-		map.on('move', () => {
+		map.on('move', (e) => {
 			if (map) {
 				center = map.getCenter();
 				pitch = map.getPitch();
@@ -107,13 +101,19 @@
 				zoom = map?.getZoom();
 			}
 		});
+
+		// FIXME: reactive to listner changes
+		for (const [key, value] of Object.entries(events)) {
+			if (key.startsWith('on')) {
+				map?.on(key.slice(2), value);
+			}
+		}
 	});
 
 	let firstRun = true;
 
 	$effect(() => {
-		style;
-		if (!firstRun) {
+		if (style && !firstRun) {
 			mapCtx.setStyle(style);
 		}
 	});

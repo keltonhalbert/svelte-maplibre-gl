@@ -12,11 +12,11 @@
 
 	$effect(() => {
 		mapCtx.userSky = spec;
-		mapCtx.map?.setSky(mapCtx.userSky);
+		mapCtx.map?.setSky($state.snapshot(mapCtx.userSky) as SkySpecification);
 	});
 
 	onDestroy(() => {
 		mapCtx.userSky = undefined;
-		mapCtx.map?.setSky(mapCtx.baseSky || {});
+		mapCtx.map?.setSky(mapCtx.baseSky as SkySpecification);
 	});
 </script>

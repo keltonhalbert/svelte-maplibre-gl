@@ -15,7 +15,7 @@
 
 	$effect(() => {
 		mapCtx.userProjection = spec;
-		mapCtx.map?.setProjection(mapCtx.userProjection);
+		mapCtx.map?.setProjection($state.snapshot(mapCtx.userProjection));
 	});
 
 	onDestroy(() => {

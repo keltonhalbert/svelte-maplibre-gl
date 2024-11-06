@@ -1,4 +1,6 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/
+
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, getMarkerContext } from '../context.svelte.js';
 	import maplibregl from 'maplibre-gl';

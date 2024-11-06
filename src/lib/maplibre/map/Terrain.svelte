@@ -26,6 +26,6 @@
 
 	onDestroy(() => {
 		mapCtx.userTerrain = undefined;
-		mapCtx.map?.setTerrain(null);
+		mapCtx.map?.setTerrain(mapCtx.baseTerrain || null);
 	});
 </script>
