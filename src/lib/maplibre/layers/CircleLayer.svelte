@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 	import type { CircleLayerSpecification } from 'maplibre-gl';
-	import VectorLayer from './_VectorLayer.svelte';
+	import Layer from './_Layer.svelte';
 
 	interface Props extends Omit<CircleLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
 		id?: string;
@@ -13,6 +13,6 @@
 	let { children, ...props }: Props = $props();
 </script>
 
-<VectorLayer type="circle" {...props}>
+<Layer type="circle" {...props}>
 	{@render children?.()}
-</VectorLayer>
+</Layer>

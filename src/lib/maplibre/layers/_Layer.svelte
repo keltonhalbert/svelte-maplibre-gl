@@ -1,17 +1,10 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, getSourceContext } from '../context.svelte.js';
-	import type maplibregl from 'maplibre-gl';
+	import type { LayerSpecification } from 'maplibre-gl';
 	import { generateLayerID } from '../utils.js';
 
-	type VectorLayerSpecification =
-		| maplibregl.FillLayerSpecification
-		| maplibregl.LineLayerSpecification
-		| maplibregl.CircleLayerSpecification
-		| maplibregl.FillExtrusionLayerSpecification
-		| maplibregl.HeatmapLayerSpecification;
-
-	interface Props extends Omit<VectorLayerSpecification, 'id' | 'source' | 'source-layer'> {
+	interface Props extends Omit<LayerSpecification, 'id' | 'source' | 'source-layer'> {
 		id?: string;
 		beforeId?: string;
 		sourceLayer?: string;
@@ -25,16 +18,18 @@
 		throw new Error('MapLibre is not initialized');
 	}
 
-	const sourceCtx = getSourceContext();
 	const id = _id || generateLayerID();
 
 	const addLayerObj = {
 		id,
 		type,
-		source: sourceCtx.id,
 		layout: $state.snapshot(layout) || {},
 		paint: $state.snapshot(paint) || {}
-	} as VectorLayerSpecification;
+	} as LayerSpecification;
+
+	if (addLayerObj.type !== 'background') {
+		addLayerObj.source = getSourceContext().id;
+	}
 
 	if (maxzoom !== undefined) {
 		addLayerObj.maxzoom = maxzoom;
@@ -42,7 +37,7 @@
 	if (minzoom !== undefined) {
 		addLayerObj.minzoom = minzoom;
 	}
-	if (sourceLayer) {
+	if (sourceLayer && addLayerObj.type !== 'background') {
 		addLayerObj['source-layer'] = sourceLayer;
 	}
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 	import type { FillExtrusionLayerSpecification } from 'maplibre-gl';
-	import VectorLayer from './_VectorLayer.svelte';
+	import Layer from './_Layer.svelte';
 
 	interface Props extends Omit<FillExtrusionLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
 		id?: string;
@@ -13,6 +13,6 @@
 	let { children, ...props }: Props = $props();
 </script>
 
-<VectorLayer type="fill-extrusion" {...props}>
+<Layer type="fill-extrusion" {...props}>
 	{@render children?.()}
-</VectorLayer>
+</Layer>
