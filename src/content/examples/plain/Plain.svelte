@@ -5,8 +5,7 @@
 <MapLibre
 	class="h-[60vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
-	zoom={2}
-	maxPitch={80}
+	zoom={4}
 	center={{ lng: 137, lat: 36 }}
 >
 	<NavigationControl />

@@ -9,6 +9,8 @@
 - [ ] Hover on features
 - [ ] Filter
 - [ ] PMTiles
+- [ ] deck.gl
+- [ ] Drawing
 
 ### Components
 
@@ -23,6 +25,9 @@
 | Light               | Draft  |      |
 | Sprite              |        |      |
 | Glyphs              |        |      |
+
+- Sprite
+- Image
 
 #### Sources
 

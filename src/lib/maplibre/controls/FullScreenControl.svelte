@@ -3,13 +3,19 @@
 	import { getMapContext } from '../context.svelte.js';
 	import { type FullscreenControlOptions as ControlOptions, type FullscreenControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
+	import { resetEventListener } from '../utils.js';
+	import type { Listener, Event } from '../common.js';
 
 	const Control = maplibregl.FullscreenControl;
 
-	interface Props {
+	interface Props extends ControlOptions {
 		position?: maplibregl.ControlPosition;
+		// Events
+		// https://maplibre.org/maplibre-gl-js/docs/API/classes/FullscreenControl/#events
+		onfullscreenstart?: Listener<Event<ControlType>>;
+		onfullscreenend?: Listener<Event<ControlType>>;
 	}
-	let { position, ...options }: Props & ControlOptions = $props();
+	let { position, onfullscreenstart, onfullscreenend, ...options }: Props & ControlOptions = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
@@ -22,6 +28,9 @@
 		control = new Control(options);
 		mapCtx.map?.addControl(control, position);
 	});
+
+	$effect(() => resetEventListener(control, onfullscreenstart, 'fullscreenstart'));
+	$effect(() => resetEventListener(control, onfullscreenend, 'fullscreenend'));
 
 	onDestroy(() => {
 		if (control) {

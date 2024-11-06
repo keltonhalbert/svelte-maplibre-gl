@@ -6,6 +6,7 @@
 	import maplibregl from 'maplibre-gl';
 	import type { MarkerOptions, Point, Marker, Listener } from 'maplibre-gl';
 	import type { LngLat } from '../common.js';
+	import { resetEventListener } from '../utils.js';
 
 	interface Props extends Omit<MarkerOptions, 'className'> {
 		lnglat: LngLat;
@@ -86,32 +87,14 @@
 			if (marker) {
 				lnglat = marker.getLngLat();
 			}
-			if (ondrag) {
-				ondrag?.(e);
-			}
+			ondrag?.(e);
 		});
 	});
 
 	let firstRun = true;
 
-	$effect(() => {
-		ondragstart && marker?.on('dragstart', ondragstart);
-		const prevListener = ondragstart;
-		return () => {
-			if (prevListener) {
-				marker?.off('dragstart', prevListener);
-			}
-		};
-	});
-	$effect(() => {
-		ondragend && marker?.on('dragend', ondragend);
-		const prevListener = ondragend;
-		return () => {
-			if (prevListener) {
-				marker?.off('dragend', prevListener);
-			}
-		};
-	});
+	$effect(() => resetEventListener(marker, ondragstart, 'dragstart'));
+	$effect(() => resetEventListener(marker, ondragend, 'dragend'));
 
 	$effect(() => {
 		draggable;

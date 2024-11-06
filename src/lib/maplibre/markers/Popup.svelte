@@ -4,8 +4,9 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, getMarkerContext } from '../context.svelte.js';
 	import maplibregl from 'maplibre-gl';
-	import type { PopupOptions, Popup, Point, Listener } from 'maplibre-gl';
+	import type { PopupOptions, Popup, Evented, Listener } from 'maplibre-gl';
 	import type { LngLat } from '../common.js';
+	import { resetEventListener } from '../utils.js';
 
 	interface Props extends Omit<PopupOptions, 'className'> {
 		lnglat?: LngLat;
@@ -77,34 +78,16 @@
 		}
 	});
 
-	let previousPopup: Popup | null = null;
 	$effect(() => {
 		if (markerContext?.marker) {
-			previousPopup = markerContext.marker.getPopup() || null;
 			markerContext.marker.setPopup(popup);
 		}
 	});
 
 	let firstRun = true;
 
-	$effect(() => {
-		onopen && popup?.on('open', onopen);
-		const prevListener = onopen;
-		return () => {
-			if (prevListener) {
-				popup?.off('open', prevListener);
-			}
-		};
-	});
-	$effect(() => {
-		onclose && popup?.on('close', onclose);
-		const prevListener = onclose;
-		return () => {
-			if (prevListener) {
-				popup?.off('close', prevListener);
-			}
-		};
-	});
+	$effect(() => resetEventListener(popup, onopen, 'open'));
+	$effect(() => resetEventListener(popup, onclose, 'close'));
 
 	$effect(() => {
 		if (lnglat && !firstRun) {
@@ -155,7 +138,7 @@
 
 	onDestroy(() => {
 		popup?.remove();
-		markerContext?.marker?.setPopup(previousPopup);
+		markerContext?.marker?.setPopup(null);
 	});
 </script>
 

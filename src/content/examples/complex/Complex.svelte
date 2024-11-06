@@ -271,7 +271,9 @@
 			<span class="text-3xl">✅</span>
 		{/snippet}
 		<Popup class="text-black">
-			{`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}
+			<span class="text-lg">
+				{`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}
+			</span>
 		</Popup>
 	</Marker>
 </MapLibre>
