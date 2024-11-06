@@ -49,11 +49,16 @@
 	$effect(() => {
 		const map = mapCtx.map;
 		if (paint && !firstRun && map) {
-			Object.entries((paint || {}) as object).forEach(([key, value]) => {
+			const keysRemoved = new Set(Object.keys(prevPaint));
+			for (const [key, value] of Object.entries((paint || {}) as object)) {
+				keysRemoved.delete(key);
 				if (prevPaint[key] !== value) {
 					map.setPaintProperty(id, key, value);
 				}
-			});
+			}
+			for (const key of keysRemoved) {
+				map.setPaintProperty(id, key, undefined);
+			}
 			prevPaint = $state.snapshot(paint) as Record<string, unknown>;
 		}
 	});
@@ -62,11 +67,16 @@
 	$effect(() => {
 		const map = mapCtx.map;
 		if (layout && !firstRun && map) {
-			Object.entries((layout || {}) as object).forEach(([key, value]) => {
+			const keysRemoved = new Set(Object.keys(prevLayout));
+			for (const [key, value] of Object.entries((layout || {}) as object)) {
+				keysRemoved.delete(key);
 				if (prevLayout[key] !== value) {
 					map.setLayoutProperty(id, key, value);
 				}
-			});
+			}
+			for (const key of keysRemoved) {
+				map.setLayoutProperty(id, key, undefined);
+			}
 			prevLayout = $state.snapshot(layout) as Record<string, unknown>;
 		}
 	});
