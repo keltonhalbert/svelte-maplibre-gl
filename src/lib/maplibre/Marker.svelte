@@ -11,7 +11,8 @@
 		/** HTML content of the marker */
 		content?: Snippet;
 		children?: Snippet;
-
+		// Events
+		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/#events
 		ondrag?: Listener;
 		ondragstart?: Listener;
 		ondragend?: Listener;

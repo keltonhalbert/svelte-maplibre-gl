@@ -11,7 +11,8 @@
 		/** HTML content of the popup */
 		content?: Snippet;
 		children?: Snippet;
-		// events
+		// Events
+		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/#events
 		onopen?: Listener;
 		onclose?: Listener;
 	}
