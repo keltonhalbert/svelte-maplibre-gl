@@ -10,15 +10,13 @@
 		throw new Error('MapLibre is not initialized');
 	}
 
-	const prevSky = mapCtx.map.getSky();
-
 	$effect(() => {
-		mapCtx.map?.setSky({
-			...spec
-		});
+		mapCtx.userSky = spec;
+		mapCtx.map?.setSky(mapCtx.userSky);
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.setSky(prevSky);
+		mapCtx.userSky = undefined;
+		mapCtx.map?.setSky(mapCtx.baseSky || {});
 	});
 </script>

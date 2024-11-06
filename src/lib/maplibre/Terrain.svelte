@@ -17,13 +17,15 @@
 	const sourceId = $derived(source || getSourceContext().id);
 
 	$effect(() => {
-		mapCtx.map?.setTerrain({
-			source: sourceId,
-			...terrain
-		});
+		mapCtx.userTerrain = {
+			...terrain,
+			source: sourceId
+		};
+		mapCtx.map?.setTerrain(mapCtx.userTerrain);
 	});
 
 	onDestroy(() => {
+		mapCtx.userTerrain = undefined;
 		mapCtx.map?.setTerrain(null);
 	});
 </script>

@@ -32,7 +32,7 @@
 		addLayerObj.minzoom = minzoom;
 	}
 
-	mapCtx.map.addLayer(addLayerObj, beforeId);
+	mapCtx.addLayer(addLayerObj, beforeId);
 
 	let firstRun = true;
 
@@ -82,6 +82,6 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.removeLayer(id);
+		mapCtx.removeLayer(id);
 	});
 </script>

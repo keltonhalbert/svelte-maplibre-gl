@@ -4,9 +4,10 @@
 
 ### General
 
-- [ ] Coexistence of style spec and additional sources/layers
+- [x] User sources/layers/styles on the base style
 - [ ] Event handlers
 - [ ] Hover on features
+- [ ] Filter
 - [ ] PMTiles
 
 ### Components
@@ -20,6 +21,8 @@
 | Projection          | Draft  |      |
 | Sky                 | Draft  |      |
 | Light               | Draft  |      |
+| Sprite              |        |      |
+| Glyphs              |        |      |
 
 #### Sources
 
@@ -51,8 +54,8 @@
 
 | Component          | Status | Docs |
 | ------------------ | ------ | ---- |
-| Marker             |        |      |
-| Popup              |        |      |
+| Marker             | Draft  |      |
+| Popup              | Draft  |      |
 | AttributionControl | Draft  |      |
 | FullScreenControl  | Draft  |      |
 | GeolocateControl   | Draft  |      |

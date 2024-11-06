@@ -1,4 +1,15 @@
-import type { Map as MapLibre, Marker } from 'maplibre-gl';
+import type {
+	Map as MapLibre,
+	Marker,
+	AddLayerObject,
+	SourceSpecification,
+	CanvasSourceSpecification,
+	StyleSpecification,
+	SkySpecification,
+	TerrainSpecification,
+	ProjectionSpecification,
+	LightSpecification
+} from 'maplibre-gl';
 import { setContext, getContext } from 'svelte';
 
 const MAP_CONTEXT_KEY = Symbol('MapLibre map context');
@@ -8,6 +19,75 @@ const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 // https://svelte.dev/docs/svelte/$state#Classes
 class MapContext {
 	map: MapLibre | null = $state.raw(null);
+	userLayers: Set<string> = new Set();
+	userSources: Set<string> = new Set();
+	baseTerrain?: TerrainSpecification | undefined;
+	userTerrain?: TerrainSpecification | undefined;
+	baseSky?: SkySpecification | undefined;
+	userSky?: SkySpecification | undefined;
+	baseLight?: LightSpecification | undefined;
+	userLight?: LightSpecification | undefined;
+	baseProjection?: ProjectionSpecification | undefined;
+	userProjection?: ProjectionSpecification | undefined;
+
+	addLayer(addLayerObject: AddLayerObject, beforeId?: string) {
+		this.userLayers.add(addLayerObject.id);
+		this.map?.addLayer(addLayerObject, beforeId);
+	}
+	removeLayer(id: string) {
+		this.userLayers.delete(id);
+		this.map?.removeLayer(id);
+	}
+
+	addSource(id: string, source: SourceSpecification | CanvasSourceSpecification) {
+		this.map?.addSource(id, source);
+		this.userSources.add(id);
+	}
+	removeSource(id: string) {
+		this.userSources.delete(id);
+		this.map?.removeSource(id);
+	}
+
+	setStyle(style: string | StyleSpecification | null) {
+		const { userSources: addedSources, userLayers: addedLayers } = this;
+		if (!style) {
+			this.map?.setStyle(null);
+			return;
+		}
+
+		this.map?.setStyle(style, {
+			transformStyle: (previous, next) => {
+				this.baseLight = next.light;
+				this.baseProjection = next.projection;
+				this.baseSky = next.sky;
+				this.baseTerrain = next.terrain;
+
+				if (!previous) {
+					return next;
+				}
+
+				const sources = next.sources;
+				for (const [key, value] of Object.entries(previous.sources!)) {
+					if (addedSources.has(key)) {
+						sources[key] = value;
+					}
+				}
+
+				const userLayers = previous.layers!.filter((layer) => addedLayers.has(layer.id));
+				const layers = [...next.layers!, ...userLayers];
+
+				return {
+					...next,
+					light: this.userLight || this.baseLight,
+					projection: this.userProjection || this.baseProjection,
+					sky: this.userSky || this.baseSky,
+					terrain: this.userTerrain || this.baseTerrain,
+					sources,
+					layers
+				};
+			}
+		});
+	}
 }
 
 // https://svelte.dev/docs/svelte/$state#Classes

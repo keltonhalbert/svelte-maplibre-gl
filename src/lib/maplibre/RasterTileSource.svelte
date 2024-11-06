@@ -22,7 +22,7 @@
 	}
 
 	const id = _id || generateSourceID();
-	mapCtx.map.addSource(id, {
+	mapCtx.addSource(id, {
 		type: 'raster',
 		tiles,
 		tileSize,
@@ -55,7 +55,7 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.removeSource(id);
+		mapCtx.removeSource(id);
 	});
 </script>
 

@@ -1,11 +1,6 @@
 <script lang="ts">
 	import maplibre from 'maplibre-gl';
-	import type {
-		MapOptions,
-		MapEventType,
-		AttributionControlOptions,
-		LngLatBoundsLike
-	} from 'maplibre-gl';
+	import type { MapOptions, MapEventType, AttributionControlOptions, LngLatBoundsLike } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onDestroy, type Snippet } from 'svelte';
 	import { prepareMapContext } from './context.svelte.js';
@@ -119,7 +114,7 @@
 	$effect(() => {
 		style;
 		if (!firstRun) {
-			map?.setStyle(style);
+			mapCtx.setStyle(style);
 		}
 	});
 	$effect(() => {

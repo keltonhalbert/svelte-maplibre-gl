@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '$lib/assets/prism-shades-of-purple.css';
+	import Index from '$content/components/Index.svelte';
 
 	let { children } = $props();
 </script>
@@ -9,7 +10,7 @@
 		<nav>
 			<h2 class="mb-4 text-lg font-bold">Components</h2>
 			<ul class="flex flex-col gap-y-2">
-				<li><a href="/components/markdown">Markdown Test</a></li>
+				<Index />
 			</ul>
 		</nav>
 	</aside>

@@ -1,9 +1,9 @@
 let idCounter = 0;
 
 export function generateLayerID() {
-	return `layer-${idCounter++}`;
+	return `svml-layer-${idCounter++}`;
 }
 
 export function generateSourceID() {
-	return `source-${idCounter++}`;
+	return `svml-source-${idCounter++}`;
 }

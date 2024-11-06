@@ -10,15 +10,13 @@
 		throw new Error('MapLibre is not initialized');
 	}
 
-	const prevLight = mapCtx.map.getLight();
-
 	$effect(() => {
-		mapCtx.map?.setLight({
-			...spec
-		});
+		mapCtx.userLight = spec;
+		mapCtx.map?.setLight(mapCtx.userLight);
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.setLight(prevLight || {});
+		mapCtx.userLight = undefined;
+		mapCtx.map?.setLight(mapCtx.baseLight || {});
 	});
 </script>

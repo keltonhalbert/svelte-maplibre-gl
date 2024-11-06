@@ -46,21 +46,31 @@
 	const id = _id || generateSourceID();
 	const sourceSpec: RasterDEMSourceSpecification = {
 		type: 'raster-dem',
-		url,
 		tileSize,
 		minzoom,
 		maxzoom,
 		attribution,
-		encoding,
-		redFactor,
-		greenFactor,
-		blueFactor,
-		baseShift
+		encoding
 	};
+	if (redFactor !== undefined) {
+		sourceSpec.redFactor = redFactor;
+	}
+	if (greenFactor !== undefined) {
+		sourceSpec.greenFactor = greenFactor;
+	}
+	if (blueFactor !== undefined) {
+		sourceSpec.blueFactor = blueFactor;
+	}
+	if (baseShift !== undefined) {
+		sourceSpec.baseShift = baseShift;
+	}
+	if (url) {
+		sourceSpec.url = url;
+	}
 	if (tiles) {
 		sourceSpec.tiles = tiles;
 	}
-	mapCtx.map.addSource(id, sourceSpec);
+	mapCtx.addSource(id, sourceSpec);
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
 	const source = mapCtx.map.getSource<RasterDEMTileSource>(id);
@@ -90,7 +100,7 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.removeSource(id);
+		mapCtx.removeSource(id);
 	});
 </script>
 

@@ -77,11 +77,7 @@
 	</label>
 	<label>
 		pC:
-		<input
-			type="color"
-			bind:value={pointColor}
-			class="inline-block w-7 rounded border leading-none"
-		/>
+		<input type="color" bind:value={pointColor} class="inline-block w-7 rounded border leading-none" />
 	</label>
 	<label>
 		pR:
@@ -126,18 +122,10 @@
 <div class="flex items-center gap-x-4 text-sm">
 	<pre
 		class="my-1 grow">{`lat: ${center.lat.toFixed(3)}, lng: ${center.lng.toFixed(3)}, z: ${zoom.toFixed(1)}, pitch: ${pitch.toFixed(1)}, bearing: ${bearing.toFixed(1)}`}</pre>
-	<pre
-		class="my-1 grow">marker: {`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}</pre>
+	<pre class="my-1 grow">marker: {`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}</pre>
 	<label>
 		z:
-		<input
-			type="number"
-			min="0"
-			max="24"
-			step="0.5"
-			bind:value={zoom}
-			class="w-12 rounded border p-1 leading-none"
-		/>
+		<input type="number" min="0" max="24" step="0.5" bind:value={zoom} class="w-12 rounded border p-1 leading-none" />
 	</label>
 	<label>
 		<input type="checkbox" bind:checked={hash} /> Hash
@@ -206,7 +194,6 @@
 	<BackgroundLayer id="dummy1" layout={{ visibility: 'none' }} />
 	{#if hillshade}
 		<RasterDEMTileSource
-			id="hillshade"
 			tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}
 			minzoom={0}
 			maxzoom={15}
@@ -242,11 +229,7 @@
 					}}
 				/>
 			{:else}
-				<FillLayer
-					sourceLayer="city"
-					beforeId="dummy2"
-					paint={{ 'fill-color': '#aaaa33', 'fill-opacity': 0.3 }}
-				/>
+				<FillLayer sourceLayer="city" beforeId="dummy2" paint={{ 'fill-color': '#aaaa33', 'fill-opacity': 0.3 }} />
 			{/if}
 		{/if}
 	</VectorTileSource>
@@ -280,10 +263,7 @@
 				}}
 			/>
 		{:else}
-			<CircleLayer
-				beforeId="dummy3"
-				paint={{ 'circle-radius': circleRadius, 'circle-color': pointColor }}
-			/>
+			<CircleLayer beforeId="dummy3" paint={{ 'circle-radius': circleRadius, 'circle-color': pointColor }} />
 		{/if}
 	</GeoJSONSource>
 	<Marker bind:lnglat={markerLnglat} draggable color="#99dd55">

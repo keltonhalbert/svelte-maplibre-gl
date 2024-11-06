@@ -14,12 +14,12 @@
 	const prevProjection = mapCtx.map.getProjection();
 
 	$effect(() => {
-		mapCtx.map?.setProjection({
-			...spec
-		});
+		mapCtx.userProjection = spec;
+		mapCtx.map?.setProjection(mapCtx.userProjection);
 	});
 
 	onDestroy(() => {
+		mapCtx.userProjection = undefined;
 		mapCtx.map?.setProjection(prevProjection || { type: 'mercator' });
 	});
 </script>

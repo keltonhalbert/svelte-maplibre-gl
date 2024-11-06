@@ -17,7 +17,7 @@
 	}
 
 	const id = _id || generateSourceID();
-	mapCtx.map.addSource(id, { type: 'geojson', data, ...sourceSpec });
+	mapCtx.addSource(id, { type: 'geojson', data, ...sourceSpec });
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
 	const source = mapCtx.map.getSource<GeoJSONSource>(id);
@@ -40,7 +40,7 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.removeSource(id);
+		mapCtx.removeSource(id);
 	});
 </script>
 

@@ -17,6 +17,6 @@ export const load = async ({ params }) => {
 			meta: { ...post.metadata, slug }
 		};
 	} catch {
-		error(404, `Post '${slug}' not found`);
+		error(404, `Component '${slug}' not found`);
 	}
 };
