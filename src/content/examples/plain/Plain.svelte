@@ -1,4 +1,5 @@
 <script lang="ts">
+	import GlobeControl from '$lib/maplibre/controls/GlobeControl.svelte';
 	import { MapLibre, NavigationControl, ScaleControl } from 'svelte-maplibre-gl';
 </script>
 
@@ -10,4 +11,5 @@
 >
 	<NavigationControl />
 	<ScaleControl />
+	<GlobeControl />
 </MapLibre>

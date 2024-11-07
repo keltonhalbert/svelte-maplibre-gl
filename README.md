@@ -2,12 +2,17 @@
 
 ## TODOs
 
-### General
+### Topics
+
+General:
 
 - [x] User sources/layers/styles on the base style
 - [ ] Event handlers
 - [ ] Hover on features
 - [ ] Filter
+
+Extensions:
+
 - [ ] PMTiles
 - [ ] deck.gl
 - [ ] Drawing
