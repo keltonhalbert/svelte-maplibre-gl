@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { getMapContext } from '../context.svelte.js';
-	import { type ScaleControlOptions as ControlOptions, type ScaleControl as ControlType } from 'maplibre-gl';
+	import { type GlobeControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 
-	const Control = maplibregl.ScaleControl;
+	const Control = maplibregl.GlobeControl;
 
-	interface Props extends ControlOptions {
+	interface Props {
 		position?: maplibregl.ControlPosition;
 	}
-	let { position, ...options }: Props = $props();
+	let { position }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
@@ -19,7 +19,7 @@
 	let control: ControlType | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control(options);
+		control = new Control();
 		mapCtx.map?.addControl(control, position);
 	});
 

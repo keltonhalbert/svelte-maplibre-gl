@@ -27,7 +27,8 @@
 		Projection,
 		Light,
 		Marker,
-		Popup
+		Popup,
+		GlobeControl
 	} from 'svelte-maplibre-gl';
 
 	let map: maplibregl.Map | null = $state.raw(null);
@@ -171,6 +172,7 @@
 	<GeolocateControl position={controlPosition} />
 	<NavigationControl position={controlPosition} visualizePitch />
 	<TerrainControl position={controlPosition} source="terrain" />
+	<GlobeControl position={controlPosition} />
 	<RasterDEMTileSource
 		id="terrain"
 		tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}
@@ -268,7 +270,7 @@
 	</GeoJSONSource>
 	<Marker bind:lnglat={markerLnglat} draggable color="#99dd55">
 		{#snippet content()}
-			<span class="text-3xl">✅</span>
+			<span class="text-3xl">🐸</span>
 		{/snippet}
 		<Popup class="text-black">
 			<span class="text-lg">

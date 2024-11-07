@@ -30,6 +30,7 @@ export { default as Popup } from './markers/Popup.svelte';
 // controls
 export { default as AttributionControl } from './controls/AttributionControl.svelte';
 export { default as GeolocateControl } from './controls/GeolocateControl.svelte';
+export { default as GlobeControl } from './controls/GlobeControl.svelte';
 export { default as NavigationControl } from './controls/NavigationControl.svelte';
 export { default as FullScreenControl } from './controls/FullScreenControl.svelte';
 export { default as TerrainControl } from './controls/TerrainControl.svelte';

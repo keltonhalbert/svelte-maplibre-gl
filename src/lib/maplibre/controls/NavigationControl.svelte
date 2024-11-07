@@ -6,10 +6,10 @@
 
 	const Control = maplibregl.NavigationControl;
 
-	interface Props {
+	interface Props extends ControlOptions {
 		position?: maplibregl.ControlPosition;
 	}
-	let { position, ...options }: Props & ControlOptions = $props();
+	let { position, ...options }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {

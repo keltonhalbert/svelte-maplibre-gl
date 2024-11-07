@@ -64,6 +64,7 @@
 | AttributionControl | Draft  |      |
 | FullScreenControl  | Draft  |      |
 | GeolocateControl   | Draft  |      |
+| GlobeControl       | Draft  |      |
 | NavigationControl  | Draft  |      |
 | ScaleControl       | Draft  |      |
 | TerrainControl     | Draft  |      |
