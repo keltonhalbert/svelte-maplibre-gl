@@ -7,16 +7,16 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	$effect(() => {
-		mapCtx.userLight = spec;
+		mapCtx.userLight = $state.snapshot(spec) as LightSpecification;
 		mapCtx.map?.setLight(mapCtx.userLight);
 	});
 
 	onDestroy(() => {
 		mapCtx.userLight = undefined;
-		mapCtx.map?.setLight(mapCtx.baseLight || {});
+		mapCtx.map?.setLight(mapCtx.baseLight ?? {});
 	});
 </script>

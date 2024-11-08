@@ -13,13 +13,13 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	let control: ControlType | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control(options);
+		control = new Control($state.snapshot(options));
 		mapCtx.map?.addControl(control, position);
 	});
 

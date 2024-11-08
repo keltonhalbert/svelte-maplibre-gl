@@ -12,11 +12,11 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	const options = $derived({
-		source: source || getSourceContext().id,
+		source: source ?? getSourceContext().id,
 		...restOptions
 	});
 
@@ -25,7 +25,7 @@
 		if (control) {
 			mapCtx.map?.removeControl(control);
 		}
-		control = new maplibregl.TerrainControl(options);
+		control = new maplibregl.TerrainControl($state.snapshot(options));
 		mapCtx.map?.addControl(control, position);
 	});
 

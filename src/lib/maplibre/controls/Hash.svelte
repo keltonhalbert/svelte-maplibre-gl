@@ -7,7 +7,7 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	let hash = new maplibregl.Hash().addTo(mapCtx.map);

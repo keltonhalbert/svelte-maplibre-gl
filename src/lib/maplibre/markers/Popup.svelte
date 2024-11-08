@@ -4,7 +4,7 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, getMarkerContext } from '../context.svelte.js';
 	import maplibregl from 'maplibre-gl';
-	import type { PopupOptions, Popup, Evented, Listener } from 'maplibre-gl';
+	import type { PopupOptions, Popup, Listener } from 'maplibre-gl';
 	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 
@@ -39,6 +39,9 @@
 	}: Props = $props();
 
 	const mapCtx = getMapContext();
+	if (!mapCtx.map) {
+		throw new Error('Map instance is not initialized.');
+	}
 
 	let popup: Popup | null = $state.raw(null);
 
@@ -86,8 +89,8 @@
 
 	let firstRun = true;
 
-	$effect(() => resetEventListener(popup, onopen, 'open'));
-	$effect(() => resetEventListener(popup, onclose, 'close'));
+	$effect(() => resetEventListener(popup, 'open', onopen));
+	$effect(() => resetEventListener(popup, 'close', onclose));
 
 	$effect(() => {
 		if (lnglat && !firstRun) {
@@ -101,7 +104,7 @@
 	$effect(() => {
 		maxWidth;
 		if (!firstRun) {
-			popup?.setMaxWidth(maxWidth || 'none');
+			popup?.setMaxWidth(maxWidth ?? 'none');
 		}
 	});
 
@@ -117,10 +120,10 @@
 		}
 	});
 
-	let prevClassNames = (className || '')?.split(/\s/);
+	let prevClassNames = (className ?? '')?.split(/\s/);
 	$effect(() => {
 		className;
-		const classNames = (className || '')?.split(/\s/);
+		const classNames = (className ?? '')?.split(/\s/);
 		if (className) {
 			for (const prevClassName of prevClassNames) {
 				popup?.removeClassName(prevClassName);

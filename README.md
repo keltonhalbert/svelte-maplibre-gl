@@ -21,15 +21,15 @@ Extensions:
 
 #### Map
 
-| Component           | Status | Docs |
-| ------------------- | ------ | ---- |
-| MapLibre            | Draft  |      |
-| Terrain             | Draft  |      |
-| Projection          | Draft  |      |
-| Sky                 | Draft  |      |
-| Light               | Draft  |      |
-| Sprite              |        |      |
-| Glyphs              |        |      |
+| Component  | Status | Docs |
+| ---------- | ------ | ---- |
+| MapLibre   | Draft  |      |
+| Terrain    | Draft  |      |
+| Projection | Draft  |      |
+| Sky        | Draft  |      |
+| Light      | Draft  |      |
+| Sprite     |        |      |
+| Glyphs     |        |      |
 
 - Sprite
 - Image

@@ -7,12 +7,12 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	$effect(() => {
-		mapCtx.userSky = spec;
-		mapCtx.map?.setSky($state.snapshot(mapCtx.userSky) as SkySpecification);
+		mapCtx.userSky = $state.snapshot(spec) as SkySpecification;
+		mapCtx.map?.setSky(mapCtx.userSky);
 	});
 
 	onDestroy(() => {

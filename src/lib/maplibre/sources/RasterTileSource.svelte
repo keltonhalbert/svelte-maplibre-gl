@@ -1,64 +1,15 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareSourceContext } from '../context.svelte.js';
-	import type { RasterTileSource } from 'maplibre-gl';
-	import { generateSourceID } from '../utils.js';
+	import type { Snippet } from 'svelte';
+	import type { RasterSourceSpecification } from 'maplibre-gl';
+	import RawSource from './RawSource.svelte';
 
-	// TODO: extends RasterTileSourceSpecification ?
-	interface Props {
+	interface Props extends Omit<RasterSourceSpecification, 'type'> {
 		id?: string;
-		tiles: string[];
-		minzoom: number;
-		maxzoom: number;
-		tileSize?: number;
-		attribution?: string;
 		children?: Snippet;
 	}
-	let { id: _id, tiles, minzoom, maxzoom, tileSize = 256, attribution, children }: Props = $props();
-
-	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
-	}
-
-	const id = _id || generateSourceID();
-	mapCtx.addSource(id, {
-		type: 'raster',
-		tiles,
-		tileSize,
-		minzoom,
-		maxzoom,
-		attribution
-	});
-	const sourceCtx = prepareSourceContext();
-	sourceCtx.id = id;
-	const source = mapCtx.map.getSource<RasterTileSource>(id);
-	if (!source) {
-		throw new Error(`Failed to add source {id}`);
-	}
-
-	let firstRun = true; // prevent reactivity on first run
-
-	$effect(() => {
-		if (firstRun) {
-			return;
-		}
-		source.setTiles(tiles);
-	});
-	$effect(() => {
-		source.maxzoom = maxzoom;
-		source.minzoom = minzoom;
-		source.tileSize = tileSize;
-	});
-	$effect(() => {
-		firstRun = false;
-	});
-
-	onDestroy(() => {
-		mapCtx.removeSource(id);
-	});
+	let { id: _id, children, ...spec }: Props = $props();
 </script>
 
-{#if source}
+<RawSource spec={{ type: 'raster', ...spec }}>
 	{@render children?.()}
-{/if}
+</RawSource>

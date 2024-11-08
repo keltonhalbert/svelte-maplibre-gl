@@ -12,19 +12,13 @@
 				<MapPinned class="mr-1.5 inline-block !size-6 pb-1" />Svelte MapLibre GL
 			</a>
 		</h1>
-		<a href="/examples/" class="text-sm text-foreground/70 transition-colors hover:text-foreground"
-			>Examples</a
-		>
-		<a href="/components" class="text-sm text-foreground/70 transition-colors hover:text-foreground"
-			>Components</a
-		>
+		<a href="/examples/" class="text-sm text-foreground/70 transition-colors hover:text-foreground">Examples</a>
+		<a href="/components" class="text-sm text-foreground/70 transition-colors hover:text-foreground">Components</a>
 	</div>
 	<div class="flex items-center text-xs leading-none">
 		<div class="mr-4">SearchBox</div>
 		<Button variant="ghost" size="icon">
-			<a href="https://github.com/MIERUNE/svelte-maplibre-gl" target="_blank"
-				><GitHub class="!size-5" /></a
-			>
+			<a href="https://github.com/MIERUNE/svelte-maplibre-gl" target="_blank"><GitHub class="!size-5" /></a>
 		</Button>
 		<div>
 			<DarkModeSelector />

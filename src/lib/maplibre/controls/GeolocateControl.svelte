@@ -35,22 +35,22 @@
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	let control: ControlType | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control($state.snapshot(options) as ControlOptions);
+		control = new Control(options);
 		mapCtx.map?.addControl(control, position);
 	});
 
-	$effect(() => resetEventListener(control, ontrackuserlocationstart, 'trackuserlocationstart'));
-	$effect(() => resetEventListener(control, ontrackuserlocationend, 'trackuserlocationend'));
-	$effect(() => resetEventListener(control, onuserlocationlostfocus, 'userlocationlostfocus'));
-	$effect(() => resetEventListener(control, ongeolocate, 'geolocate'));
-	$effect(() => resetEventListener(control, onerror, 'error'));
-	$effect(() => resetEventListener(control, onoutofmaxbounds, 'outofmaxbounds'));
+	$effect(() => resetEventListener(control, 'trackuserlocationstart', ontrackuserlocationstart));
+	$effect(() => resetEventListener(control, 'trackuserlocationend', ontrackuserlocationend));
+	$effect(() => resetEventListener(control, 'userlocationlostfocus', onuserlocationlostfocus));
+	$effect(() => resetEventListener(control, 'geolocate', ongeolocate));
+	$effect(() => resetEventListener(control, 'error', onerror));
+	$effect(() => resetEventListener(control, 'outofmaxbounds', onoutofmaxbounds));
 
 	onDestroy(() => {
 		if (control) {

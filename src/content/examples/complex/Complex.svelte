@@ -116,7 +116,7 @@
 	<button
 		class="rounded border p-1 leading-none"
 		onclick={() => {
-			map?.flyTo({ center: [139.767052, 35.681167], zoom: 15 });
+			map?.flyTo({ center: markerLnglat, zoom: 15 });
 		}}>Fly to</button
 	>
 </div>
@@ -231,7 +231,12 @@
 					}}
 				/>
 			{:else}
-				<FillLayer sourceLayer="city" beforeId="dummy2" paint={{ 'fill-color': '#aaaa33', 'fill-opacity': 0.3 }} />
+				<FillLayer
+					id="cityfill"
+					sourceLayer="city"
+					beforeId="dummy2"
+					paint={{ 'fill-color': '#aaaa33', 'fill-opacity': 0.3 }}
+				/>
 			{/if}
 		{/if}
 	</VectorTileSource>

@@ -6,26 +6,26 @@
 	interface Props extends Omit<TerrainSpecification, 'source'> {
 		source?: string;
 	}
-	let { source, ...terrain }: Props = $props();
+	let { source, ...spec }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
-		throw new Error('MapLibre is not initialized');
+		throw new Error('Map instance is not initialized.');
 	}
 
 	// Get source id from source context or props
-	const sourceId = $derived(source || getSourceContext().id);
+	const sourceId = $derived(source ?? getSourceContext().id);
 
 	$effect(() => {
-		mapCtx.userTerrain = {
-			...terrain,
+		mapCtx.userTerrain = $state.snapshot({
+			...spec,
 			source: sourceId
-		};
+		});
 		mapCtx.map?.setTerrain(mapCtx.userTerrain);
 	});
 
 	onDestroy(() => {
 		mapCtx.userTerrain = undefined;
-		mapCtx.map?.setTerrain(mapCtx.baseTerrain || null);
+		mapCtx.map?.setTerrain(mapCtx.baseTerrain ?? null);
 	});
 </script>

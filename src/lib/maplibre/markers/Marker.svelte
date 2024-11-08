@@ -4,7 +4,7 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, prepareMarkerContext } from '../context.svelte.js';
 	import maplibregl from 'maplibre-gl';
-	import type { MarkerOptions, Point, Marker, Listener } from 'maplibre-gl';
+	import type { MarkerOptions, Marker, Listener } from 'maplibre-gl';
 	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 
@@ -44,6 +44,9 @@
 	}: Props = $props();
 
 	const mapCtx = getMapContext();
+	if (!mapCtx.map) {
+		throw new Error('Map instance is not initialized.');
+	}
 
 	let marker: Marker | null = $state.raw(null);
 
@@ -93,8 +96,8 @@
 
 	let firstRun = true;
 
-	$effect(() => resetEventListener(marker, ondragstart, 'dragstart'));
-	$effect(() => resetEventListener(marker, ondragend, 'dragend'));
+	$effect(() => resetEventListener(marker, 'dragstart', ondragstart));
+	$effect(() => resetEventListener(marker, 'dragend', ondragend));
 
 	$effect(() => {
 		draggable;
@@ -147,10 +150,10 @@
 		}
 	});
 
-	let prevClassNames = (className || '')?.split(/\s/);
+	let prevClassNames = (className ?? '')?.split(/\s/);
 	$effect(() => {
 		className;
-		const classNames = (className || '')?.split(/\s/);
+		const classNames = (className ?? '')?.split(/\s/);
 		if (className) {
 			for (const prevClassName of prevClassNames) {
 				marker?.removeClassName(prevClassName);

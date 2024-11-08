@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import type { BackgroundLayerSpecification } from 'maplibre-gl';
-	import Layer from './_Layer.svelte';
+	import RawLayer from './RawLayer.svelte';
+	import type { MapLayerEventProps } from './common.js';
 
-	interface Props extends Omit<BackgroundLayerSpecification, 'id' | 'source' | 'type'> {
+	interface Props extends Omit<BackgroundLayerSpecification, 'id' | 'source' | 'type'>, MapLayerEventProps {
 		id?: string;
 		beforeId?: string;
 		children?: Snippet;
@@ -12,6 +13,6 @@
 	let { children, ...props }: Props = $props();
 </script>
 
-<Layer type="background" {...props}>
+<RawLayer type="background" {...props}>
 	{@render children?.()}
-</Layer>
+</RawLayer>

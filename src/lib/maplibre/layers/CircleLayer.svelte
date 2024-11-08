@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import type { CircleLayerSpecification } from 'maplibre-gl';
-	import Layer from './_Layer.svelte';
+	import RawLayer from './RawLayer.svelte';
+	import type { MapLayerEventProps } from './common.js';
 
-	interface Props extends Omit<CircleLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'> {
+	interface Props
+		extends Omit<CircleLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
+			MapLayerEventProps {
 		id?: string;
 		sourceLayer?: CircleLayerSpecification['source-layer'];
 		beforeId?: string;
@@ -13,6 +16,6 @@
 	let { children, ...props }: Props = $props();
 </script>
 
-<Layer type="circle" {...props}>
+<RawLayer type="circle" {...props}>
 	{@render children?.()}
-</Layer>
+</RawLayer>
