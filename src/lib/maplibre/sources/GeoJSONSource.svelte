@@ -7,9 +7,9 @@
 		id?: string;
 		children?: Snippet;
 	}
-	let { id: _id, children, ...spec }: Props = $props();
+	let { id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource spec={{ type: 'geojson', ...spec }}>
+<RawSource {id} spec={{ type: 'geojson', ...spec }}>
 	{@render children?.()}
 </RawSource>
