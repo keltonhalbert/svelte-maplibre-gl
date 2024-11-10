@@ -150,19 +150,21 @@
 		}
 	});
 
-	let prevClassNames = (className ?? '')?.split(/\s/);
 	$effect(() => {
-		className;
-		const classNames = (className ?? '')?.split(/\s/);
-		if (className) {
-			for (const prevClassName of prevClassNames) {
-				marker?.removeClassName(prevClassName);
-			}
+		// TODO: differential update ?
+		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
+		if (marker && !firstRun) {
 			for (const className of classNames) {
-				marker?.addClassName(className);
+				marker.addClassName(className);
 			}
 		}
-		prevClassNames = classNames;
+		return () => {
+			if (marker) {
+				for (const className of classNames) {
+					marker.removeClassName(className);
+				}
+			}
+		};
 	});
 
 	$effect(() => {

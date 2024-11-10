@@ -7,6 +7,8 @@ description: terrain
   import Terrain from "./Terrain.svelte";
 </script>
 
-## Demo
-
 <Terrain />
+
+## Code
+
+TODO

@@ -7,6 +7,8 @@ description: Plain map.
   import Plain from "./Plain.svelte";
 </script>
 
-## Demo
-
 <Plain />
+
+## Code
+
+TODO

@@ -7,6 +7,8 @@ description: User styles must be preserved when the base style is changed.
   import BaseStyle from "./BaseStyle.svelte";
 </script>
 
-## Demo
-
 <BaseStyle />
+
+## Code
+
+TODO

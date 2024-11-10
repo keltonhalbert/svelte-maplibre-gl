@@ -13,6 +13,7 @@
 
 	interface Props extends Omit<MapOptions, 'container'>, MapEventProps {
 		class?: string;
+		inlineStyle?: string;
 		map?: maplibre.Map | null;
 		center?: LngLat;
 		padding?: PaddingOptions;
@@ -23,8 +24,9 @@
 	}
 
 	let {
-		class: className = '',
 		map = $bindable(null),
+		class: className = '',
+		inlineStyle = '',
 		interactive = undefined,
 		style = { version: 8, sources: {}, layers: [] },
 		center = $bindable(undefined),
@@ -176,58 +178,58 @@
 		});
 	});
 
-	$effect(resetEventListener(map, 'boxzoomcancel', onboxzoomcancel));
-	$effect(resetEventListener(map, 'boxzoomend', onboxzoomend));
-	$effect(resetEventListener(map, 'boxzoomstart', onboxzoomstart));
-	$effect(resetEventListener(map, 'click', onclick));
-	$effect(resetEventListener(map, 'contextmenu', oncontextmenu));
-	$effect(resetEventListener(map, 'cooperativegestureprevented', oncooperativegestureprevented));
-	$effect(resetEventListener(map, 'data', ondata));
-	$effect(resetEventListener(map, 'dataabort', ondataabort));
-	$effect(resetEventListener(map, 'dataloading', ondataloading));
-	$effect(resetEventListener(map, 'dblclick', ondblclick));
-	$effect(resetEventListener(map, 'drag', ondrag));
-	$effect(resetEventListener(map, 'dragend', ondragend));
-	$effect(resetEventListener(map, 'dragstart', ondragstart));
-	$effect(resetEventListener(map, 'error', onerror));
-	$effect(resetEventListener(map, 'idle', onidle));
-	$effect(resetEventListener(map, 'load', onload));
-	$effect(resetEventListener(map, 'mousedown', onmousedown));
-	$effect(resetEventListener(map, 'mousemove', onmousemove));
-	$effect(resetEventListener(map, 'mouseout', onmouseout));
-	$effect(resetEventListener(map, 'mouseover', onmouseover));
-	$effect(resetEventListener(map, 'mouseup', onmouseup));
-	$effect(resetEventListener(map, 'move', onmove));
-	$effect(resetEventListener(map, 'moveend', onmoveend));
-	$effect(resetEventListener(map, 'movestart', onmovestart));
-	$effect(resetEventListener(map, 'pitch', onpitch));
-	$effect(resetEventListener(map, 'pitchend', onpitchend));
-	$effect(resetEventListener(map, 'pitchstart', onpitchstart));
-	$effect(resetEventListener(map, 'projectiontransition', onprojectiontransition));
-	$effect(resetEventListener(map, 'remove', onremove));
-	$effect(resetEventListener(map, 'render', onrender));
-	$effect(resetEventListener(map, 'resize', onresize));
-	$effect(resetEventListener(map, 'rotate', onrotate));
-	$effect(resetEventListener(map, 'rotateend', onrotateend));
-	$effect(resetEventListener(map, 'rotatestart', onrotatestart));
-	$effect(resetEventListener(map, 'sourcedata', onsourcedata));
-	$effect(resetEventListener(map, 'sourcedataabort', onsourcedataabort));
-	$effect(resetEventListener(map, 'sourcedataloading', onsourcedataloading));
-	$effect(resetEventListener(map, 'styledata', onstyledata));
-	$effect(resetEventListener(map, 'styledataloading', onstyledataloading));
-	$effect(resetEventListener(map, 'styleimagemissing', onstyleimagemissing));
-	$effect(resetEventListener(map, 'terrain', onterrain));
-	$effect(resetEventListener(map, 'tiledataloading', ontiledataloading));
-	$effect(resetEventListener(map, 'touchcancel', ontouchcancel));
-	$effect(resetEventListener(map, 'touchend', ontouchend));
-	$effect(resetEventListener(map, 'touchmove', ontouchmove));
-	$effect(resetEventListener(map, 'touchstart', ontouchstart));
-	$effect(resetEventListener(map, 'webglcontextlost', onwebglcontextlost));
-	$effect(resetEventListener(map, 'webglcontextrestored', onwebglcontextrestored));
-	$effect(resetEventListener(map, 'wheel', onwheel));
-	$effect(resetEventListener(map, 'zoom', onzoom));
-	$effect(resetEventListener(map, 'zoomend', onzoomend));
-	$effect(resetEventListener(map, 'zoomstart', onzoomstart));
+	$effect(() => resetEventListener(map, 'boxzoomcancel', onboxzoomcancel));
+	$effect(() => resetEventListener(map, 'boxzoomend', onboxzoomend));
+	$effect(() => resetEventListener(map, 'boxzoomstart', onboxzoomstart));
+	$effect(() => resetEventListener(map, 'click', onclick));
+	$effect(() => resetEventListener(map, 'contextmenu', oncontextmenu));
+	$effect(() => resetEventListener(map, 'cooperativegestureprevented', oncooperativegestureprevented));
+	$effect(() => resetEventListener(map, 'data', ondata));
+	$effect(() => resetEventListener(map, 'dataabort', ondataabort));
+	$effect(() => resetEventListener(map, 'dataloading', ondataloading));
+	$effect(() => resetEventListener(map, 'dblclick', ondblclick));
+	$effect(() => resetEventListener(map, 'drag', ondrag));
+	$effect(() => resetEventListener(map, 'dragend', ondragend));
+	$effect(() => resetEventListener(map, 'dragstart', ondragstart));
+	$effect(() => resetEventListener(map, 'error', onerror));
+	$effect(() => resetEventListener(map, 'idle', onidle));
+	$effect(() => resetEventListener(map, 'load', onload));
+	$effect(() => resetEventListener(map, 'mousedown', onmousedown));
+	$effect(() => resetEventListener(map, 'mousemove', onmousemove));
+	$effect(() => resetEventListener(map, 'mouseout', onmouseout));
+	$effect(() => resetEventListener(map, 'mouseover', onmouseover));
+	$effect(() => resetEventListener(map, 'mouseup', onmouseup));
+	$effect(() => resetEventListener(map, 'move', onmove));
+	$effect(() => resetEventListener(map, 'moveend', onmoveend));
+	$effect(() => resetEventListener(map, 'movestart', onmovestart));
+	$effect(() => resetEventListener(map, 'pitch', onpitch));
+	$effect(() => resetEventListener(map, 'pitchend', onpitchend));
+	$effect(() => resetEventListener(map, 'pitchstart', onpitchstart));
+	$effect(() => resetEventListener(map, 'projectiontransition', onprojectiontransition));
+	$effect(() => resetEventListener(map, 'remove', onremove));
+	$effect(() => resetEventListener(map, 'render', onrender));
+	$effect(() => resetEventListener(map, 'resize', onresize));
+	$effect(() => resetEventListener(map, 'rotate', onrotate));
+	$effect(() => resetEventListener(map, 'rotateend', onrotateend));
+	$effect(() => resetEventListener(map, 'rotatestart', onrotatestart));
+	$effect(() => resetEventListener(map, 'sourcedata', onsourcedata));
+	$effect(() => resetEventListener(map, 'sourcedataabort', onsourcedataabort));
+	$effect(() => resetEventListener(map, 'sourcedataloading', onsourcedataloading));
+	$effect(() => resetEventListener(map, 'styledata', onstyledata));
+	$effect(() => resetEventListener(map, 'styledataloading', onstyledataloading));
+	$effect(() => resetEventListener(map, 'styleimagemissing', onstyleimagemissing));
+	$effect(() => resetEventListener(map, 'terrain', onterrain));
+	$effect(() => resetEventListener(map, 'tiledataloading', ontiledataloading));
+	$effect(() => resetEventListener(map, 'touchcancel', ontouchcancel));
+	$effect(() => resetEventListener(map, 'touchend', ontouchend));
+	$effect(() => resetEventListener(map, 'touchmove', ontouchmove));
+	$effect(() => resetEventListener(map, 'touchstart', ontouchstart));
+	$effect(() => resetEventListener(map, 'webglcontextlost', onwebglcontextlost));
+	$effect(() => resetEventListener(map, 'webglcontextrestored', onwebglcontextrestored));
+	$effect(() => resetEventListener(map, 'wheel', onwheel));
+	$effect(() => resetEventListener(map, 'zoom', onzoom));
+	$effect(() => resetEventListener(map, 'zoomend', onzoomend));
+	$effect(() => resetEventListener(map, 'zoomstart', onzoomstart));
 
 	let firstRun = true;
 
@@ -327,6 +329,24 @@
 	});
 
 	$effect(() => {
+		// TODO: differential update ?
+		className;
+		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
+		if (container && !firstRun) {
+			for (const className of classNames) {
+				container.classList.add(className);
+			}
+		}
+		return () => {
+			if (container) {
+				for (const className of classNames) {
+					container.classList.remove(className);
+				}
+			}
+		};
+	});
+
+	$effect(() => {
 		firstRun = false;
 	});
 
@@ -336,7 +356,7 @@
 	});
 </script>
 
-<div class={className} bind:this={container}></div>
+<div class={className} style={inlineStyle} bind:this={container}></div>
 
 {#if map && loaded}
 	{@render children?.()}

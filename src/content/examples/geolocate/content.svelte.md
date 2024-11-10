@@ -7,6 +7,8 @@ description: Locate the User
   import Geolocate from "./Geolocate.svelte";
 </script>
 
-## Demo
-
 <Geolocate />
+
+## Code
+
+TODO

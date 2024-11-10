@@ -164,7 +164,7 @@
 		/>
 	{/if}
 	<Light anchor="map" />
-	<Projection type={globe ? 'globe' : 'mercator'} />
+	<Projection type={globe ? 'globe' : undefined} />
 	<AttributionControl position={controlPosition} compact />
 	<LogoControl position={controlPosition} />
 	<ScaleControl position={controlPosition} />

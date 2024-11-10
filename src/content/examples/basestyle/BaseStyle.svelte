@@ -42,9 +42,7 @@
 </div>
 
 <MapLibre class="h-[60vh] min-h-[300px]" style={styleUrl} zoom={4} maxPitch={80} center={{ lng: 137, lat: 36 }}>
-	{#if globe}
-		<Projection type="globe" />
-	{/if}
+	<Projection type={globe ? 'globe' : undefined} />
 	<Light anchor="map" />
 	<Sky
 		sky-color="#001560"

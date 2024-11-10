@@ -9,7 +9,7 @@
 	<div class="flex h-full w-full items-center gap-x-4">
 		<h1 class="pr-2 text-xl font-bold">
 			<a href="/" class="">
-				<MapPinned class="mr-1.5 inline-block !size-6 pb-1" />Svelte MapLibre GL
+				<MapPinned class="inline-block !size-6 pb-1" /> <span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
 		<a href="/examples/" class="text-sm text-foreground/70 transition-colors hover:text-foreground">Examples</a>

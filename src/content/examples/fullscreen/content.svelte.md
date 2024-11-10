@@ -7,6 +7,8 @@ description: View a fullscreen map
   import Fullscreen from "./Fullscreen.svelte";
 </script>
 
-## Demo
-
 <Fullscreen />
+
+## Code
+
+TODO

@@ -1,6 +1,7 @@
 <div class="mx-auto w-full p-8 py-16 2xl:container">
 	<main class="prose dark:prose-invert">
 		<h1>Svelte MapLibre GL</h1>
+		<p>Work in progress.</p>
 		<p>
 			<a href="/examples/">Examples</a>
 		</p>

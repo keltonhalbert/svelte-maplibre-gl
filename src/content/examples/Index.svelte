@@ -6,5 +6,6 @@
 	<li><a href="/examples/terrain">3D Terrain</a></li>
 	<li><a href="/examples/geolocate">Locate the User</a></li>
 	<li><a href="/examples/fullscreen">Fullscreen</a></li>
+	<li><a href="/examples/side-by-side">Side by Side</a></li>
 	<li><a href="/examples/markdown">Markdown Test</a></li>
 </ul>
