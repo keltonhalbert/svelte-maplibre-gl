@@ -1,6 +1,6 @@
 <script lang="ts">
 	import maplibre from 'maplibre-gl';
-	import type { MapOptions, MapEventType, AttributionControlOptions, LngLatBoundsLike } from 'maplibre-gl';
+	import type { MapOptions, MapEventType, PaddingOptions, JumpToOptions } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onDestroy, type Snippet } from 'svelte';
 	import { prepareMapContext } from '../context.svelte.js';
@@ -11,22 +11,14 @@
 		[K in keyof MapEventType as `on${K}`]?: (ev: MapEventType[K]) => void;
 	};
 
-	interface Props extends MapEventProps {
+	interface Props extends Omit<MapOptions, 'container'>, MapEventProps {
 		class?: string;
 		map?: maplibre.Map | null;
-		interactive?: boolean;
-		style?: MapOptions['style'];
 		center?: LngLat;
-		zoom?: number;
-		pitch?: number;
-		bearing?: number;
-		minZoom?: number | null;
-		maxZoom?: number | null;
-		minPitch?: number | null;
-		maxPitch?: number | null;
-		antialias?: boolean;
-		maxBounds?: LngLatBoundsLike;
-		attributionControl?: false | AttributionControlOptions;
+		padding?: PaddingOptions;
+		//
+		showTileBoundaries?: boolean;
+		// Snippets
 		children?: Snippet;
 	}
 
@@ -39,13 +31,17 @@
 		zoom = $bindable(undefined),
 		pitch = $bindable(undefined),
 		bearing = $bindable(undefined),
-		minZoom = undefined,
-		maxZoom = undefined,
-		minPitch = undefined,
-		maxPitch = undefined,
-		maxBounds = undefined,
-		attributionControl = undefined,
+		roll = $bindable(undefined),
+		elevation = $bindable(undefined),
+		padding = { top: 0, bottom: 0, left: 0, right: 0 },
+		minZoom,
+		maxZoom,
+		minPitch,
+		maxPitch,
+		maxBounds,
+		attributionControl,
 		antialias,
+		showTileBoundaries,
 		children,
 
 		// Events
@@ -138,6 +134,12 @@
 		if (bearing !== undefined) {
 			options.bearing = bearing;
 		}
+		if (roll !== undefined) {
+			options.roll = roll;
+		}
+		if (elevation !== undefined) {
+			options.elevation = elevation;
+		}
 		if (maxBounds) {
 			options.maxBounds = maxBounds;
 		}
@@ -149,12 +151,27 @@
 			loaded = true;
 		});
 
-		map.on('move', () => {
+		map.on('move', (ev) => {
 			if (map) {
-				center = map.getCenter();
-				pitch = map.getPitch();
-				bearing = map.getBearing();
-				zoom = map?.getZoom();
+				const tr = map.transform;
+				if (!center || center.lat !== tr.center.lat || center.lng !== tr.center.lng) {
+					center = tr.center;
+				}
+				if (tr.zoom !== zoom) {
+					zoom = tr.zoom;
+				}
+				if (tr.bearing !== bearing) {
+					bearing = tr.bearing;
+				}
+				if (tr.pitch !== pitch) {
+					pitch = tr.pitch;
+				}
+				if (tr.roll !== roll) {
+					roll = tr.roll;
+				}
+				if (tr.elevation !== elevation) {
+					elevation = tr.elevation;
+				}
 			}
 		});
 	});
@@ -222,36 +239,69 @@
 	$effect(() => {
 		maxZoom;
 		if (!firstRun) {
-			map?.setMaxZoom(maxZoom === undefined ? null : maxZoom);
+			map?.setMaxZoom(maxZoom);
 		}
 	});
 	$effect(() => {
 		minZoom;
 		if (!firstRun) {
-			map?.setMinZoom(minZoom === undefined ? null : minZoom);
+			map?.setMinZoom(minZoom);
 		}
 	});
 	$effect(() => {
-		if (zoom !== undefined && !firstRun) {
-			map?.getZoom() !== zoom && map?.setZoom(zoom);
-		}
-	});
-	$effect(() => {
-		if (center && !firstRun) {
-			const prevCenter = map?.getCenter();
-			if (prevCenter && (prevCenter.lng !== center.lng || prevCenter.lat !== center.lat)) {
-				map?.setCenter(center);
+		center;
+		zoom;
+		bearing;
+		pitch;
+		roll;
+		elevation;
+		padding;
+		if (!firstRun && map) {
+			const tr = map._getTransformForUpdate();
+			let jumpTo: JumpToOptions = {};
+			let changed = false;
+
+			function notAlmostEqual(a: number, b: number) {
+				// The globe projection causes rounding errors, so we need to allow for a small difference
+				return Math.abs(a - b) > 1e-14;
 			}
-		}
-	});
-	$effect(() => {
-		if (pitch !== undefined && !firstRun) {
-			map?.getPitch() !== pitch && map?.setPitch(pitch);
-		}
-	});
-	$effect(() => {
-		if (bearing !== undefined && !firstRun) {
-			map?.getBearing() !== bearing && map?.setBearing(bearing);
+
+			if (center && (notAlmostEqual(tr.center.lat, center.lat) || notAlmostEqual(tr.center.lng, center.lng))) {
+				jumpTo.center = center;
+				changed = true;
+			}
+			if (zoom !== undefined && notAlmostEqual(tr.zoom, zoom)) {
+				jumpTo.zoom = zoom;
+				changed = true;
+			}
+			if (bearing !== undefined && notAlmostEqual(tr.bearing, bearing)) {
+				jumpTo.bearing = bearing;
+				changed = true;
+			}
+			if (pitch !== undefined && tr.pitch !== pitch) {
+				jumpTo.pitch = pitch;
+				changed = true;
+			}
+			if (roll !== undefined && tr.roll !== roll) {
+				jumpTo.roll = roll;
+				changed = true;
+			}
+			if (elevation !== undefined && tr.elevation !== elevation) {
+				jumpTo.elevation = elevation;
+				changed = true;
+			}
+			if (padding && !tr.isPaddingEqual(padding)) {
+				jumpTo.padding = padding;
+				changed = true;
+			}
+
+			if (changed) {
+				// Temporarily replace `stop` with `_stop(allowGestures: true)` to allow ongoing gestures during `jumpTo`,
+				const originalStop = map.stop;
+				map.stop = () => map!._stop(true);
+				map?.jumpTo(jumpTo, { reactivity: true });
+				map.stop = originalStop;
+			}
 		}
 	});
 
@@ -267,6 +317,12 @@
 		maxBounds;
 		if (!firstRun) {
 			map?.setMaxBounds(maxBounds);
+		}
+	});
+
+	$effect(() => {
+		if (map && showTileBoundaries !== undefined) {
+			map.showTileBoundaries = showTileBoundaries;
 		}
 	});
 
