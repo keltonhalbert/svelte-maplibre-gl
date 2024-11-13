@@ -1,4 +1,10 @@
-# svelte-maplibre-gl
+# Svelte MapLibre GL
+
+Svelte wrapper for MapLibre GL JS (supports Svlete 5+ only)
+
+⚠️ This project is currently in the early stages of development. Features and APIs are subject to change.
+
+Documentaion and Examples: https://svelte-maplibre-gl.pages.dev/examples/
 
 ## TODOs
 
@@ -13,26 +19,23 @@ General:
 
 Extensions:
 
-- [ ] PMTiles
-- [ ] deck.gl
+- [ ] PMTiles Source
+- [ ] deck.gl Layer
 - [ ] Drawing
 
 ### Components
 
 #### Map
 
-| Component  | Status | Docs |
-| ---------- | ------ | ---- |
-| MapLibre   | Draft  |      |
-| Terrain    | Draft  |      |
-| Projection | Draft  |      |
-| Sky        | Draft  |      |
-| Light      | Draft  |      |
-| Sprite     |        |      |
-| Glyphs     |        |      |
-
-- Sprite
-- Image
+| Component           | Status | Docs |
+| ------------------- | ------ | ---- |
+| MapLibre            | Draft  |      |
+| Terrain             | Draft  |      |
+| Projection          | Draft  |      |
+| Sky                 | Draft  |      |
+| Light               | Draft  |      |
+| Sprite              |        |      |
+| Glyphs              |        |      |
 
 #### Sources
 
@@ -57,7 +60,7 @@ Extensions:
 | RasterLayer        | Draft  |      |
 | BackgroundLayer    | Draft  |      |
 | HeatmapLayer       | Draft  |      |
-| SymbolLayer        |        |      |
+| SymbolLayer        | Draft  |      |
 | CustomLayer        |        |      |
 
 #### Markers and Controls
@@ -74,3 +77,26 @@ Extensions:
 | ScaleControl       | Draft  |      |
 | TerrainControl     | Draft  |      |
 | Hash               | Draft  |      |
+
+#### Resources
+
+| Component          | Status | Docs |
+| ------------------ | ------ | ---- |
+| Image              | Draft  |      |
+| Sprite             |        |      |
+
+
+## Authors
+
+- Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) &mdash; Main Contributor
+- TODO, TODO, TODO &mdash; Core Contributors
+- MIERUNE Inc.
+
+...and other contributors.
+
+## Acknowledgements
+
+This project `svelte-maplibre-gl` is inspired by the efforts and innovations of the following libraries:
+
+- [`dimfeld/svelte-maplibre`](https://github.com/dimfeld/svelte-maplibre) &mdash; A library offering idiomatic Svelte support for the MapLibre GL mapping software
+- [`visgl/react-map-gl`](https://github.com/visgl/react-map-gl) &mdash; React friendly API wrapper around Mapbox GL JS

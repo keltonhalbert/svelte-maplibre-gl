@@ -20,6 +20,6 @@
 
 	onDestroy(() => {
 		mapCtx.userProjection = undefined;
-		mapCtx.map?.setProjection(prevProjection ?? { type: 'mercator' });
+		mapCtx.map?.setProjection(mapCtx.baseProjection ?? { type: 'mercator' });
 	});
 </script>

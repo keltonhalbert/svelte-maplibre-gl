@@ -7,6 +7,9 @@ export { default as Light } from './map/Light.svelte';
 export { default as Projection } from './map/Projection.svelte';
 export { default as Terrain } from './map/Terrain.svelte';
 
+// resources
+export { default as Image } from './map/Image.svelte';
+
 // sources
 export { default as VectorTileSource } from './sources/VectorTileSource.svelte';
 export { default as RasterTileSource } from './sources/RasterTileSource.svelte';
@@ -18,6 +21,7 @@ export { default as FillLayer } from './layers/FillLayer.svelte';
 export { default as LineLayer } from './layers/LineLayer.svelte';
 export { default as CircleLayer } from './layers/CircleLayer.svelte';
 export { default as FillExtrusionLayer } from './layers/FillExtrusionLayer.svelte';
+export { default as SymbolLayer } from './layers/SymbolLayer.svelte';
 export { default as HeatmapLayer } from './layers/HeatmapLayer.svelte';
 export { default as RasterLayer } from './layers/RasterLayer.svelte';
 export { default as HillshadeLayer } from './layers/HillshadeLayer.svelte';
