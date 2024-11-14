@@ -1,6 +1,6 @@
 <script lang="ts">
 	import maplibre from 'maplibre-gl';
-	import type { MapOptions, MapEventType, PaddingOptions, JumpToOptions } from 'maplibre-gl';
+	import type { MapOptions, MapEventType, PaddingOptions, JumpToOptions, RequestTransformFunction } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onDestroy, type Snippet } from 'svelte';
 	import { prepareMapContext } from '../context.svelte.js';
@@ -17,8 +17,14 @@
 		map?: maplibre.Map | null;
 		center?: LngLat;
 		padding?: PaddingOptions;
-		//
+		fov?: number;
+		// accessors
 		showTileBoundaries?: boolean;
+		showPadding?: boolean;
+		showCollisionBoxes?: boolean;
+		showOverdrawInspector?: boolean;
+		repaint?: boolean;
+		vertices?: boolean;
 		// Snippets
 		children?: Snippet;
 	}
@@ -27,23 +33,6 @@
 		map = $bindable(null),
 		class: className = '',
 		inlineStyle = '',
-		interactive = undefined,
-		style = { version: 8, sources: {}, layers: [] },
-		center = $bindable(undefined),
-		zoom = $bindable(undefined),
-		pitch = $bindable(undefined),
-		bearing = $bindable(undefined),
-		roll = $bindable(undefined),
-		elevation = $bindable(undefined),
-		padding = { top: 0, bottom: 0, left: 0, right: 0 },
-		minZoom,
-		maxZoom,
-		minPitch,
-		maxPitch,
-		maxBounds,
-		attributionControl,
-		antialias,
-		showTileBoundaries,
 		children,
 
 		// Events
@@ -99,7 +88,40 @@
 		onwheel,
 		onterrain,
 		oncooperativegestureprevented,
-		onprojectiontransition
+		onprojectiontransition,
+
+		// others
+		padding = { top: 0, bottom: 0, left: 0, right: 0 },
+		fov,
+		showTileBoundaries,
+		showPadding,
+		showCollisionBoxes,
+		showOverdrawInspector,
+		repaint,
+		vertices,
+
+		// map options
+		antialias,
+		attributionControl,
+		bearing = $bindable(undefined),
+		bearingSnap,
+		center = $bindable(undefined),
+		centerClampedToGround,
+		elevation = $bindable(undefined),
+		interactive = undefined,
+		maxBounds,
+		maxPitch,
+		maxZoom,
+		minPitch,
+		minZoom,
+		pitch = $bindable(undefined),
+		pixelRatio,
+		renderWorldCopies,
+		roll = $bindable(undefined),
+		style = { version: 8, sources: {}, layers: [] },
+		transformRequest,
+		zoom = $bindable(undefined),
+		...restOptions
 	}: Props = $props();
 
 	let container: HTMLElement | undefined = $state();
@@ -112,41 +134,39 @@
 			return;
 		}
 		const options: MapOptions = {
-			container,
-			style,
+			antialias,
+			attributionControl,
+			bearing,
+			bearingSnap,
 			center,
-			minZoom,
+			centerClampedToGround,
+			container,
+			elevation,
+			interactive,
+			maxBounds,
+			maxPitch,
 			maxZoom,
 			minPitch,
-			maxPitch,
-			antialias
+			minZoom,
+			pitch,
+			pixelRatio,
+			renderWorldCopies,
+			roll,
+			style,
+			transformRequest,
+			zoom,
+			...restOptions
 		};
-		if (interactive !== undefined) {
-			options.interactive = interactive;
-		}
-		if (attributionControl !== undefined) {
-			options.attributionControl = attributionControl;
-		}
-		if (zoom !== undefined) {
-			options.zoom = zoom;
-		}
-		if (pitch !== undefined) {
-			options.pitch = pitch;
-		}
-		if (bearing !== undefined) {
-			options.bearing = bearing;
-		}
-		if (roll !== undefined) {
-			options.roll = roll;
-		}
-		if (elevation !== undefined) {
-			options.elevation = elevation;
-		}
-		if (maxBounds) {
-			options.maxBounds = maxBounds;
+		const filteredOptions: MapOptions = {
+			container
+		};
+		for (const key of Object.keys(options) as (keyof MapOptions)[]) {
+			if (options[key] !== undefined) {
+				filteredOptions[key] = options[key];
+			}
 		}
 
-		map = new maplibre.Map(options);
+		map = new maplibre.Map(filteredOptions);
 
 		map.on('load', () => {
 			mapCtx.map = map;
@@ -308,11 +328,15 @@
 	});
 
 	$effect(() => {
-		maxPitch;
 		minPitch;
 		if (firstRun) {
-			map?.setMaxPitch(maxPitch);
 			map?.setMinPitch(minPitch);
+		}
+	});
+	$effect(() => {
+		maxPitch;
+		if (firstRun) {
+			map?.setMaxPitch(maxPitch);
 		}
 	});
 	$effect(() => {
@@ -321,10 +345,67 @@
 			map?.setMaxBounds(maxBounds);
 		}
 	});
+	$effect(() => {
+		centerClampedToGround;
+		if (!firstRun) {
+			map?.setCenterClampedToGround(centerClampedToGround ?? false);
+		}
+	});
+	$effect(() => {
+		if (fov !== undefined) {
+			map?.setVerticalFieldOfView(fov);
+		}
+	});
+
+	$effect(() => {
+		transformRequest;
+		if (!firstRun) {
+			map?.setTransformRequest(transformRequest as RequestTransformFunction);
+		}
+	});
+
+	$effect(() => {
+		pixelRatio;
+		if (!firstRun) {
+			map?.setPixelRatio(pixelRatio ?? (null as unknown as number));
+		}
+	});
+
+	$effect(() => {
+		renderWorldCopies;
+		if (!firstRun) {
+			map?.setRenderWorldCopies(renderWorldCopies ?? null);
+		}
+	});
 
 	$effect(() => {
 		if (map && showTileBoundaries !== undefined) {
 			map.showTileBoundaries = showTileBoundaries;
+		}
+	});
+	$effect(() => {
+		if (map && showPadding !== undefined) {
+			map.showPadding = showPadding;
+		}
+	});
+	$effect(() => {
+		if (map && showCollisionBoxes !== undefined) {
+			map.showCollisionBoxes = showCollisionBoxes;
+		}
+	});
+	$effect(() => {
+		if (map && showOverdrawInspector !== undefined) {
+			map.showOverdrawInspector = showOverdrawInspector;
+		}
+	});
+	$effect(() => {
+		if (map && repaint !== undefined) {
+			map.repaint = repaint;
+		}
+	});
+	$effect(() => {
+		if (map && vertices !== undefined) {
+			map.vertices = vertices;
 		}
 	});
 

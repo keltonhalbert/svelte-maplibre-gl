@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { MapLibre, Image, GeoJSONSource, SymbolLayer } from 'svelte-maplibre-gl';
 
-	const size = 64; // The image will be 64 pixels square
-	const bytesPerPixel = 4; // Each pixel is represented by 4 bytes: red, green, blue, and alpha.
-	const data = new Uint8Array(size * size * bytesPerPixel);
+	const size = 64;
+	const data = new Uint8Array(size * size * 4);
 
+	let p = 0;
 	for (let x = 0; x < size; x++) {
 		for (let y = 0; y < size; y++) {
-			const offset = (y * size + x) * bytesPerPixel;
-			data[offset + 0] = (y / size) * 255; // red
-			data[offset + 1] = (x / size) * 255; // green
-			data[offset + 2] = 128; // blue
-			data[offset + 3] = 255; // alpha
+			data[p + 0] = (y / size) * 255;
+			data[p + 1] = (x / size) * 255;
+			data[p + 2] = 128;
+			data[p + 3] = 255;
+			p += 4;
 		}
 	}
 </script>
