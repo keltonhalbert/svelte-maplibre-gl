@@ -14,7 +14,7 @@
 	interface Props extends Omit<MapOptions, 'container'>, MapEventProps {
 		class?: string;
 		inlineStyle?: string;
-		map?: maplibre.Map | null;
+		map?: maplibre.Map;
 		center?: LngLat;
 		padding?: PaddingOptions;
 		fov?: number;
@@ -30,7 +30,7 @@
 	}
 
 	let {
-		map = $bindable(null),
+		map = $bindable(undefined),
 		class: className = '',
 		inlineStyle = '',
 		children,
@@ -169,7 +169,7 @@
 		map = new maplibre.Map(filteredOptions);
 
 		map.on('load', () => {
-			mapCtx.map = map;
+			mapCtx.map = map ?? null;
 			loaded = true;
 		});
 
@@ -434,6 +434,7 @@
 	onDestroy(() => {
 		mapCtx.map = null;
 		map?.remove();
+		map = undefined;
 	});
 </script>
 

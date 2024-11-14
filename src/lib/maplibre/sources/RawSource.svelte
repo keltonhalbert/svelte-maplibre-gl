@@ -21,11 +21,12 @@
 		| ImageSource;
 
 	type Props = {
+		source?: SourceTypes;
 		id?: string;
 		children?: Snippet;
 		spec: SourceSpecification;
 	};
-	let { id: _id, children, spec }: Props = $props();
+	let { source = $bindable(undefined), id: _id, children, spec }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) {
@@ -36,7 +37,7 @@
 	mapCtx.addSource(id, $state.snapshot(spec) as SourceSpecification);
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	const source: SourceTypes | undefined = mapCtx.map.getSource(id);
+	source = mapCtx.map.getSource(id);
 	if (!source) {
 		throw new Error(`Failed to add source {id}`);
 	}
@@ -44,7 +45,7 @@
 	let firstRun = true;
 
 	$effect(() => {
-		if (spec.type !== 'image' && spec.type !== 'video') {
+		if (source && spec.type !== 'image' && spec.type !== 'video') {
 			source.maxzoom = spec.maxzoom ?? 22;
 			if (spec.type !== 'geojson') {
 				source.minzoom = spec.minzoom ?? 0;
@@ -52,7 +53,7 @@
 		}
 	});
 	$effect(() => {
-		if (spec.type !== 'geojson' && spec.type !== 'image' && spec.type !== 'video') {
+		if (source && spec.type !== 'geojson' && spec.type !== 'image' && spec.type !== 'video') {
 			if (!('setTiles' in source)) {
 				throw new Error('setTiles not in source');
 			}
@@ -63,7 +64,7 @@
 		}
 	});
 	$effect(() => {
-		if (spec.type !== 'geojson' && spec.type !== 'image' && spec.type !== 'video') {
+		if (source && spec.type !== 'geojson' && spec.type !== 'image' && spec.type !== 'video') {
 			if (!('setUrl' in source)) {
 				throw new Error('setUrl not in source');
 			}
@@ -74,7 +75,7 @@
 		}
 	});
 	$effect(() => {
-		if (spec.type === 'geojson') {
+		if (source && spec.type === 'geojson') {
 			spec.data;
 			if (!('setData' in source)) {
 				throw new Error('setData not in source');
@@ -86,7 +87,7 @@
 		}
 	});
 	$effect(() => {
-		if (spec.type === 'geojson') {
+		if (source && spec.type === 'geojson') {
 			spec.cluster;
 			spec.clusterMaxZoom;
 			spec.clusterRadius;
@@ -103,7 +104,7 @@
 		}
 	});
 	$effect(() => {
-		if (spec.type === 'image') {
+		if (source && spec.type === 'image') {
 			spec.url;
 			if (source.type !== 'image') {
 				throw new Error('ImageSource is expected');
@@ -116,9 +117,9 @@
 		}
 	});
 	$effect(() => {
-		if (spec.type === 'image') {
+		if (source && (spec.type === 'image' || spec.type === 'video')) {
 			spec.coordinates;
-			if (source.type !== 'image') {
+			if (source.type !== 'image' && source.type !== 'video') {
 				throw new Error('ImageSource is expected');
 			}
 			if (!firstRun) {
@@ -133,6 +134,7 @@
 
 	onDestroy(() => {
 		mapCtx.removeSource(id);
+		source = undefined;
 	});
 </script>
 

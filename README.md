@@ -29,15 +29,15 @@ Extensions:
 
 #### Map
 
-| Component           | Status | Docs |
-| ------------------- | ------ | ---- |
-| MapLibre            | Draft  |      |
-| Terrain             | Draft  |      |
-| Projection          | Draft  |      |
-| Sky                 | Draft  |      |
-| Light               | Draft  |      |
-| Sprite              |        |      |
-| Glyphs              |        |      |
+| Component  | Status | Docs |
+| ---------- | ------ | ---- |
+| MapLibre   | Draft  |      |
+| Terrain    | Draft  |      |
+| Projection | Draft  |      |
+| Sky        | Draft  |      |
+| Light      | Draft  |      |
+| Sprite     |        |      |
+| Glyphs     |        |      |
 
 #### Sources
 
@@ -48,7 +48,7 @@ Extensions:
 | RasterDEMTileSource | Draft  |      |
 | GeoJSONSource       | Draft  |      |
 | ImageSource         | Draft  |      |
-| VideoSource         |        |      |
+| VideoSource         | Draft  |      |
 | CanvasSource        |        |      |
 
 #### Layers
@@ -82,11 +82,10 @@ Extensions:
 
 #### Resources
 
-| Component          | Status | Docs |
-| ------------------ | ------ | ---- |
-| Image              | Draft  |      |
-| Sprite             |        |      |
-
+| Component | Status | Docs |
+| --------- | ------ | ---- |
+| Image     | Draft  |      |
+| Sprite    |        |      |
 
 ## Authors
 

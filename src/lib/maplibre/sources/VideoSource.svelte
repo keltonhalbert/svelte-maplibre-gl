@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { ImageSource, ImageSourceSpecification } from 'maplibre-gl';
+	import type { VideoSource, VideoSourceSpecification } from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
-	interface Props extends Omit<ImageSourceSpecification, 'type'> {
+	interface Props extends Omit<VideoSourceSpecification, 'type'> {
 		id?: string;
 		children?: Snippet;
-		source?: ImageSource;
+		source?: VideoSource;
 	}
 	let { id, children, source = $bindable(), ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'image', ...spec }} bind:source>
+<RawSource {id} spec={{ type: 'video', ...spec }} bind:source>
 	{@render children?.()}
 </RawSource>
