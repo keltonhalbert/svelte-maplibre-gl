@@ -9,9 +9,7 @@
 	let { source, ...spec }: Props = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	// Get source id from source context or props
 	const sourceId = $derived(source ?? getSourceContext().id);

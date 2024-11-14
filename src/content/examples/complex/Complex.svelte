@@ -31,7 +31,7 @@
 		GlobeControl
 	} from 'svelte-maplibre-gl';
 
-	let map: maplibregl.Map | null = $state.raw(null);
+	let map: maplibregl.Map | undefined = $state.raw();
 	let hash = $state(true);
 	let sky = $state(true);
 	let globe = $state(true);

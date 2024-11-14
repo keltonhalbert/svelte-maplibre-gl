@@ -43,9 +43,7 @@
 	}: Props = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	const id = _id ?? generateLayerID();
 

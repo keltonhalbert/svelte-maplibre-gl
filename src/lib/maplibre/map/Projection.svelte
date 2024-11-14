@@ -7,9 +7,7 @@
 	let { ...spec }: Props = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	const prevProjection = mapCtx.map.getProjection();
 

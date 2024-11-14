@@ -17,6 +17,7 @@ export { default as RasterDEMTileSource } from './sources/RasterDEMTileSource.sv
 export { default as GeoJSONSource } from './sources/GeoJSONSource.svelte';
 export { default as ImageSource } from './sources/ImageSource.svelte';
 export { default as VideoSource } from './sources/VideoSource.svelte';
+export { default as CanvasSource } from './sources/CanvasSource.svelte';
 
 // layers
 export { default as FillLayer } from './layers/FillLayer.svelte';

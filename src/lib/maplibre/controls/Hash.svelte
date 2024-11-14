@@ -6,9 +6,7 @@
 	let {}: {} = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	let hash = new maplibregl.Hash().addTo(mapCtx.map);
 	if (!hash._onHashChange()) {

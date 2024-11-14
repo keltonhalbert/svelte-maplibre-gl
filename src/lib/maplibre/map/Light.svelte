@@ -6,9 +6,7 @@
 	let { ...spec }: LightSpecification = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	$effect(() => {
 		mapCtx.userLight = $state.snapshot(spec) as LightSpecification;

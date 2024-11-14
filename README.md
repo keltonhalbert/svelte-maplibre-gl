@@ -49,7 +49,7 @@ Extensions:
 | GeoJSONSource       | Draft  |      |
 | ImageSource         | Draft  |      |
 | VideoSource         | Draft  |      |
-| CanvasSource        |        |      |
+| CanvasSource        | Draft  |      |
 
 #### Layers
 

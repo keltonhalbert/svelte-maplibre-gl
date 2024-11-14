@@ -44,9 +44,7 @@
 	}: Props = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	let marker: Marker | null = $state.raw(null);
 
@@ -56,9 +54,7 @@
 		if (marker) {
 			return;
 		}
-		if (!mapCtx.map) {
-			throw new Error('MapLibre is not initialized');
-		}
+		if (!mapCtx.map) throw new Error('MapLibre is not initialized');
 
 		const options: MarkerOptions = {
 			draggable,
@@ -75,9 +71,7 @@
 		};
 
 		if (content) {
-			if (!container) {
-				throw new Error('Marker container is not initialized');
-			}
+			if (!container) throw new Error('Marker container is not initialized');
 			options.element = container;
 		}
 

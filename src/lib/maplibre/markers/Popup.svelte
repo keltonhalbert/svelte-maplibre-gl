@@ -39,9 +39,7 @@
 	}: Props = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	let popup: Popup | null = $state.raw(null);
 
@@ -51,9 +49,7 @@
 		if (popup) {
 			return;
 		}
-		if (!mapCtx.map) {
-			throw new Error('MapLibre is not initialized');
-		}
+		if (!mapCtx.map) throw new Error('MapLibre is not initialized');
 
 		const options: PopupOptions = {
 			className,
@@ -68,9 +64,7 @@
 		closeOnMove !== undefined && (options.closeOnMove = closeOnMove);
 		focusAfterOpen !== undefined && (options.focusAfterOpen = focusAfterOpen);
 
-		if (!container) {
-			throw new Error('Popup content container is not initialized');
-		}
+		if (!container) throw new Error('Popup content container is not initialized');
 
 		popup = new maplibregl.Popup(options);
 		popup.setDOMContent(container);

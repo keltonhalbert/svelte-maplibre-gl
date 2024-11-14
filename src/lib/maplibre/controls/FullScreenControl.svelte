@@ -18,9 +18,7 @@
 	let { position, onfullscreenstart, onfullscreenend, ...options }: Props & ControlOptions = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) {
-		throw new Error('Map instance is not initialized.');
-	}
+	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	let control: ControlType | null = null;
 	$effect(() => {
