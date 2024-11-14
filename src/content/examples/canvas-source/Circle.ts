@@ -16,10 +16,10 @@ export class Circle {
 	}
 
 	update(ctx: CanvasRenderingContext2D) {
-		if (this.x + this.radius > 400 || this.x - this.radius < 0) {
+		if (this.x + this.radius > ctx.canvas.width || this.x - this.radius < 0) {
 			this.dx = -this.dx;
 		}
-		if (this.y + this.radius > 400 || this.y - this.radius < 0) {
+		if (this.y + this.radius > ctx.canvas.height || this.y - this.radius < 0) {
 			this.dy = -this.dy;
 		}
 		this.x += this.dx;

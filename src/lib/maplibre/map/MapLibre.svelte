@@ -90,9 +90,11 @@
 		oncooperativegestureprevented,
 		onprojectiontransition,
 
-		// others
+		// Others
 		padding = { top: 0, bottom: 0, left: 0, right: 0 },
 		fov,
+
+		// Accessors
 		showTileBoundaries,
 		showPadding,
 		showCollisionBoxes,
@@ -100,9 +102,7 @@
 		repaint,
 		vertices,
 
-		// map options
-		antialias,
-		attributionControl,
+		// Map Options (reactive)
 		bearing = $bindable(undefined),
 		bearingSnap,
 		center = $bindable(undefined),
@@ -121,6 +121,21 @@
 		style = { version: 8, sources: {}, layers: [] },
 		transformRequest,
 		zoom = $bindable(undefined),
+
+		// Map Options (properties)
+		boxZoom,
+		cancelPendingTileRequestsWhileZooming,
+		cooperativeGestures,
+		doubleClickZoom,
+		dragPan,
+		dragRotate,
+		keyboard,
+		scrollZoom,
+		touchPitch,
+		touchZoomRotate,
+		transformCameraUpdate,
+
+		// Map Options (others)
 		...restOptions
 	}: Props = $props();
 
@@ -134,8 +149,7 @@
 			return;
 		}
 		const options: MapOptions = {
-			antialias,
-			attributionControl,
+			// Map Options (reactive)
 			bearing,
 			bearingSnap,
 			center,
@@ -155,6 +169,19 @@
 			style,
 			transformRequest,
 			zoom,
+			// Map Options (Map properties)
+			boxZoom,
+			cancelPendingTileRequestsWhileZooming,
+			cooperativeGestures,
+			doubleClickZoom,
+			dragPan,
+			dragRotate,
+			keyboard,
+			scrollZoom,
+			touchPitch,
+			touchZoomRotate,
+			transformCameraUpdate,
+			// Map Options (others)
 			...restOptions
 		};
 		const filteredOptions: MapOptions = {
@@ -198,6 +225,7 @@
 		});
 	});
 
+	// Events
 	$effect(() => resetEventListener(map, 'boxzoomcancel', onboxzoomcancel));
 	$effect(() => resetEventListener(map, 'boxzoomend', onboxzoomend));
 	$effect(() => resetEventListener(map, 'boxzoomstart', onboxzoomstart));
@@ -254,22 +282,63 @@
 	let firstRun = true;
 
 	$effect(() => {
-		if (style && !firstRun) {
-			mapCtx.setStyle(style);
+		// TODO: differential update ?
+		className;
+		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
+		if (container && !firstRun) {
+			for (const className of classNames) {
+				container.classList.add(className);
+			}
+		}
+		return () => {
+			if (container) {
+				for (const className of classNames) {
+					container.classList.remove(className);
+				}
+			}
+		};
+	});
+
+	// Others
+	$effect(() => {
+		if (fov !== undefined) {
+			map?.setVerticalFieldOfView(fov);
+		}
+	});
+
+	// Accessors
+	$effect(() => {
+		if (map && showTileBoundaries !== undefined) {
+			map.showTileBoundaries = showTileBoundaries;
 		}
 	});
 	$effect(() => {
-		maxZoom;
-		if (!firstRun) {
-			map?.setMaxZoom(maxZoom);
+		if (map && showPadding !== undefined) {
+			map.showPadding = showPadding;
 		}
 	});
 	$effect(() => {
-		minZoom;
-		if (!firstRun) {
-			map?.setMinZoom(minZoom);
+		if (map && showCollisionBoxes !== undefined) {
+			map.showCollisionBoxes = showCollisionBoxes;
 		}
 	});
+	$effect(() => {
+		if (map && showOverdrawInspector !== undefined) {
+			map.showOverdrawInspector = showOverdrawInspector;
+		}
+	});
+	$effect(() => {
+		if (map && repaint !== undefined) {
+			map.repaint = repaint;
+		}
+	});
+	$effect(() => {
+		if (map && vertices !== undefined) {
+			map.vertices = vertices;
+		}
+	});
+
+	// Map Options (reactive)
 	$effect(() => {
 		center;
 		zoom;
@@ -326,23 +395,10 @@
 			}
 		}
 	});
-
 	$effect(() => {
-		minPitch;
-		if (firstRun) {
-			map?.setMinPitch(minPitch);
-		}
-	});
-	$effect(() => {
-		maxPitch;
-		if (firstRun) {
-			map?.setMaxPitch(maxPitch);
-		}
-	});
-	$effect(() => {
-		maxBounds;
-		if (!firstRun) {
-			map?.setMaxBounds(maxBounds);
+		bearingSnap;
+		if (map && bearingSnap && !firstRun) {
+			map._bearingSnap = bearingSnap;
 		}
 	});
 	$effect(() => {
@@ -352,11 +408,52 @@
 		}
 	});
 	$effect(() => {
-		if (fov !== undefined) {
-			map?.setVerticalFieldOfView(fov);
+		maxBounds;
+		if (!firstRun) {
+			map?.setMaxBounds(maxBounds);
 		}
 	});
-
+	$effect(() => {
+		maxPitch;
+		if (firstRun) {
+			map?.setMaxPitch(maxPitch);
+		}
+	});
+	$effect(() => {
+		maxZoom;
+		if (!firstRun) {
+			map?.setMaxZoom(maxZoom);
+		}
+	});
+	$effect(() => {
+		minPitch;
+		if (firstRun) {
+			map?.setMinPitch(minPitch);
+		}
+	});
+	$effect(() => {
+		minZoom;
+		if (!firstRun) {
+			map?.setMinZoom(minZoom);
+		}
+	});
+	$effect(() => {
+		pixelRatio;
+		if (!firstRun) {
+			map?.setPixelRatio(pixelRatio ?? (null as unknown as number));
+		}
+	});
+	$effect(() => {
+		renderWorldCopies;
+		if (!firstRun) {
+			map?.setRenderWorldCopies(renderWorldCopies ?? null);
+		}
+	});
+	$effect(() => {
+		if (style && !firstRun) {
+			mapCtx.setStyle(style);
+		}
+	});
 	$effect(() => {
 		transformRequest;
 		if (!firstRun) {
@@ -364,67 +461,62 @@
 		}
 	});
 
+	// Map Options (Map properties)
 	$effect(() => {
-		pixelRatio;
-		if (!firstRun) {
-			map?.setPixelRatio(pixelRatio ?? (null as unknown as number));
-		}
-	});
-
-	$effect(() => {
-		renderWorldCopies;
-		if (!firstRun) {
-			map?.setRenderWorldCopies(renderWorldCopies ?? null);
-		}
-	});
-
-	$effect(() => {
-		if (map && showTileBoundaries !== undefined) {
-			map.showTileBoundaries = showTileBoundaries;
+		if (boxZoom !== undefined && !firstRun) {
+			boxZoom ? map?.boxZoom.enable() : map?.boxZoom.disable();
 		}
 	});
 	$effect(() => {
-		if (map && showPadding !== undefined) {
-			map.showPadding = showPadding;
+		if (map && cancelPendingTileRequestsWhileZooming !== undefined && !firstRun) {
+			map.cancelPendingTileRequestsWhileZooming = cancelPendingTileRequestsWhileZooming;
 		}
 	});
 	$effect(() => {
-		if (map && showCollisionBoxes !== undefined) {
-			map.showCollisionBoxes = showCollisionBoxes;
+		if (cooperativeGestures !== undefined && !firstRun) {
+			cooperativeGestures ? map?.cooperativeGestures.enable() : map?.cooperativeGestures.disable();
 		}
 	});
 	$effect(() => {
-		if (map && showOverdrawInspector !== undefined) {
-			map.showOverdrawInspector = showOverdrawInspector;
+		if (doubleClickZoom !== undefined && !firstRun) {
+			doubleClickZoom ? map?.doubleClickZoom.enable() : map?.doubleClickZoom.disable();
 		}
 	});
 	$effect(() => {
-		if (map && repaint !== undefined) {
-			map.repaint = repaint;
+		if (dragPan !== undefined && !firstRun) {
+			dragPan ? map?.dragPan.enable(dragPan) : map?.dragPan.disable();
 		}
 	});
 	$effect(() => {
-		if (map && vertices !== undefined) {
-			map.vertices = vertices;
+		if (dragRotate !== undefined && !firstRun) {
+			dragRotate ? map?.dragRotate.enable() : map?.dragRotate.disable();
 		}
 	});
-
 	$effect(() => {
-		// TODO: differential update ?
-		className;
-		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
-		if (container && !firstRun) {
-			for (const className of classNames) {
-				container.classList.add(className);
-			}
+		if (keyboard !== undefined && !firstRun) {
+			keyboard ? map?.keyboard.enable() : map?.keyboard.disable();
 		}
-		return () => {
-			if (container) {
-				for (const className of classNames) {
-					container.classList.remove(className);
-				}
-			}
-		};
+	});
+	$effect(() => {
+		if (scrollZoom !== undefined && !firstRun) {
+			scrollZoom ? map?.scrollZoom.enable(scrollZoom) : map?.scrollZoom.disable();
+		}
+	});
+	$effect(() => {
+		if (touchPitch !== undefined && !firstRun) {
+			touchPitch ? map?.touchPitch.enable(touchPitch) : map?.touchPitch.disable();
+		}
+	});
+	$effect(() => {
+		if (touchZoomRotate !== undefined && !firstRun) {
+			touchZoomRotate ? map?.touchZoomRotate.enable(touchZoomRotate) : map?.touchZoomRotate.disable();
+		}
+	});
+	$effect(() => {
+		transformCameraUpdate;
+		if (map && !firstRun) {
+			map.transformCameraUpdate = transformCameraUpdate ?? null;
+		}
 	});
 
 	$effect(() => {

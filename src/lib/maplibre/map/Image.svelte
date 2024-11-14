@@ -25,9 +25,9 @@
 		}
 
 		if (!image) {
-			mapCtx.map?.addImage(id, { width, height, data });
+			mapCtx.map.addImage(id, { width, height, data });
 		} else {
-			mapCtx.map?.updateImage(id, { width, height, data });
+			mapCtx.map.updateImage(id, { width, height, data });
 		}
 	});
 

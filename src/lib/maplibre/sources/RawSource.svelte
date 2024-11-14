@@ -119,6 +119,15 @@
 			}
 		}
 	});
+	$effect(() => {
+		if (source && spec.type === 'canvas') {
+			spec.animate;
+			if (spec.animate !== undefined && !firstRun) {
+				const cs = source as CanvasSource;
+				spec.animate ? cs.play() : cs.pause();
+			}
+		}
+	});
 
 	$effect(() => {
 		firstRun = false;

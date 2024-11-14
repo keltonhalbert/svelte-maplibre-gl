@@ -48,6 +48,7 @@ class MapContext {
 		this.map?.removeSource(id);
 	}
 
+	// Preserves user styles when the base style changes
 	setStyle(style: string | StyleSpecification | null) {
 		const { userSources: addedSources, userLayers: addedLayers } = this;
 		if (!style) {

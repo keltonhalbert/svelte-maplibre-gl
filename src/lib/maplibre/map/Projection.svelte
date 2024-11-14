@@ -9,8 +9,6 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	const prevProjection = mapCtx.map.getProjection();
-
 	$effect(() => {
 		mapCtx.userProjection = $state.snapshot(spec);
 		mapCtx.map?.setProjection(mapCtx.userProjection);
