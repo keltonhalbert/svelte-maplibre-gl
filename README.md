@@ -13,6 +13,7 @@ Documentaion and Examples: https://svelte-maplibre-gl.pages.dev/examples/
 General:
 
 - [x] User sources/layers/styles on the base style
+- [ ] Defer updating user styles until the base style is loaded
 - [ ] Event handlers
 - [ ] Hover on features
 - [ ] Filter
@@ -22,6 +23,7 @@ Extensions:
 - [ ] PMTiles Source
 - [ ] deck.gl Layer
 - [ ] Drawing
+- and more...
 
 ### Components
 
@@ -45,8 +47,8 @@ Extensions:
 | RasterTileSource    | Draft  |      |
 | RasterDEMTileSource | Draft  |      |
 | GeoJSONSource       | Draft  |      |
+| ImageSource         | Draft  |      |
 | VideoSource         |        |      |
-| ImageSource         |        |      |
 | CanvasSource        |        |      |
 
 #### Layers
@@ -88,9 +90,8 @@ Extensions:
 
 ## Authors
 
-- Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) &mdash; Main Contributor
+- Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) &mdash; Main Author
 - TODO, TODO, TODO &mdash; Core Contributors
-- MIERUNE Inc.
 
 ...and other contributors.
 

@@ -102,6 +102,30 @@
 			}
 		}
 	});
+	$effect(() => {
+		if (spec.type === 'image') {
+			spec.url;
+			if (source.type !== 'image') {
+				throw new Error('ImageSource is expected');
+			}
+			if (!firstRun) {
+				source.updateImage({
+					url: spec.url as string
+				});
+			}
+		}
+	});
+	$effect(() => {
+		if (spec.type === 'image') {
+			spec.coordinates;
+			if (source.type !== 'image') {
+				throw new Error('ImageSource is expected');
+			}
+			if (!firstRun) {
+				source.setCoordinates(spec.coordinates);
+			}
+		}
+	});
 
 	$effect(() => {
 		firstRun = false;

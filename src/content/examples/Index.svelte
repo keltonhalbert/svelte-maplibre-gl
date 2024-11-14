@@ -8,5 +8,6 @@
 	<li><a href="/examples/fullscreen">Fullscreen</a></li>
 	<li><a href="/examples/side-by-side">Side by Side</a></li>
 	<li><a href="/examples/dynamic-image">Dynamic Image</a></li>
+	<li><a href="/examples/animate-images">Animate a series of images</a></li>
 	<li><a href="/examples/markdown">Markdown Test</a></li>
 </ul>
