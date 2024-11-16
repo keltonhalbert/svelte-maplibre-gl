@@ -6,24 +6,16 @@ Svelte wrapper for MapLibre GL JS (supports Svlete 5+ only)
 
 Documentaion and Examples: https://svelte-maplibre-gl.pages.dev/examples/
 
+License: MIT or Apache 2.0
+
 ## TODOs
 
 ### Topics
 
 General:
 
-- [x] User sources/layers/styles on the base style
-- [ ] Defer updating user styles until the base style is loaded
-- [ ] Event handlers
-- [ ] Hover on features
-- [ ] Filter
-
-Extensions:
-
-- [ ] PMTiles Source
-- [ ] deck.gl Layer
-- [ ] Drawing
-- and more...
+- [ ] Defer updating user styles until the base style is fully loaded
+- [ ] GeoJSONSource.updateData
 
 ### Components
 
@@ -38,6 +30,7 @@ Extensions:
 | Light      | Draft  |      |
 | Sprite     |        |      |
 | Glyphs     |        |      |
+| Image      | Draft  |      |
 
 #### Sources
 
@@ -50,6 +43,14 @@ Extensions:
 | ImageSource         | Draft  |      |
 | VideoSource         | Draft  |      |
 | CanvasSource        | Draft  |      |
+
+Utilities:
+
+- [x] FeatureState
+ 
+Extensions:
+
+- [ ] PMTiles Source
 
 #### Layers
 
@@ -64,6 +65,10 @@ Extensions:
 | HeatmapLayer       | Draft  |      |
 | SymbolLayer        | Draft  |      |
 | CustomLayer        |        |      |
+
+Extensions:
+
+- [ ] deck.gl Layer
 
 #### Markers and Controls
 
@@ -80,19 +85,25 @@ Extensions:
 | TerrainControl     | Draft  |      |
 | Hash               | Draft  |      |
 
-#### Resources
+Extensions:
 
-| Component | Status | Docs |
-| --------- | ------ | ---- |
-| Image     | Draft  |      |
-| Sprite    |        |      |
+- [ ] Drawing
 
-## Authors
+## License
 
-- Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) &mdash; Main Author
-- TODO, TODO, TODO &mdash; Core Contributors
+Licensed under the [MIT License](./LICENSE-MIT.txt) or the [Apache License 2.0](./LICENSE-APACHE.txt), at your option.
 
-...and other contributors.
+## Contributing
+
+Everyone is welcomed to contribute to this project! There are many ways to support the project, such as:
+
+- TODO
+
+### Authors
+
+- Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
+- TODO: Add core contributors
+- And [all contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)
 
 ## Acknowledgements
 

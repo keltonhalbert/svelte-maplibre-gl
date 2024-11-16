@@ -15,6 +15,7 @@ export { default as GeoJSONSource } from './sources/GeoJSONSource.svelte';
 export { default as ImageSource } from './sources/ImageSource.svelte';
 export { default as VideoSource } from './sources/VideoSource.svelte';
 export { default as CanvasSource } from './sources/CanvasSource.svelte';
+export { default as FeatureState } from './sources/FeatureState.svelte';
 
 // layers
 export { default as FillLayer } from './layers/FillLayer.svelte';
