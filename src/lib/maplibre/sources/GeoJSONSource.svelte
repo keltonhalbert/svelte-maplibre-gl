@@ -5,12 +5,12 @@
 
 	interface Props extends Omit<GeoJSONSourceSpecification, 'type'> {
 		id?: string;
-		children?: Snippet;
 		source?: GeoJSONSource;
+		children?: Snippet;
 	}
-	let { id, children, source = $bindable(), ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'geojson', ...spec }} bind:source>
+<RawSource {id} bind:source type="geojson" {...spec}>
 	{@render children?.()}
 </RawSource>

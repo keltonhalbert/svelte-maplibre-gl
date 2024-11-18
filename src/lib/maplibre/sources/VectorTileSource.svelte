@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { VectorSourceSpecification, VectorTileSource } from 'maplibre-gl';
+	import type { VectorTileSource, VectorSourceSpecification } from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
 	interface Props extends Omit<VectorSourceSpecification, 'type'> {
 		id?: string;
-		children?: Snippet;
 		source?: VectorTileSource;
+		children?: Snippet;
 	}
-	let { id, children, source = $bindable(), ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'vector', ...spec }} bind:source>
+<RawSource {id} bind:source type="vector" {...spec}>
 	{@render children?.()}
 </RawSource>

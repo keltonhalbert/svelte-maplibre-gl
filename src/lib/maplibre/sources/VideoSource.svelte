@@ -5,12 +5,12 @@
 
 	interface Props extends Omit<VideoSourceSpecification, 'type'> {
 		id?: string;
-		children?: Snippet;
 		source?: VideoSource;
+		children?: Snippet;
 	}
-	let { id, children, source = $bindable(), ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'video', ...spec }} bind:source>
+<RawSource {id} bind:source type="video" {...spec}>
 	{@render children?.()}
 </RawSource>

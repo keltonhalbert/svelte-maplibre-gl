@@ -5,12 +5,12 @@
 
 	interface Props extends Omit<CanvasSourceSpecification, 'type'> {
 		id?: string;
-		children?: Snippet;
 		source?: CanvasSource;
+		children?: Snippet;
 	}
-	let { id, children, source = $bindable(), ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'canvas', ...spec }} bind:source>
+<RawSource {id} bind:source type="canvas" {...spec}>
 	{@render children?.()}
 </RawSource>

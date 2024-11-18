@@ -5,12 +5,12 @@
 
 	interface Props extends Omit<ImageSourceSpecification, 'type'> {
 		id?: string;
-		children?: Snippet;
 		source?: ImageSource;
+		children?: Snippet;
 	}
-	let { id, children, source = $bindable(), ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'image', ...spec }} bind:source>
+<RawSource {id} bind:source type="image" {...spec}>
 	{@render children?.()}
 </RawSource>

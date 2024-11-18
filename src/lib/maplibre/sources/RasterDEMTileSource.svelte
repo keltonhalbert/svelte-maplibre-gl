@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { RasterDEMSourceSpecification, RasterDEMTileSource } from 'maplibre-gl';
+	import type { RasterDEMTileSource, RasterDEMSourceSpecification } from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
 	interface Props extends Omit<RasterDEMSourceSpecification, 'type'> {
 		id?: string;
-		children?: Snippet;
 		source?: RasterDEMTileSource;
+		children?: Snippet;
 	}
-	let { id, children, source = $bindable(), ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} spec={{ type: 'raster-dem', ...spec }} bind:source>
+<RawSource {id} bind:source type="raster-dem" {...spec}>
 	{@render children?.()}
 </RawSource>

@@ -47,7 +47,7 @@ General:
 Utilities:
 
 - [x] FeatureState
- 
+
 Extensions:
 
 - [ ] PMTiles Source
