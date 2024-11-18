@@ -6,6 +6,7 @@
 	<li><a href="/examples/side-by-side">Side by Side</a></li>
 	<li><a href="/examples/terrain">3D Terrain</a></li>
 	<li><a href="/examples/hover-styles">Hover Styles</a></li>
+	<li><a href="/examples/clusters">Clusters</a></li>
 	<li><a href="/examples/dynamic-image">Dynamic Image</a></li>
 	<li><a href="/examples/animate-images">Animate a series of images</a></li>
 	<li><a href="/examples/video-on-a-map">Video on a map</a></li>
