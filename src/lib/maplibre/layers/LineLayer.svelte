@@ -1,12 +1,16 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-style-spec/layers/#line
+
 	import type { Snippet } from 'svelte';
-	import type { LineLayerSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawLayer from './RawLayer.svelte';
 	import type { MapLayerEventProps } from './common.js';
 
-	interface Props extends Omit<LineLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>, MapLayerEventProps {
+	interface Props
+		extends Omit<maplibregl.LineLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
+			MapLayerEventProps {
 		id?: string;
-		sourceLayer?: LineLayerSpecification['source-layer'];
+		sourceLayer?: maplibregl.LineLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;
 	}

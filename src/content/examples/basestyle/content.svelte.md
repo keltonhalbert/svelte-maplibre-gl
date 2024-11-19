@@ -1,6 +1,6 @@
 ---
-title: Base Style
-description: User styles must be preserved when the base style is changed.
+title: Change Base Style
+description: Dynamic contents must be preserved when the base style is changed.
 ---
 
 <script lang="ts">

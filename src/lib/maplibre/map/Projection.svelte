@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../contexts.svelte.js';
-	import type { ProjectionSpecification } from 'maplibre-gl';
+	// https://maplibre.org/maplibre-style-spec/projection/
 
-	interface Props extends ProjectionSpecification {}
+	import { onDestroy } from 'svelte';
+	import maplibregl from 'maplibre-gl';
+	import { getMapContext } from '../contexts.svelte.js';
+
+	interface Props extends maplibregl.ProjectionSpecification {}
 	let { ...spec }: Props = $props();
 
 	const mapCtx = getMapContext();

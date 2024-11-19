@@ -1,10 +1,12 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-style-spec/layers/#background
+
 	import type { Snippet } from 'svelte';
-	import type { BackgroundLayerSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawLayer from './RawLayer.svelte';
 	import type { MapLayerEventProps } from './common.js';
 
-	interface Props extends Omit<BackgroundLayerSpecification, 'id' | 'source' | 'type'>, MapLayerEventProps {
+	interface Props extends Omit<maplibregl.BackgroundLayerSpecification, 'id' | 'source' | 'type'>, MapLayerEventProps {
 		id?: string;
 		beforeId?: string;
 		children?: Snippet;

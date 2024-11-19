@@ -2,7 +2,7 @@
 <ul class="flex flex-col gap-y-2">
 	<li><a href="/examples/plain">Plain Map</a></li>
 	<li><a href="/examples/complex">Complex</a></li>
-	<li><a href="/examples/basestyle">Base Style</a></li>
+	<li><a href="/examples/basestyle">Change Base Style</a></li>
 	<li><a href="/examples/side-by-side">Side by Side</a></li>
 	<li><a href="/examples/terrain">3D Terrain</a></li>
 	<li><a href="/examples/hover-styles">Hover Styles</a></li>

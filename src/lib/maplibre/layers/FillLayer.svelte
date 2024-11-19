@@ -1,12 +1,16 @@
 <script lang="ts">
+	//maplibre.org/maplibre-style-spec/layers/#fill
+
 	import type { Snippet } from 'svelte';
-	import type { FillLayerSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawLayer from './RawLayer.svelte';
 	import type { MapLayerEventProps } from './common.js';
 
-	interface Props extends Omit<FillLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>, MapLayerEventProps {
+	interface Props
+		extends Omit<maplibregl.FillLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
+			MapLayerEventProps {
 		id?: string;
-		sourceLayer?: FillLayerSpecification['source-layer'];
+		sourceLayer?: maplibregl.FillLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;
 	}

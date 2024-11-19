@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { HillshadeLayer, Light, MapLibre, RasterDEMTileSource, Sky, Terrain } from 'svelte-maplibre-gl';
+	import { HillshadeLayer, MapLibre, RasterDEMTileSource, Sky, Terrain } from 'svelte-maplibre-gl';
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 
@@ -22,8 +22,8 @@
 	class="h-[60vh] min-h-[300px]"
 	style="https://demotiles.maplibre.org/styles/osm-bright-gl-style/style.json"
 	zoom={12}
-	pitch={70}
-	maxPitch={80}
+	pitch={72}
+	maxPitch={85}
 	center={{ lng: 11.39085, lat: 47.3 }}
 >
 	<Sky

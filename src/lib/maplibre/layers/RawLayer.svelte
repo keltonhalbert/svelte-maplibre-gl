@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import type { LayerSpecification, FilterSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
 	import type { MapLayerEventProps } from './common.js';
 
-	interface Props extends Omit<LayerSpecification, 'id' | 'source' | 'source-layer' | 'filter'>, MapLayerEventProps {
+	interface Props
+		extends Omit<maplibregl.LayerSpecification, 'id' | 'source' | 'source-layer' | 'filter'>,
+			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		beforeId?: string;
-		filter?: FilterSpecification;
+		filter?: maplibregl.FilterSpecification;
 		sourceLayer?: string;
 		children?: Snippet;
 	}
 
 	let {
 		id: _id,
+		source: sourceId,
 		beforeId,
 		type,
 		paint,
@@ -23,6 +27,7 @@
 		sourceLayer,
 		maxzoom,
 		minzoom,
+		metadata,
 		children,
 
 		// Events
@@ -52,10 +57,10 @@
 		type,
 		layout: $state.snapshot(layout) ?? {},
 		paint: $state.snapshot(paint) ?? {}
-	} as LayerSpecification;
+	} as maplibregl.LayerSpecification;
 
 	if (addLayerObj.type !== 'background') {
-		addLayerObj.source = getSourceContext().id;
+		addLayerObj.source = sourceId ?? getSourceContext().id;
 	}
 
 	if (maxzoom !== undefined) {
@@ -64,12 +69,15 @@
 	if (minzoom !== undefined) {
 		addLayerObj.minzoom = minzoom;
 	}
+	if (metadata !== undefined) {
+		addLayerObj.metadata = metadata;
+	}
 	if (addLayerObj.type !== 'background') {
 		if (sourceLayer) {
 			addLayerObj['source-layer'] = sourceLayer;
 		}
 		if (filter) {
-			addLayerObj['filter'] = filter;
+			addLayerObj.filter = $state.snapshot(filter) as maplibregl.FilterSpecification;
 		}
 	}
 
@@ -97,7 +105,8 @@
 		const map = mapCtx.map;
 		if (!firstRun && map) {
 			const keysRemoved = new Set(Object.keys(prevPaint));
-			for (const [key, value] of Object.entries((paint ?? {}) as object)) {
+			const _paint = $state.snapshot(paint) ?? {};
+			for (const [key, value] of Object.entries(_paint)) {
 				keysRemoved.delete(key);
 				if (prevPaint[key] !== value) {
 					map.setPaintProperty(id, key, value);
@@ -106,7 +115,7 @@
 			for (const key of keysRemoved) {
 				map.setPaintProperty(id, key, undefined);
 			}
-			prevPaint = $state.snapshot(paint) as Record<string, unknown>;
+			prevPaint = _paint;
 		}
 	});
 
@@ -116,7 +125,8 @@
 		const map = mapCtx.map;
 		if (!firstRun && map) {
 			const keysRemoved = new Set(Object.keys(prevLayout));
-			for (const [key, value] of Object.entries((layout ?? {}) as object)) {
+			const _layout = $state.snapshot(layout) ?? {};
+			for (const [key, value] of Object.entries(_layout)) {
 				keysRemoved.delete(key);
 				if (prevLayout[key] !== value) {
 					map.setLayoutProperty(id, key, value);
@@ -125,7 +135,7 @@
 			for (const key of keysRemoved) {
 				map.setLayoutProperty(id, key, undefined);
 			}
-			prevLayout = $state.snapshot(layout) as Record<string, unknown>;
+			prevLayout = _layout;
 		}
 	});
 

@@ -1,14 +1,16 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-style-spec/layers/#circle
+
 	import type { Snippet } from 'svelte';
-	import type { CircleLayerSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawLayer from './RawLayer.svelte';
 	import type { MapLayerEventProps } from './common.js';
 
 	interface Props
-		extends Omit<CircleLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
+		extends Omit<maplibregl.CircleLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
-		sourceLayer?: CircleLayerSpecification['source-layer'];
+		sourceLayer?: maplibregl.CircleLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;
 	}

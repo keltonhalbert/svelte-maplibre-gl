@@ -1,13 +1,14 @@
-import type { Evented, Listener, Map, MapLayerEventType } from 'maplibre-gl';
+import maplibregl from 'maplibre-gl';
 
-let idCounter = 0;
+let layerIdCounter = 0;
+let sourceIdCounter = 0;
 
 export function generateLayerID() {
-	return `svml-layer-${idCounter++}`;
+	return `svmlgl-layer-${layerIdCounter++}`;
 }
 
 export function generateSourceID() {
-	return `svml-source-${idCounter++}`;
+	return `svmlgl-source-${sourceIdCounter++}`;
 }
 
 /**
@@ -15,7 +16,11 @@ export function generateSourceID() {
  *
  * Intended to be used within the $effect rune.
  */
-export function resetEventListener(evented: Evented | null | undefined, type: string, listener: Listener | undefined) {
+export function resetEventListener(
+	evented: maplibregl.Evented | null | undefined,
+	type: string,
+	listener: maplibregl.Listener | undefined
+) {
 	if (listener) {
 		evented?.on(type, listener);
 	}
@@ -33,10 +38,10 @@ export function resetEventListener(evented: Evented | null | undefined, type: st
  * Intended to be used within the $effect rune.
  */
 export function resetLayerEventListener(
-	map: Map | null,
-	type: keyof MapLayerEventType,
+	map: maplibregl.Map | null,
+	type: keyof maplibregl.MapLayerEventType,
 	layer: string,
-	listener: Listener | undefined
+	listener: maplibregl.Listener | undefined
 ) {
 	if (listener) {
 		map?.on(type, layer, listener);

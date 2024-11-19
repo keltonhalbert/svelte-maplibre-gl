@@ -1,4 +1,6 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Hash/
+
 	// FIXME: SvelteKit interoperability
 
 	import { onDestroy } from 'svelte';

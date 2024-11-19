@@ -1,5 +1,7 @@
 # Svelte MapLibre GL
 
+![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
+
 Svelte wrapper for MapLibre GL JS (supports Svlete 5+ only)
 
 ⚠️ This project is currently in the early stages of development. Features and APIs are subject to change.

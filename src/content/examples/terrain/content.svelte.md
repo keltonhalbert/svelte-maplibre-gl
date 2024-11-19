@@ -1,6 +1,6 @@
 ---
 title: 3D Terrain
-description: terrain
+description: 3D terrain and sky.
 ---
 
 <script lang="ts">

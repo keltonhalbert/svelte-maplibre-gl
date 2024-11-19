@@ -1,4 +1,6 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-style-spec/sprite/
+
 	import { getMapContext } from '../contexts.svelte.js';
 
 	interface Props {

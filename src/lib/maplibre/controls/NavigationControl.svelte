@@ -1,4 +1,6 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-gl-js/docs/API/classes/NavigationControl/
+
 	import { onDestroy } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';

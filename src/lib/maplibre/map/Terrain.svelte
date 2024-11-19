@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
-	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
-	import type { TerrainSpecification } from 'maplibre-gl';
+	// https://maplibre.org/maplibre-style-spec/terrain/
 
-	interface Props extends Omit<TerrainSpecification, 'source'> {
+	import { onDestroy } from 'svelte';
+	import maplibregl from 'maplibre-gl';
+	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
+
+	interface Props extends Omit<maplibregl.TerrainSpecification, 'source'> {
 		source?: string;
 	}
 	let { source, ...spec }: Props = $props();

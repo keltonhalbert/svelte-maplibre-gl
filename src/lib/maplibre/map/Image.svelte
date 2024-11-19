@@ -1,6 +1,8 @@
 <script lang="ts">
+	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addimage
+
 	import { onDestroy } from 'svelte';
-	import type { StyleImage } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	// TODO: support HTMLImageElement | ImageBitmap | ImageData (?)
@@ -21,7 +23,7 @@
 			return;
 		}
 
-		let image: StyleImage | undefined = mapCtx.map.getImage(prevId);
+		let image: maplibregl.StyleImage | undefined = mapCtx.map.getImage(prevId);
 		if (image && (id !== prevId || width !== image.data.width || height !== image.data.height)) {
 			mapCtx.map?.removeImage(prevId);
 			prevId = id;

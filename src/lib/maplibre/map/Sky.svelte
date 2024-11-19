@@ -1,20 +1,22 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../contexts.svelte.js';
-	import type { SkySpecification } from 'maplibre-gl';
+	// https://maplibre.org/maplibre-style-spec/sky/
 
-	let { ...spec }: SkySpecification = $props();
+	import { onDestroy } from 'svelte';
+	import maplibregl from 'maplibre-gl';
+	import { getMapContext } from '../contexts.svelte.js';
+
+	let { ...spec }: maplibregl.SkySpecification = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	$effect(() => {
-		mapCtx.userSky = $state.snapshot(spec) as SkySpecification;
+		mapCtx.userSky = $state.snapshot(spec) as maplibregl.SkySpecification;
 		mapCtx.map?.setSky(mapCtx.userSky);
 	});
 
 	onDestroy(() => {
 		mapCtx.userSky = undefined;
-		mapCtx.map?.setSky(mapCtx.baseSky as SkySpecification);
+		mapCtx.map?.setSky(mapCtx.baseSky as maplibregl.SkySpecification);
 	});
 </script>

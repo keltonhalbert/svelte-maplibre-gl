@@ -1,30 +1,34 @@
 <script lang="ts">
-	import maplibre from 'maplibre-gl';
-	import type { MapOptions, MapEventType, PaddingOptions, JumpToOptions, RequestTransformFunction } from 'maplibre-gl';
-	import 'maplibre-gl/dist/maplibre-gl.css';
+	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/
+
 	import { onDestroy, type Snippet } from 'svelte';
+	import maplibregl from 'maplibre-gl';
+	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { prepareMapContext } from '../contexts.svelte.js';
 	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 
 	type MapEventProps = {
-		[K in keyof MapEventType as `on${K}`]?: (ev: MapEventType[K]) => void;
+		[K in keyof maplibregl.MapEventType as `on${K}`]?: (ev: maplibregl.MapEventType[K]) => void;
 	};
 
-	interface Props extends Omit<MapOptions, 'container'>, MapEventProps {
+	interface Props extends Omit<maplibregl.MapOptions, 'container'>, MapEventProps {
+		map?: maplibregl.Map;
 		class?: string;
 		inlineStyle?: string;
-		map?: maplibre.Map;
 		center?: LngLat;
-		padding?: PaddingOptions;
+		padding?: maplibregl.PaddingOptions;
 		fov?: number;
-		// accessors
+
+		// Accessors
+		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#accessors
 		showTileBoundaries?: boolean;
 		showPadding?: boolean;
 		showCollisionBoxes?: boolean;
 		showOverdrawInspector?: boolean;
 		repaint?: boolean;
 		vertices?: boolean;
+
 		// Snippets
 		children?: Snippet;
 	}
@@ -148,7 +152,7 @@
 		if (map || !container) {
 			return;
 		}
-		const options: MapOptions = {
+		const options: maplibregl.MapOptions = {
 			// Map Options (reactive)
 			bearing,
 			bearingSnap,
@@ -184,16 +188,16 @@
 			// Map Options (others)
 			...restOptions
 		};
-		const filteredOptions: MapOptions = {
+		const filteredOptions: maplibregl.MapOptions = {
 			container
 		};
-		for (const key of Object.keys(options) as (keyof MapOptions)[]) {
+		for (const key of Object.keys(options) as (keyof maplibregl.MapOptions)[]) {
 			if (options[key] !== undefined) {
 				filteredOptions[key] = options[key];
 			}
 		}
 
-		map = new maplibre.Map(filteredOptions);
+		map = new maplibregl.Map(filteredOptions);
 
 		map.on('load', () => {
 			mapCtx.map = map ?? null;
@@ -349,7 +353,7 @@
 		padding;
 		if (!firstRun && map) {
 			const tr = map._getTransformForUpdate();
-			let jumpTo: JumpToOptions = {};
+			let jumpTo: maplibregl.JumpToOptions = {};
 			let changed = false;
 
 			function notAlmostEqual(a: number, b: number) {
@@ -457,7 +461,7 @@
 	$effect(() => {
 		transformRequest;
 		if (!firstRun) {
-			map?.setTransformRequest(transformRequest as RequestTransformFunction);
+			map?.setTransformRequest(transformRequest as maplibregl.RequestTransformFunction);
 		}
 	});
 

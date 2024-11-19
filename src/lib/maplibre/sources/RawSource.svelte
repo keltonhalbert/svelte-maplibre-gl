@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
+	import maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
-	import maplibregl from 'maplibre-gl';
 
 	type Source =
 		| maplibregl.GeoJSONSource

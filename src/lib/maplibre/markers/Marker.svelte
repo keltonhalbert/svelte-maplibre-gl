@@ -173,6 +173,6 @@
 	<div bind:this={container}>
 		{@render content()}
 	</div>
-{:else}{/if}
+{/if}
 
 {@render children?.()}
