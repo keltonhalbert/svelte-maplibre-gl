@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
 	import type { LayerSpecification, FilterSpecification } from 'maplibre-gl';
-	import { getMapContext, getSourceContext } from '../context.svelte.js';
+	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
 	import type { MapLayerEventProps } from './common.js';
 

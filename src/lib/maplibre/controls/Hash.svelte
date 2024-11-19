@@ -1,6 +1,8 @@
 <script lang="ts">
+	// FIXME: SvelteKit interoperability
+
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../context.svelte.js';
+	import { getMapContext } from '../contexts.svelte.js';
 	import maplibregl from 'maplibre-gl';
 
 	let {}: {} = $props();

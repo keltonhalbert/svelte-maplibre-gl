@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { FillLayer, LineLayer, MapLibre, GeoJSONSource, FeatureState } from 'svelte-maplibre-gl';
 
-	let hoverId: string | number | undefined = $state();
+	let hoveredId: string | number | undefined = $state();
 </script>
 
 <MapLibre
@@ -10,14 +10,14 @@
 	zoom={2}
 	center={{ lng: -100.486052, lat: 37.830348 }}
 >
-	<GeoJSONSource data={'https://maplibre.org/maplibre-gl-js/docs/assets/us_states.geojson'}>
+	<GeoJSONSource data="https://maplibre.org/maplibre-gl-js/docs/assets/us_states.geojson">
 		<FillLayer
 			paint={{
 				'fill-color': '#00ff55',
 				'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.4, 0.1]
 			}}
-			onmousemove={(ev) => (hoverId = ev.features?.[0]?.id)}
-			onmouseleave={() => (hoverId = undefined)}
+			onmousemove={(ev) => (hoveredId = ev.features?.[0]?.id)}
+			onmouseleave={() => (hoveredId = undefined)}
 		/>
 		<LineLayer
 			paint={{
@@ -26,8 +26,8 @@
 				'line-width': 1
 			}}
 		/>
-		{#if hoverId}
-			<FeatureState id={hoverId} state={{ hover: true }} />
+		{#if hoveredId}
+			<FeatureState id={hoveredId} state={{ hover: true }} />
 		{/if}
 	</GeoJSONSource>
 </MapLibre>

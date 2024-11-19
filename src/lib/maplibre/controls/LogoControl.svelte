@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../context.svelte.js';
+	import { getMapContext } from '../contexts.svelte.js';
 	import type { LogoControlOptions as ControlOptions, LogoControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 

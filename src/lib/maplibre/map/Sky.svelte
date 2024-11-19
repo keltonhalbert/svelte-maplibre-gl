@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../context.svelte.js';
+	import { getMapContext } from '../contexts.svelte.js';
 	import type { SkySpecification } from 'maplibre-gl';
 
 	let { ...spec }: SkySpecification = $props();

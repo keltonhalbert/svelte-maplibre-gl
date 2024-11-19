@@ -18,16 +18,27 @@ const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 
 // https://svelte.dev/docs/svelte/$state#Classes
 class MapContext {
+	/** Map instance */
 	map: MapLibre | null = $state.raw(null);
+	/** Names of layers dynamically added */
 	userLayers: Set<string> = new Set();
+	/** Names of sources dynamically added */
 	userSources: Set<string> = new Set();
+	/** Terrain specification of the current base style */
 	baseTerrain?: TerrainSpecification | undefined;
+	/** Sky specification set by user */
 	userTerrain?: TerrainSpecification | undefined;
+	/** Sky specification of the current base style */
 	baseSky?: SkySpecification | undefined;
+	/** Sky specification set by user */
 	userSky?: SkySpecification | undefined;
+	/** Light specification of the current base style */
 	baseLight?: LightSpecification | undefined;
+	/** Light specification set by user */
 	userLight?: LightSpecification | undefined;
+	/** Projection specification of the current base style */
 	baseProjection?: ProjectionSpecification | undefined;
+	/** Projection specification set by user */
 	userProjection?: ProjectionSpecification | undefined;
 
 	addLayer(addLayerObject: AddLayerObject, beforeId?: string) {
@@ -48,7 +59,6 @@ class MapContext {
 		this.map?.removeSource(id);
 	}
 
-	// Preserves user styles when the base style changes
 	setStyle(style: string | StyleSpecification | null) {
 		const { userSources: addedSources, userLayers: addedLayers } = this;
 		if (!style) {
@@ -57,6 +67,7 @@ class MapContext {
 		}
 
 		this.map?.setStyle(style, {
+			// Preserves user styles when the base style changes
 			transformStyle: (previous, next) => {
 				this.baseLight = next.light;
 				this.baseProjection = next.projection;
@@ -91,16 +102,6 @@ class MapContext {
 	}
 }
 
-// https://svelte.dev/docs/svelte/$state#Classes
-class SourceContext {
-	/** sourceId */
-	id: string = $state('');
-}
-
-class MarkerContext {
-	marker: Marker | null = $state.raw(null);
-}
-
 export function prepareMapContext(): MapContext {
 	const mapCtx = new MapContext();
 	setContext(MAP_CONTEXT_KEY, mapCtx);
@@ -113,6 +114,12 @@ export function getMapContext(): MapContext {
 	return mapCtx;
 }
 
+// https://svelte.dev/docs/svelte/$state#Classes
+class SourceContext {
+	/** sourceId */
+	id: string = $state('');
+}
+
 export function prepareSourceContext(): SourceContext {
 	const sourceCtx = new SourceContext();
 	setContext(SOURCE_CONTEXT_KEY, sourceCtx);
@@ -123,6 +130,10 @@ export function getSourceContext(): SourceContext {
 	const sourceCtx = getContext<SourceContext>(SOURCE_CONTEXT_KEY);
 	if (!sourceCtx || !sourceCtx.id) throw new Error('Must be used inside map Source context');
 	return sourceCtx;
+}
+
+class MarkerContext {
+	marker: Marker | null = $state.raw(null);
 }
 
 export function prepareMarkerContext(): MarkerContext {

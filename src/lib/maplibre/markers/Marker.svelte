@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareMarkerContext } from '../context.svelte.js';
+	import { getMapContext, prepareMarkerContext } from '../contexts.svelte.js';
 	import maplibregl from 'maplibre-gl';
 	import type { MarkerOptions, Marker, Listener } from 'maplibre-gl';
 	import type { LngLat } from '../common.js';

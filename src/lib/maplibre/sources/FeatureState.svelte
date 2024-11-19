@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getSourceContext } from '../context.svelte.js';
+	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 	import type { FeatureIdentifier } from 'maplibre-gl';
 
 	interface Props extends Omit<FeatureIdentifier, 'source'> {
@@ -27,11 +27,11 @@
 		const newKeys = new Set(Object.keys(featureState));
 
 		if (prevIdentifier.id !== undefined) {
-			const idChanged =
+			const targetIdChanged =
 				prevIdentifier.id !== id || prevIdentifier.source !== source || prevIdentifier.sourceLayer !== sourceLayer;
 			for (const key of prevKeys) {
 				// Remove previous key-values from the previous feature
-				if (idChanged || !newKeys.has(key)) {
+				if (targetIdChanged || !newKeys.has(key)) {
 					mapCtx.map.removeFeatureState(prevIdentifier, key);
 				}
 			}

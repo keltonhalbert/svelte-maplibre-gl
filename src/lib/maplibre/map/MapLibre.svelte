@@ -3,7 +3,7 @@
 	import type { MapOptions, MapEventType, PaddingOptions, JumpToOptions, RequestTransformFunction } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onDestroy, type Snippet } from 'svelte';
-	import { prepareMapContext } from '../context.svelte.js';
+	import { prepareMapContext } from '../contexts.svelte.js';
 	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 

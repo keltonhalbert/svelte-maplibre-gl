@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareSourceContext } from '../context.svelte.js';
+	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
 	import {
 		type CanvasSourceSpecification,
@@ -10,8 +10,8 @@
 		type RasterDEMTileSource,
 		type CanvasSource,
 		type VideoSource,
-		ImageSource,
-		GeoJSONSource
+		type ImageSource,
+		type GeoJSONSource
 	} from 'maplibre-gl';
 
 	type Source =
@@ -74,8 +74,7 @@
 		if (source && spec.type === 'image') {
 			spec.url;
 			if (!firstRun) {
-				if (!(source instanceof ImageSource)) throw new Error('Must be ImageSource');
-				source.updateImage({ url: spec.url });
+				(source as ImageSource).updateImage({ url: spec.url });
 			}
 		}
 	});
@@ -99,25 +98,24 @@
 	});
 	$effect(() => {
 		if (source && spec.type === 'geojson') {
-			if (!(source instanceof GeoJSONSource)) throw new Error('Must be GeoJSONSource');
 			spec.data;
 			if (!firstRun) {
 				// TODO: support diffrential update ? (updateData)
-				source.setData(spec.data);
+				(source as GeoJSONSource).setData(spec.data);
 			}
 		}
 	});
 	$effect(() => {
 		if (source && spec.type === 'geojson') {
-			if (!(source instanceof GeoJSONSource)) throw new Error('Must be GEOJSONSource');
 			spec.cluster;
 			spec.clusterMaxZoom;
 			spec.clusterRadius;
 			if (!firstRun) {
 				if (spec.clusterRadius !== undefined) {
-					source.workerOptions.superclusterOptions!.radius = spec.clusterRadius * (8192 / source.tileSize);
+					(source as GeoJSONSource).workerOptions.superclusterOptions!.radius =
+						spec.clusterRadius * (8192 / source.tileSize);
 				}
-				source.setClusterOptions({
+				(source as GeoJSONSource).setClusterOptions({
 					cluster: spec.cluster,
 					clusterMaxZoom: spec.clusterMaxZoom
 					// clusterRadius: spec.clusterRadius, // TODO: Requires a fix in maplibre-gl-js

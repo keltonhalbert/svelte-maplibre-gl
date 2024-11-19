@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../context.svelte.js';
+	import { getMapContext } from '../contexts.svelte.js';
 	import type { StyleImage, StyleImageInterface } from 'maplibre-gl';
 
 	// TODO: support HTMLImageElement | ImageBitmap | ImageData (?)
-	interface Props extends StyleImageInterface {
+	interface Props {
 		id: string;
+		width: number;
+		height: number;
+		data: Uint8Array | Uint8ClampedArray;
 	}
 
 	let { id, width, height, data }: Props = $props();
