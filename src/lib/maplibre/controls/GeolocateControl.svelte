@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../contexts.svelte.js';
-	import type { GeolocateControlOptions as ControlOptions, GeolocateControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
+	import { getMapContext } from '../contexts.svelte.js';
 	import { resetEventListener } from '../utils.js';
 	import type { Listener, Event } from '../common.js';
 
-	const Control = maplibregl.GeolocateControl;
-	type GeolocateEvent = Event<ControlType> & Object;
+	type GeolocateEvent = Event<maplibregl.GeolocateControl> & Object;
 
-	interface Props extends ControlOptions {
+	interface Props extends maplibregl.GeolocateControlOptions {
 		position?: maplibregl.ControlPosition;
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/GeolocateControl/#events
@@ -36,10 +34,10 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	let control: ControlType | null = null;
+	let control: maplibregl.GeolocateControl | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control(options);
+		control = new maplibregl.GeolocateControl(options);
 		mapCtx.map?.addControl(control, position);
 	});
 

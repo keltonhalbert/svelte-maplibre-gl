@@ -1,29 +1,26 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../contexts.svelte.js';
-	import type { FullscreenControlOptions as ControlOptions, FullscreenControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
+	import { getMapContext } from '../contexts.svelte.js';
 	import { resetEventListener } from '../utils.js';
 	import type { Listener, Event } from '../common.js';
 
-	const Control = maplibregl.FullscreenControl;
-
-	interface Props extends ControlOptions {
+	interface Props extends maplibregl.FullscreenControlOptions {
 		position?: maplibregl.ControlPosition;
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/FullscreenControl/#events
-		onfullscreenstart?: Listener<Event<ControlType>>;
-		onfullscreenend?: Listener<Event<ControlType>>;
+		onfullscreenstart?: Listener<Event<maplibregl.FullscreenControl>>;
+		onfullscreenend?: Listener<Event<maplibregl.FullscreenControl>>;
 	}
-	let { position, onfullscreenstart, onfullscreenend, ...options }: Props & ControlOptions = $props();
+	let { position, onfullscreenstart, onfullscreenend, ...options }: Props = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	let control: ControlType | null = null;
+	let control: maplibregl.FullscreenControl | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control(options);
+		control = new maplibregl.FullscreenControl(options);
 		mapCtx.map?.addControl(control, position);
 	});
 

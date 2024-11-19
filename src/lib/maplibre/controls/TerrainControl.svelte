@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
-	import type { TerrainSpecification, TerrainControl } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
+	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 
-	interface Props extends Omit<TerrainSpecification, 'source'> {
+	interface Props extends Omit<maplibregl.TerrainSpecification, 'source'> {
 		source?: string;
 		position?: maplibregl.ControlPosition;
 	}
@@ -18,7 +17,7 @@
 		...restOptions
 	});
 
-	let control: TerrainControl | null = null;
+	let control: maplibregl.TerrainControl | null = null;
 	$effect(() => {
 		if (control) {
 			mapCtx.map?.removeControl(control);

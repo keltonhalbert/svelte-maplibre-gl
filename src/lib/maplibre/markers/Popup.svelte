@@ -2,13 +2,12 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, getMarkerContext } from '../contexts.svelte.js';
 	import maplibregl from 'maplibre-gl';
-	import type { PopupOptions, Popup, Listener } from 'maplibre-gl';
+	import { getMapContext, getMarkerContext } from '../contexts.svelte.js';
 	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 
-	interface Props extends Omit<PopupOptions, 'className'> {
+	interface Props extends Omit<maplibregl.PopupOptions, 'className'> {
 		lnglat?: LngLat;
 		class?: string;
 		/** HTML content of the popup */
@@ -16,8 +15,8 @@
 		children?: Snippet;
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/#events
-		onopen?: Listener;
-		onclose?: Listener;
+		onopen?: maplibregl.Listener;
+		onclose?: maplibregl.Listener;
 	}
 
 	let container = $state<HTMLElement | null>(null);
@@ -41,7 +40,7 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	let popup: Popup | null = $state.raw(null);
+	let popup: maplibregl.Popup | null = $state.raw(null);
 
 	const markerContext = getMarkerContext();
 
@@ -51,7 +50,7 @@
 		}
 		if (!mapCtx.map) throw new Error('MapLibre is not initialized');
 
-		const options: PopupOptions = {
+		const options: maplibregl.PopupOptions = {
 			className,
 			offset,
 			subpixelPositioning,

@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../contexts.svelte.js';
-	import type { GlobeControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
-
-	const Control = maplibregl.GlobeControl;
+	import { getMapContext } from '../contexts.svelte.js';
 
 	interface Props {
 		position?: maplibregl.ControlPosition;
@@ -14,10 +11,10 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	let control: ControlType | null = null;
+	let control: maplibregl.GlobeControl | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control();
+		control = new maplibregl.GlobeControl();
 		mapCtx.map?.addControl(control, position);
 	});
 

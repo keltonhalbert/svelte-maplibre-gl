@@ -2,29 +2,19 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
-	import {
-		type CanvasSourceSpecification,
-		type SourceSpecification,
-		type VectorTileSource,
-		type RasterTileSource,
-		type RasterDEMTileSource,
-		type CanvasSource,
-		type VideoSource,
-		type ImageSource,
-		type GeoJSONSource
-	} from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 
 	type Source =
-		| GeoJSONSource
-		| CanvasSource
-		| VectorTileSource
-		| RasterTileSource
-		| RasterDEMTileSource
-		| CanvasSource
-		| ImageSource
-		| VideoSource;
+		| maplibregl.GeoJSONSource
+		| maplibregl.CanvasSource
+		| maplibregl.VectorTileSource
+		| maplibregl.RasterTileSource
+		| maplibregl.RasterDEMTileSource
+		| maplibregl.CanvasSource
+		| maplibregl.ImageSource
+		| maplibregl.VideoSource;
 
-	type Specs = SourceSpecification | CanvasSourceSpecification;
+	type Specs = maplibregl.SourceSpecification | maplibregl.CanvasSourceSpecification;
 
 	type Props = {
 		id?: string;
@@ -74,7 +64,7 @@
 		if (source && spec.type === 'image') {
 			spec.url;
 			if (!firstRun) {
-				(source as ImageSource).updateImage({ url: spec.url });
+				(source as maplibregl.ImageSource).updateImage({ url: spec.url });
 			}
 		}
 	});
@@ -91,7 +81,7 @@
 		if (spec.type === 'canvas') {
 			spec.animate;
 			if (source && spec.animate !== undefined && !firstRun) {
-				const cs = source as CanvasSource;
+				const cs = source as maplibregl.CanvasSource;
 				spec.animate ? cs.play() : cs.pause();
 			}
 		}
@@ -101,7 +91,7 @@
 			spec.data;
 			if (!firstRun) {
 				// TODO: support diffrential update ? (updateData)
-				(source as GeoJSONSource).setData(spec.data);
+				(source as maplibregl.GeoJSONSource).setData(spec.data);
 			}
 		}
 	});
@@ -112,10 +102,10 @@
 			spec.clusterRadius;
 			if (!firstRun) {
 				if (spec.clusterRadius !== undefined) {
-					(source as GeoJSONSource).workerOptions.superclusterOptions!.radius =
+					(source as maplibregl.GeoJSONSource).workerOptions.superclusterOptions!.radius =
 						spec.clusterRadius * (8192 / source.tileSize);
 				}
-				(source as GeoJSONSource).setClusterOptions({
+				(source as maplibregl.GeoJSONSource).setClusterOptions({
 					cluster: spec.cluster,
 					clusterMaxZoom: spec.clusterMaxZoom
 					// clusterRadius: spec.clusterRadius, // TODO: Requires a fix in maplibre-gl-js

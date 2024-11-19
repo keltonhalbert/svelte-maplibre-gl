@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { GeoJSONSource, GeoJSONSourceSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
-	interface Props extends Omit<GeoJSONSourceSpecification, 'type'> {
+	interface Props extends Omit<maplibregl.GeoJSONSourceSpecification, 'type'> {
 		id?: string;
-		source?: GeoJSONSource;
+		source?: maplibregl.GeoJSONSource;
 		children?: Snippet;
 	}
 	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
+	import maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
-	import type { FeatureIdentifier } from 'maplibre-gl';
 
-	interface Props extends Omit<FeatureIdentifier, 'source'> {
+	interface Props extends Omit<maplibregl.FeatureIdentifier, 'source'> {
 		source?: string;
 		state: Record<string, any>;
 		children?: Snippet;

@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getMapContext } from '../contexts.svelte.js';
-	import type { NavigationControlOptions as ControlOptions, NavigationControl as ControlType } from 'maplibre-gl';
 	import maplibregl from 'maplibre-gl';
+	import { getMapContext } from '../contexts.svelte.js';
 
-	const Control = maplibregl.NavigationControl;
-
-	interface Props extends ControlOptions {
+	interface Props extends maplibregl.NavigationControlOptions {
 		position?: maplibregl.ControlPosition;
 	}
 	let { position, ...options }: Props = $props();
@@ -14,10 +11,10 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	let control: ControlType | null = null;
+	let control: maplibregl.NavigationControl | null = null;
 	$effect(() => {
 		control && mapCtx.map?.removeControl(control);
-		control = new Control($state.snapshot(options));
+		control = new maplibregl.NavigationControl($state.snapshot(options));
 		mapCtx.map?.addControl(control, position);
 	});
 

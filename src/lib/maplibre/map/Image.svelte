@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
+	import type { StyleImage } from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
-	import type { StyleImage, StyleImageInterface } from 'maplibre-gl';
 
 	// TODO: support HTMLImageElement | ImageBitmap | ImageData (?)
 	interface Props {

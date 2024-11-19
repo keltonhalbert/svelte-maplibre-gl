@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { VideoSource, VideoSourceSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
-	interface Props extends Omit<VideoSourceSpecification, 'type'> {
+	interface Props extends Omit<maplibregl.VideoSourceSpecification, 'type'> {
 		id?: string;
-		source?: VideoSource;
+		source?: maplibregl.VideoSource;
 		children?: Snippet;
 	}
 	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();

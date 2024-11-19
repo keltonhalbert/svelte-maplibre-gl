@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { VectorTileSource, VectorSourceSpecification } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
-	interface Props extends Omit<VectorSourceSpecification, 'type'> {
+	interface Props extends Omit<maplibregl.VectorSourceSpecification, 'type'> {
 		id?: string;
-		source?: VectorTileSource;
+		source?: maplibregl.VectorTileSource;
 		children?: Snippet;
 	}
 	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();

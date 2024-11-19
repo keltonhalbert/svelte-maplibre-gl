@@ -2,13 +2,12 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import { getMapContext, prepareMarkerContext } from '../contexts.svelte.js';
 	import maplibregl from 'maplibre-gl';
-	import type { MarkerOptions, Marker, Listener } from 'maplibre-gl';
+	import { getMapContext, prepareMarkerContext } from '../contexts.svelte.js';
 	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 
-	interface Props extends Omit<MarkerOptions, 'className'> {
+	interface Props extends Omit<maplibregl.MarkerOptions, 'className'> {
 		lnglat: LngLat;
 		class?: string;
 		/** HTML content of the marker */
@@ -16,9 +15,9 @@
 		children?: Snippet;
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/#events
-		ondrag?: Listener;
-		ondragstart?: Listener;
-		ondragend?: Listener;
+		ondrag?: maplibregl.Listener;
+		ondragstart?: maplibregl.Listener;
+		ondragend?: maplibregl.Listener;
 	}
 
 	let container = $state<HTMLElement | null>(null);
@@ -46,7 +45,7 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	let marker: Marker | null = $state.raw(null);
+	let marker: maplibregl.Marker | null = $state.raw(null);
 
 	const markerCtx = prepareMarkerContext();
 
@@ -56,7 +55,7 @@
 		}
 		if (!mapCtx.map) throw new Error('MapLibre is not initialized');
 
-		const options: MarkerOptions = {
+		const options: maplibregl.MarkerOptions = {
 			draggable,
 			offset,
 			opacity,
