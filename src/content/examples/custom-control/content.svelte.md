@@ -1,14 +1,16 @@
 ---
 title: Custom Control
-description: How to add user defined control
+description: Custom Control allow to easily create user defined controls.
 ---
 
 <script lang="ts">
   import CustomControl from "./CustomControl.svelte";
+  import demoRaw from "./CustomControl.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
 <CustomControl />
 
 ## Code
 
-TODO
+<CodeBlock content={demoRaw} />

@@ -33,7 +33,7 @@
 	maxPitch={85}
 	center={{ lng: 11.09085, lat: 47.3 }}
 >
-	<!-- inject IControl (for plugin) -->
+	<!-- inject IControl (useful for plugin) -->
 	<CustomControl.Control position="top-left" control={myControl} />
 
 	<!-- Control / Group / Icon -->
