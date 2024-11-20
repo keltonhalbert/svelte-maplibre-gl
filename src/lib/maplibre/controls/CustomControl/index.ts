@@ -1,6 +1,6 @@
 import Control from './Control.svelte';
-import ControlGroup from './Group.svelte';
-import ControlIcon from './Icon.svelte';
+import Group from './Group.svelte';
+import Icon from './Icon.svelte';
 
-const CustomControl = { Control, Group: ControlGroup, Icon: ControlIcon };
+const CustomControl = { Control, Group, Icon };
 export default CustomControl;
