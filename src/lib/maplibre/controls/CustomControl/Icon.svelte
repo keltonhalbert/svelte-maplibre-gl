@@ -1,6 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	let { children, onclick, oncontextmenu, className }: { children?: Snippet; className: string } = $props();
+	let {
+		children,
+		onclick,
+		oncontextmenu,
+		className
+	}: { children?: Snippet; className: string; onclick?: () => void; oncontextmenu?: () => void } = $props();
 </script>
 
 <button
