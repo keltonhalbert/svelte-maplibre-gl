@@ -21,7 +21,7 @@
 	let el: HTMLDivElement | undefined = $state(undefined);
 	if (children) {
 		control = {
-			onAdd: (_: maplibregl.Map) => {
+			onAdd: () => {
 				return el!;
 			},
 			onRemove: () => {
