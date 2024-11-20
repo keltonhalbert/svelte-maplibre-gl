@@ -4,8 +4,6 @@
 	import '$lib/assets/fonts/geist.css';
 	import Header from './Header.svelte';
 
-	import '$lib/assets/prism-dark.css';
-
 	let { children } = $props();
 </script>
 
