@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { HillshadeLayer, MapLibre, RasterDEMTileSource, Terrain, CustomControl } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
 	import IconMoon from './IconMoon.svelte';
 	import IconSun from './IconSun.svelte';
 	import { MyControl } from './MyControl.js';
@@ -30,9 +29,9 @@
 	class="h-[60vh] min-h-[300px]"
 	style={mapStyle}
 	zoom={12}
-	pitch={72}
+	pitch={40}
 	maxPitch={85}
-	center={{ lng: 11.39085, lat: 47.3 }}
+	center={{ lng: 11.09085, lat: 47.3 }}
 >
 	<!-- inject IControl (for plugin) -->
 	<CustomControl.Control position="top-left" control={myControl} />
