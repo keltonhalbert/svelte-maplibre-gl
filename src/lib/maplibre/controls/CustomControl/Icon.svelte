@@ -1,8 +1,15 @@
 <script lang="ts">
-	let el: HTMLDivElement | undefined = $state(undefined);
-	let { children }: { children?: Snippet } = $props();
+	import type { Snippet } from 'svelte';
+	let { children, onclick, oncontextmenu, className }: { children?: Snippet; className: string } = $props();
 </script>
 
-<div bind:this={el} class="maplibregl-ctrl-icon">
+<button
+	class:maplibregl-ctrl-icon={true}
+	class:grid={true}
+	class:place-items-center={true}
+	class={className}
+	{onclick}
+	{oncontextmenu}
+>
 	{@render children?.()}
-</div>
+</button>
