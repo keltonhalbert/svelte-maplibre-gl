@@ -43,7 +43,7 @@
 	let lineColor = $state('#ff00dd');
 	let lineWidth = $state(1.5);
 	let circleRadius = $state(3);
-	let center = $state([137.3543, 37.062]);
+	let center: [number, number] = $state([137.3543, 37.062]);
 	let zoom = $state(6.0);
 	let pitch = $state(0);
 	let bearing = $state(0);
