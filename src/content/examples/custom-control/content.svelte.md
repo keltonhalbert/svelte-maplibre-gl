@@ -1,6 +1,6 @@
 ---
 title: Custom Control
-description: Custom Control allow to easily create user defined controls.
+description: Custom Control allows to easily create user defined controls.
 ---
 
 <script lang="ts">
