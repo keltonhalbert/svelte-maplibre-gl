@@ -1,10 +1,9 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-gl-js/docs/API/interfaces/IControl/
 
-	import { onDestroy } from 'svelte';
+	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../../contexts.svelte.js';
-	import type { Snippet } from 'svelte';
 
 	interface Props {
 		position?: maplibregl.ControlPosition;
