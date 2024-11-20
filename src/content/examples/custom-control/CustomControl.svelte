@@ -62,7 +62,12 @@
 	maxPitch={85}
 	center={{ lng: 11.39085, lat: 47.3 }}
 >
-	<CustomControl position="top-left" control={myControl} />
+	<CustomControl.Control position="top-left" control={myControl} />
+	<CustomControl.Control position="bottom-left">
+		<CustomControl.Group>
+			<CustomControl.Icon>HOGEHOGE</CustomControl.Icon>
+		</CustomControl.Group>
+	</CustomControl.Control>
 	<AttributionControl />
 	<RasterDEMTileSource
 		id="terrain"
