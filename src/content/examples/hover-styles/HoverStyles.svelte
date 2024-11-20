@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { FillLayer, LineLayer, MapLibre, GeoJSONSource, FeatureState } from 'svelte-maplibre-gl';
-
 	let hoveredId: string | number | undefined = $state();
 </script>
 

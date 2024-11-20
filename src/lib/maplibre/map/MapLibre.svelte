@@ -426,7 +426,7 @@
 	});
 	$effect(() => {
 		maxPitch;
-		if (firstRun) {
+		if (!firstRun) {
 			map?.setMaxPitch(maxPitch);
 		}
 	});
@@ -438,7 +438,7 @@
 	});
 	$effect(() => {
 		minPitch;
-		if (firstRun) {
+		if (!firstRun) {
 			map?.setMinPitch(minPitch);
 		}
 	});
@@ -541,8 +541,8 @@
 	});
 </script>
 
-<div class={className} style={inlineStyle} bind:this={container}></div>
-
-{#if map && loaded}
-	{@render children?.()}
-{/if}
+<div class={className} style={inlineStyle} bind:this={container}>
+	{#if map && loaded}
+		{@render children?.()}
+	{/if}
+</div>

@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { MapLibre, ImageSource, GlobeControl, RasterLayer } from 'svelte-maplibre-gl';
 
 	const FRAME_COUNT = 5;
 	let frame = $state(0);
 
-	if (browser) {
+	$effect(() => {
 		function update() {
 			frame = Math.round((performance.now() / 1000) * 5) % FRAME_COUNT;
 			requestAnimationFrame(update);
 		}
 		requestAnimationFrame(update);
-	}
+	});
 </script>
 
 <MapLibre
