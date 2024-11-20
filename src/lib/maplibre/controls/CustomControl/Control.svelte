@@ -11,11 +11,10 @@
 		children?: Snippet;
 	}
 	let { position, control, children }: Props = $props();
+	if (!control && !children) throw new Error('You must provide either control or children.');
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
-
-	if (!control && !children) throw new Error('You must provide either control or children.');
 
 	let el: HTMLDivElement | undefined = $state(undefined);
 	if (children) {
