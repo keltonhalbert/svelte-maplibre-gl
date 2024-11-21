@@ -11,6 +11,4 @@ description: Custom Control allows to easily create user defined controls.
 
 <CustomControl />
 
-## Code
-
 <CodeBlock content={demoRaw} />

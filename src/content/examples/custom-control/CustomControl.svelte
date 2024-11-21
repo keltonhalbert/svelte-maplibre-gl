@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { HillshadeLayer, MapLibre, RasterDEMTileSource, Terrain, CustomControl } from 'svelte-maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
+	import ArrowUpLeft from 'lucide-svelte/icons/arrow-up-left';
+	import ArrowUpRight from 'lucide-svelte/icons/arrow-up-right';
+	import ArrowDownLeft from 'lucide-svelte/icons/arrow-down-left';
+	import ArrowDownRight from 'lucide-svelte/icons/arrow-down-right';
 	import { MyControl } from './MyControl.js';
 
 	let isHillshadeVisible = $state(true);
@@ -12,6 +17,8 @@
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 			: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'
 	);
+	let center = $state({ lng: 11.09085, lat: 47.3 });
+	let controlPosition: maplibregl.ControlPosition = $state('top-left');
 
 	const myControl = new MyControl({
 		toggleHillshade: () => {
@@ -25,38 +32,44 @@
 	});
 </script>
 
-<MapLibre
-	class="h-[60vh] min-h-[300px]"
-	style={mapStyle}
-	zoom={12}
-	pitch={40}
-	maxPitch={85}
-	center={{ lng: 11.09085, lat: 47.3 }}
->
+<MapLibre class="h-[50vh] min-h-[200px]" style={mapStyle} zoom={12} pitch={40} maxPitch={85} bind:center>
 	<!-- inject IControl (useful for plugin) -->
-	<CustomControl.Control position="top-left" control={myControl} />
+	<CustomControl position="top-left" control={myControl} />
 
 	<!-- Control / Group / Icon -->
-	<CustomControl.Control position="bottom-left">
-		<CustomControl.Group>
-			<CustomControl.Icon onclick={() => (isDarkMode = !isDarkMode)} class="text-gray-900">
-				{#if isDarkMode}
-					<Moon />
-				{:else}
-					<Sun />
-				{/if}
-			</CustomControl.Icon>
-		</CustomControl.Group>
-	</CustomControl.Control>
+	<CustomControl position="bottom-left">
+		<button onclick={() => (isDarkMode = !isDarkMode)} class="grid place-items-center text-gray-900">
+			{#if isDarkMode}
+				<Moon class="w-5" />
+			{:else}
+				<Sun class="w-5" />
+			{/if}
+		</button>
+	</CustomControl>
+
+	<!-- Group -->
+	<CustomControl position={controlPosition} class="text-gray-900">
+		<button class="place-items-center" onclick={() => (controlPosition = 'top-left')}
+			><ArrowUpLeft class="w-5" /></button
+		>
+		<button class="place-items-center" onclick={() => (controlPosition = 'top-right')}
+			><ArrowUpRight class="w-5" /></button
+		>
+		<button class="place-items-center" onclick={() => (controlPosition = 'bottom-right')}
+			><ArrowDownRight class="w-5" /></button
+		>
+		<button class="place-items-center" onclick={() => (controlPosition = 'bottom-left')}
+			><ArrowDownLeft class="w-5" /></button
+		>
+	</CustomControl>
 
 	<!-- Control / Group / any svelte elements -->
-	<CustomControl.Control position="top-right">
-		<CustomControl.Group>
-			<div class="p-2 text-yellow-600">
-				<div>define your own custom control</div>
-			</div>
-		</CustomControl.Group>
-	</CustomControl.Control>
+	<CustomControl position="top-right">
+		<div class="p-2 text-yellow-700">Arbitrary HTML</div>
+		<div class="border-t border-t-[#ddd] p-2 text-center text-yellow-700">
+			({center.lat.toFixed(4)}, {center.lat.toFixed(4)})
+		</div>
+	</CustomControl>
 
 	<RasterDEMTileSource
 		id="terrain"

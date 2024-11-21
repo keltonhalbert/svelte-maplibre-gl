@@ -34,8 +34,6 @@ Everyone is welcomed to contribute to this project! There are many ways to suppo
 - TODO: Add core contributors
 - And [all contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)
 
-Supported by [MIERUNE Inc.](https://www.mierune.co.jp/)
-
 ## Acknowledgements
 
 This project `svelte-maplibre-gl` is inspired by the efforts and innovations of the following libraries:

@@ -21,6 +21,7 @@ class MyControl implements maplibregl.IControl {
 		toggleTerrain.textContent = 'Disable Terrain';
 		toggleTerrain.type = 'button';
 		toggleTerrain.style.backgroundColor = 'red';
+		toggleTerrain.style.color = 'white';
 		toggleTerrain.style.width = '50%';
 		toggleTerrain.style.height = '100%';
 		toggleTerrain.style.borderRadius = '0.25rem';
@@ -33,6 +34,7 @@ class MyControl implements maplibregl.IControl {
 		toggleHillshade.textContent = 'Disable Hillshade';
 		toggleHillshade.type = 'button';
 		toggleHillshade.style.backgroundColor = 'blue';
+		toggleHillshade.style.color = 'white';
 		toggleHillshade.style.height = '100%';
 		toggleHillshade.style.width = '50%';
 		toggleHillshade.style.borderRadius = '0.25rem';
