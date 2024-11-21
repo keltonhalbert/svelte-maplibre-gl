@@ -3,6 +3,20 @@
 	import GitHub from '$lib/assets/icons/GitHub.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import DarkModeSelector from './DarkModeSelector.svelte';
+
+	import docsearch from '@docsearch/js';
+	import '@docsearch/css';
+	import { browser } from '$app/environment';
+
+	if (browser) {
+		// @ts-expect-error: DocSearch types are not properly exposed
+		docsearch({
+			container: '#docsearch',
+			appId: '78TOQ3W600',
+			indexName: 'svelte-maplibre-gl',
+			apiKey: '096ebe16a7ae7b573fc996e9a08edbc0'
+		});
+	}
 </script>
 
 <div class="flex h-16 w-full shrink-0 items-center justify-between leading-none">
@@ -16,7 +30,9 @@
 		<a href="/components" class="text-sm text-foreground/70 transition-colors hover:text-foreground">Components</a>
 	</div>
 	<div class="flex items-center text-xs leading-none">
-		<div class="mr-4">SearchBox</div>
+		<div class="mr-4">
+			<div id="docsearch"></div>
+		</div>
 		<Button variant="ghost" size="icon">
 			<a href="https://github.com/MIERUNE/svelte-maplibre-gl" target="_blank"><GitHub class="!size-5" /></a>
 		</Button>
