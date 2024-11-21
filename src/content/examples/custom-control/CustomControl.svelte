@@ -39,7 +39,7 @@
 	<!-- Control / Group / Icon -->
 	<CustomControl.Control position="bottom-left">
 		<CustomControl.Group>
-			<CustomControl.Icon onclick={() => (isDarkMode = !isDarkMode)} className="text-gray-900">
+			<CustomControl.Icon onclick={() => (isDarkMode = !isDarkMode)} class="text-gray-900">
 				{#if isDarkMode}
 					<IconMoon />
 				{:else}

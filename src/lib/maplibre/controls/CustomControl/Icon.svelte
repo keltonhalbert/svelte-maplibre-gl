@@ -5,10 +5,10 @@
 		children,
 		onclick,
 		oncontextmenu,
-		className
+		class: className
 	}: {
 		children?: Snippet;
-		className: string;
+		class: string;
 		onclick?: MouseEventHandler<HTMLButtonElement>;
 		oncontextmenu?: MouseEventHandler<HTMLButtonElement>;
 	} = $props();
