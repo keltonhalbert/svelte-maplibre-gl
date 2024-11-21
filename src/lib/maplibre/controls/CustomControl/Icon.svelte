@@ -1,11 +1,17 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import type { MouseEventHandler } from 'svelte/elements';
 	let {
 		children,
 		onclick,
 		oncontextmenu,
 		className
-	}: { children?: Snippet; className: string; onclick?: () => void; oncontextmenu?: () => void } = $props();
+	}: {
+		children?: Snippet;
+		className: string;
+		onclick?: MouseEventHandler<HTMLButtonElement>;
+		oncontextmenu?: MouseEventHandler<HTMLButtonElement>;
+	} = $props();
 </script>
 
 <button
