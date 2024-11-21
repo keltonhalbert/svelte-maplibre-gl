@@ -5,7 +5,8 @@
 	import DarkModeSelector from './DarkModeSelector.svelte';
 
 	import { default as docsearch } from '@docsearch/js';
-	import '@docsearch/css';
+	import '@docsearch/css/dist/button.css';
+	import '@docsearch/css/dist/modal.css';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 

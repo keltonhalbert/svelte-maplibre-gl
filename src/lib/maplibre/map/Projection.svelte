@@ -12,7 +12,7 @@
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	$effect(() => {
-		mapCtx.userProjection = $state.snapshot(spec);
+		mapCtx.userProjection = $state.snapshot(spec) as maplibregl.ProjectionSpecification;
 		mapCtx.map?.setProjection(mapCtx.userProjection);
 	});
 
