@@ -4,9 +4,10 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import DarkModeSelector from './DarkModeSelector.svelte';
 
-	import docsearch from '@docsearch/js';
+	import { default as docsearch } from '@docsearch/js';
 	import '@docsearch/css';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 
 	if (browser) {
 		// @ts-expect-error: DocSearch types are not properly exposed
@@ -14,7 +15,14 @@
 			container: '#docsearch',
 			appId: '78TOQ3W600',
 			indexName: 'svelte-maplibre-gl',
-			apiKey: '096ebe16a7ae7b573fc996e9a08edbc0'
+			apiKey: '096ebe16a7ae7b573fc996e9a08edbc0',
+			navigator: {
+				// @ts-expect-error
+				navigate({ itemUrl }) {
+					const url = new URL(itemUrl);
+					goto(url.pathname + url.search + url.hash);
+				}
+			}
 		});
 	}
 </script>
