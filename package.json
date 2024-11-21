@@ -39,6 +39,8 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
+		"@docsearch/css": "^3.8.0",
+		"@docsearch/js": "3",
 		"@playwright/test": "^1.49.0",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/kit": "^2.8.1",
