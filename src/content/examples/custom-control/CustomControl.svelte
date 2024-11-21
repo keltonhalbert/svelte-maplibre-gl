@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { HillshadeLayer, MapLibre, RasterDEMTileSource, Terrain, CustomControl } from 'svelte-maplibre-gl';
-	import IconMoon from './IconMoon.svelte';
-	import IconSun from './IconSun.svelte';
+	import Sun from 'lucide-svelte/icons/sun';
+	import Moon from 'lucide-svelte/icons/moon';
 	import { MyControl } from './MyControl.js';
 
 	let isHillshadeVisible = $state(true);
@@ -41,9 +41,9 @@
 		<CustomControl.Group>
 			<CustomControl.Icon onclick={() => (isDarkMode = !isDarkMode)} class="text-gray-900">
 				{#if isDarkMode}
-					<IconMoon />
+					<Moon />
 				{:else}
-					<IconSun />
+					<Sun />
 				{/if}
 			</CustomControl.Icon>
 		</CustomControl.Group>
