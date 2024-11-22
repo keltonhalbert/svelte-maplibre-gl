@@ -7,7 +7,7 @@
 
 	interface Props extends Omit<maplibregl.FeatureIdentifier, 'source'> {
 		source?: string;
-		state: Record<string, any>;
+		state: Record<string, unknown>;
 		children?: Snippet;
 	}
 

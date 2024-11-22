@@ -15,10 +15,14 @@
 		if (!mapCtx.map) {
 			return;
 		}
-		mapCtx.map.addSprite(id, url);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.addSprite(id, url);
+		});
 
 		return () => {
-			mapCtx.map?.removeSprite(id);
+			mapCtx.waitForStyleLoaded((map) => {
+				map.removeSprite(id);
+			});
 		};
 	});
 </script>

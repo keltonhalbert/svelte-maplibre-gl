@@ -12,11 +12,15 @@
 
 	$effect(() => {
 		mapCtx.userLight = $state.snapshot(spec) as maplibregl.LightSpecification;
-		mapCtx.map?.setLight(mapCtx.userLight);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setLight(mapCtx.userLight as maplibregl.LightSpecification);
+		});
 	});
 
 	onDestroy(() => {
 		mapCtx.userLight = undefined;
-		mapCtx.map?.setLight(mapCtx.baseLight ?? {});
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setLight(mapCtx.baseLight ?? {});
+		});
 	});
 </script>

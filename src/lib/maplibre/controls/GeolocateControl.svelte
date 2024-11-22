@@ -7,7 +7,7 @@
 	import { resetEventListener } from '../utils.js';
 	import type { Listener, Event } from '../types.js';
 
-	type GeolocateEvent = Event<maplibregl.GeolocateControl> & Object;
+	type GeolocateEvent = Event<maplibregl.GeolocateControl> & object;
 
 	interface Props extends maplibregl.GeolocateControlOptions {
 		position?: maplibregl.ControlPosition;
@@ -46,6 +46,7 @@
 	$effect(() => resetEventListener(control, 'trackuserlocationstart', ontrackuserlocationstart));
 	$effect(() => resetEventListener(control, 'trackuserlocationend', ontrackuserlocationend));
 	$effect(() => resetEventListener(control, 'userlocationlostfocus', onuserlocationlostfocus));
+	$effect(() => resetEventListener(control, 'userlocationfocus', onuserlocationfocus));
 	$effect(() => resetEventListener(control, 'geolocate', ongeolocate));
 	$effect(() => resetEventListener(control, 'error', onerror));
 	$effect(() => resetEventListener(control, 'outofmaxbounds', onoutofmaxbounds));

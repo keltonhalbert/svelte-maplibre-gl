@@ -11,14 +11,14 @@
 	import { goto } from '$app/navigation';
 
 	if (browser) {
-		// @ts-expect-error: DocSearch types are not properly exposed
+		// @ts-expect-error: DocSearch types are not properly exposed (?)
 		docsearch({
 			container: '#docsearch',
 			appId: '78TOQ3W600',
 			indexName: 'svelte-maplibre-gl',
 			apiKey: '096ebe16a7ae7b573fc996e9a08edbc0',
 			navigator: {
-				// @ts-expect-error
+				// @ts-expect-error: DocSearch types are not properly exposed (?)
 				navigate({ itemUrl }) {
 					const url = new URL(itemUrl);
 					goto(url.pathname + url.search + url.hash);

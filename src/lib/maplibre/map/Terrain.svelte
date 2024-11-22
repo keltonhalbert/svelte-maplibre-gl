@@ -21,11 +21,15 @@
 			...spec,
 			source: sourceId
 		});
-		mapCtx.map?.setTerrain(mapCtx.userTerrain);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
+		});
 	});
 
 	onDestroy(() => {
 		mapCtx.userTerrain = undefined;
-		mapCtx.map?.setTerrain(mapCtx.baseTerrain ?? null);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setTerrain(mapCtx.baseTerrain ?? null);
+		});
 	});
 </script>

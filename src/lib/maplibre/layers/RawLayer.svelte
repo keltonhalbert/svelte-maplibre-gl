@@ -81,7 +81,10 @@
 		}
 	}
 
-	mapCtx.addLayer(addLayerObj, beforeId);
+	let firstRun = true;
+	mapCtx.waitForStyleLoaded(() => {
+		mapCtx.addLayer(addLayerObj, beforeId);
+	});
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));
 	$effect(() => resetLayerEventListener(mapCtx.map, 'dblclick', id, ondblclick));
@@ -97,64 +100,70 @@
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchend', id, ontouchend));
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchcancel', id, ontouchcancel));
 
-	let firstRun = true;
-
 	let prevPaint: Record<string, unknown> = $state.snapshot(paint) ?? {};
 	$effect(() => {
 		paint;
-		const map = mapCtx.map;
-		if (!firstRun && map) {
-			const keysRemoved = new Set(Object.keys(prevPaint));
-			const _paint = $state.snapshot(paint) ?? {};
-			for (const [key, value] of Object.entries(_paint)) {
-				keysRemoved.delete(key);
-				if (prevPaint[key] !== value) {
-					map.setPaintProperty(id, key, value);
+		if (!firstRun) {
+			mapCtx.waitForStyleLoaded((map) => {
+				const keysRemoved = new Set(Object.keys(prevPaint));
+				const _paint = $state.snapshot(paint) ?? {};
+				for (const [key, value] of Object.entries(_paint)) {
+					keysRemoved.delete(key);
+					if (prevPaint[key] !== value) {
+						map.setPaintProperty(id, key, value);
+					}
 				}
-			}
-			for (const key of keysRemoved) {
-				map.setPaintProperty(id, key, undefined);
-			}
-			prevPaint = _paint;
+				for (const key of keysRemoved) {
+					map.setPaintProperty(id, key, undefined);
+				}
+				prevPaint = _paint;
+			});
 		}
 	});
 
 	let prevLayout: Record<string, unknown> = $state.snapshot(layout) ?? {};
 	$effect(() => {
 		layout;
-		const map = mapCtx.map;
-		if (!firstRun && map) {
-			const keysRemoved = new Set(Object.keys(prevLayout));
-			const _layout = $state.snapshot(layout) ?? {};
-			for (const [key, value] of Object.entries(_layout)) {
-				keysRemoved.delete(key);
-				if (prevLayout[key] !== value) {
-					map.setLayoutProperty(id, key, value);
+		if (!firstRun) {
+			mapCtx.waitForStyleLoaded((map) => {
+				const keysRemoved = new Set(Object.keys(prevLayout));
+				const _layout = $state.snapshot(layout) ?? {};
+				for (const [key, value] of Object.entries(_layout)) {
+					keysRemoved.delete(key);
+					if (prevLayout[key] !== value) {
+						map.setLayoutProperty(id, key, value);
+					}
 				}
-			}
-			for (const key of keysRemoved) {
-				map.setLayoutProperty(id, key, undefined);
-			}
-			prevLayout = _layout;
+				for (const key of keysRemoved) {
+					map.setLayoutProperty(id, key, undefined);
+				}
+				prevLayout = _layout;
+			});
 		}
 	});
 
 	$effect(() => {
 		if ((minzoom !== undefined || maxzoom !== undefined) && !firstRun) {
-			mapCtx.map?.setLayerZoomRange(id, minzoom ?? 0, maxzoom ?? 22);
+			mapCtx.waitForStyleLoaded((map) => {
+				map.setLayerZoomRange(id, minzoom ?? 0, maxzoom ?? 22);
+			});
 		}
 	});
 
 	$effect(() => {
 		filter;
 		if (!firstRun) {
-			mapCtx.map?.setFilter(id, filter);
+			mapCtx.waitForStyleLoaded((map) => {
+				map.setFilter(id, filter);
+			});
 		}
 	});
 
 	$effect(() => {
 		if (beforeId && !firstRun) {
-			mapCtx.map?.moveLayer(id, beforeId);
+			mapCtx.waitForStyleLoaded((map) => {
+				map.moveLayer(id, beforeId);
+			});
 		}
 	});
 
