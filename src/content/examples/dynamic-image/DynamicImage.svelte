@@ -22,7 +22,7 @@
 	zoom={4}
 	center={{ lng: 137, lat: 36 }}
 >
-	<Image id="gradient" width={size} height={size} {data} />
+	<Image id="gradient" image={{ width: size, height: size, data }} />
 	<GeoJSONSource
 		data={{
 			type: 'FeatureCollection',

@@ -1,19 +1,21 @@
-<script lang="ts">
+<script lang="ts" module>
 	import { createHighlighterCoreSync, createJavaScriptRegexEngine } from 'shiki';
 	import svelte from 'shiki/langs/svelte.mjs';
 	import dark from 'shiki/themes/github-dark-default.mjs';
 
+	export const shiki = createHighlighterCoreSync({
+		themes: [dark],
+		langs: [svelte],
+		engine: createJavaScriptRegexEngine()
+	});
+</script>
+
+<script lang="ts">
 	let {
 		content
 	}: {
 		content: string;
 	} = $props();
-
-	const shiki = createHighlighterCoreSync({
-		themes: [dark],
-		langs: [svelte],
-		engine: createJavaScriptRegexEngine()
-	});
 
 	const highlighted = $derived.by(() => {
 		return shiki.codeToHtml(content.trim(), { lang: 'svelte', theme: 'github-dark-default' });

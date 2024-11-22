@@ -45,3 +45,6 @@ export { default as ScaleControl } from './controls/ScaleControl.svelte';
 export { default as LogoControl } from './controls/LogoControl.svelte';
 export { default as CustomControl } from './controls/CustomControl.svelte';
 export { default as Hash } from './controls/Hash.svelte';
+
+// contexts
+export { getMapContext, getSourceContext, getMarkerContext } from './contexts.svelte.js';

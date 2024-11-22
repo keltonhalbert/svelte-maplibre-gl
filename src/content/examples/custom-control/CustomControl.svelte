@@ -21,14 +21,8 @@
 	let controlPosition: maplibregl.ControlPosition = $state('top-left');
 
 	const myControl = new MyControl({
-		toggleHillshade: () => {
-			isHillshadeVisible = !isHillshadeVisible;
-			return isHillshadeVisible;
-		},
-		toggleTerrain: () => {
-			isTerrainVisible = !isTerrainVisible;
-			return isTerrainVisible;
-		}
+		toggleHillshade: () => (isHillshadeVisible = !isHillshadeVisible),
+		toggleTerrain: () => (isTerrainVisible = !isTerrainVisible)
 	});
 </script>
 
@@ -67,12 +61,11 @@
 	<CustomControl position="top-right">
 		<div class="p-2 text-yellow-700">Arbitrary HTML</div>
 		<div class="border-t border-t-[#ddd] p-2 text-center text-yellow-700">
-			({center.lat.toFixed(4)}, {center.lat.toFixed(4)})
+			({center.lat.toFixed(4)}, {center.lng.toFixed(4)})
 		</div>
 	</CustomControl>
 
 	<RasterDEMTileSource
-		id="terrain"
 		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
 		minzoom={0}
 		maxzoom={12}
@@ -81,6 +74,13 @@
 		{#if isTerrainVisible}
 			<Terrain />
 		{/if}
+	</RasterDEMTileSource>
+	<RasterDEMTileSource
+		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
+		minzoom={0}
+		maxzoom={12}
+		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
+	>
 		{#if isHillshadeVisible}
 			<HillshadeLayer />
 		{/if}

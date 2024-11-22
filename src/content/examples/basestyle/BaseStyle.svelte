@@ -30,7 +30,7 @@
 		{#each STYLES as style}
 			<div class="flex items-center space-x-1">
 				<RadioGroup.Item value={style.url} id={style.name} />
-				<Label for={style.name}>{style.name}</Label>
+				<Label class="cursor-pointer" for={style.name}>{style.name}</Label>
 			</div>
 		{/each}
 	</RadioGroup.Root>

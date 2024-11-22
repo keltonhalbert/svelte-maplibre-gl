@@ -1,5 +1,5 @@
 <script lang="ts">
-	//maplibre.org/maplibre-style-spec/layers/#fill
+	// https://maplibre.org/maplibre-style-spec/layers/#fill
 
 	import type { Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
