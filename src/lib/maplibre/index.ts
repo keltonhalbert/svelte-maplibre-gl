@@ -1,5 +1,8 @@
 // Reexport your entry components here
 
+// protocol
+export { default as Protocol } from './Protocol.svelte';
+
 // map
 export { default as MapLibre } from './map/MapLibre.svelte';
 export { default as Sky } from './map/Sky.svelte';
