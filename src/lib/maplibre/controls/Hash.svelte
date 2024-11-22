@@ -7,7 +7,7 @@
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
-	let {}: {} = $props();
+	// let {}: {} = $props();
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');

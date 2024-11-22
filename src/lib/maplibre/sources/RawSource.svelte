@@ -27,14 +27,16 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
+	let firstRun = true;
+
 	const id = _id ?? generateSourceID();
-	mapCtx.addSource(id, $state.snapshot(spec) as Specs);
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	source = mapCtx.map.getSource(id);
-	if (!source) throw new Error(`Failed to add source {id}`);
-
-	let firstRun = true;
+	mapCtx.waitForStyleLoaded((map) => {
+		mapCtx.addSource(id, $state.snapshot(spec) as Specs);
+		source = map.getSource(id);
+		firstRun = true;
+	});
 
 	$effect(() => {
 		if (source && spec.type !== 'canvas' && spec.type !== 'video' && spec.type !== 'image') {
@@ -115,6 +117,7 @@
 	});
 
 	$effect(() => {
+		source;
 		firstRun = false;
 	});
 
@@ -124,6 +127,4 @@
 	});
 </script>
 
-{#if source}
-	{@render children?.()}
-{/if}
+{@render children?.()}

@@ -5,7 +5,7 @@
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
-	interface Props extends maplibregl.ProjectionSpecification {}
+	type Props = maplibregl.ProjectionSpecification;
 	let { ...spec }: Props = $props();
 
 	const mapCtx = getMapContext();
@@ -13,11 +13,15 @@
 
 	$effect(() => {
 		mapCtx.userProjection = $state.snapshot(spec) as maplibregl.ProjectionSpecification;
-		mapCtx.map?.setProjection(mapCtx.userProjection);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setProjection(mapCtx.userProjection as maplibregl.ProjectionSpecification);
+		});
 	});
 
 	onDestroy(() => {
 		mapCtx.userProjection = undefined;
-		mapCtx.map?.setProjection(mapCtx.baseProjection ?? { type: 'mercator' });
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setProjection(mapCtx.baseProjection ?? { type: 'mercator' });
+		});
 	});
 </script>

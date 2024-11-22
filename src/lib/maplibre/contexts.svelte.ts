@@ -19,7 +19,10 @@ const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 // https://svelte.dev/docs/svelte/$state#Classes
 class MapContext {
 	/** Map instance */
-	map: MapLibre | null = $state.raw(null);
+	_map: MapLibre | null = $state.raw(null);
+	/** Callbacks to be called when the map style is loaded */
+	private _listener?: maplibregl.Listener = undefined;
+	private _pending: ((map: maplibregl.Map) => void)[] = [];
 	/** Names of layers dynamically added */
 	userLayers: Set<string> = new Set();
 	/** Names of sources dynamically added */
@@ -41,22 +44,73 @@ class MapContext {
 	/** Projection specification set by user */
 	userProjection?: ProjectionSpecification | undefined;
 
+	get map() {
+		return this._map;
+	}
+
+	set map(value: maplibregl.Map | null) {
+		if (this._listener) {
+			this._map?.off('styledata', this._listener);
+			this._listener = undefined;
+		}
+		this._map = value;
+		if (this._map) {
+			this._listener = this._onstyledata.bind(this);
+			this._map.on('styledata', this._listener);
+		}
+	}
+
 	addLayer(addLayerObject: AddLayerObject, beforeId?: string) {
+		if (!this.map) throw new Error('Map is not initialized');
 		this.userLayers.add(addLayerObject.id);
-		this.map?.addLayer(addLayerObject, beforeId);
+		this.waitForStyleLoaded((map) => {
+			map.addLayer(addLayerObject, beforeId);
+		});
 	}
 	removeLayer(id: string) {
+		if (!this.map) throw new Error('Map is not initialized');
 		this.userLayers.delete(id);
-		this.map?.removeLayer(id);
+		this.waitForStyleLoaded((map) => {
+			map.removeLayer(id);
+		});
 	}
 
 	addSource(id: string, source: SourceSpecification | CanvasSourceSpecification) {
-		this.map?.addSource(id, source);
 		this.userSources.add(id);
+		this.waitForStyleLoaded((map) => {
+			map.addSource(id, source);
+		});
 	}
 	removeSource(id: string) {
 		this.userSources.delete(id);
-		this.map?.removeSource(id);
+		this.waitForStyleLoaded((map) => {
+			map.removeSource(id);
+		});
+	}
+
+	/** Wait for the style to be loaded before calling the function */
+	waitForStyleLoaded(func: (map: maplibregl.Map) => void) {
+		if (!this.map) {
+			return;
+		}
+		if (this.map.style._loaded) {
+			// style is already loaded
+			func(this.map);
+		} else {
+			// we need to wait the style to be loaded
+			this._pending.push(func);
+		}
+	}
+
+	private _onstyledata(ev: maplibregl.MapStyleDataEvent) {
+		const map = ev.target;
+		if (map?.style._loaded) {
+			for (const func of this._pending) {
+				// call pending tasks
+				func(map);
+			}
+			this._pending = [];
+		}
 	}
 
 	setStyle(style: string | StyleSpecification | null) {

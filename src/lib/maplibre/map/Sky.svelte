@@ -12,11 +12,15 @@
 
 	$effect(() => {
 		mapCtx.userSky = $state.snapshot(spec) as maplibregl.SkySpecification;
-		mapCtx.map?.setSky(mapCtx.userSky);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setSky(mapCtx.userSky as maplibregl.SkySpecification);
+		});
 	});
 
 	onDestroy(() => {
 		mapCtx.userSky = undefined;
-		mapCtx.map?.setSky(mapCtx.baseSky as maplibregl.SkySpecification);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setSky(mapCtx.baseSky as maplibregl.SkySpecification);
+		});
 	});
 </script>

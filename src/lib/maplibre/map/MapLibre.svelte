@@ -143,7 +143,6 @@
 	}: Props = $props();
 
 	let container: HTMLElement | undefined = $state();
-	let loaded = $state(false);
 
 	const mapCtx = prepareMapContext();
 
@@ -197,38 +196,35 @@
 		}
 
 		map = new maplibregl.Map(filteredOptions);
+		mapCtx.map = map ?? null;
 
-		map.on('load', () => {
-			mapCtx.map = map ?? null;
-			loaded = true;
-		});
-
-		map.on('move', (ev) => {
-			if (map) {
-				const tr = map.transform;
-				if (center) {
-					const _center = maplibregl.LngLat.convert(center);
-					if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
-						center = formatLngLat(center, tr.center);
-					}
-				} else {
-					center = tr.center;
+		map.on('move', () => {
+			if (!map) {
+				return;
+			}
+			const tr = map.transform;
+			if (center) {
+				const _center = maplibregl.LngLat.convert(center);
+				if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
+					center = formatLngLat(center, tr.center);
 				}
-				if (tr.zoom !== zoom) {
-					zoom = tr.zoom;
-				}
-				if (tr.bearing !== bearing) {
-					bearing = tr.bearing;
-				}
-				if (tr.pitch !== pitch) {
-					pitch = tr.pitch;
-				}
-				if (tr.roll !== roll) {
-					roll = tr.roll;
-				}
-				if (tr.elevation !== elevation) {
-					elevation = tr.elevation;
-				}
+			} else {
+				center = tr.center;
+			}
+			if (tr.zoom !== zoom) {
+				zoom = tr.zoom;
+			}
+			if (tr.bearing !== bearing) {
+				bearing = tr.bearing;
+			}
+			if (tr.pitch !== pitch) {
+				pitch = tr.pitch;
+			}
+			if (tr.roll !== roll) {
+				roll = tr.roll;
+			}
+			if (tr.elevation !== elevation) {
+				elevation = tr.elevation;
 			}
 		});
 	});
@@ -542,7 +538,7 @@
 </script>
 
 <div class={className} style={inlineStyle} bind:this={container}>
-	{#if map && loaded}
+	{#if map}
 		{@render children?.()}
 	{/if}
 </div>

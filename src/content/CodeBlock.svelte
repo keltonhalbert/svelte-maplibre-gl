@@ -23,6 +23,7 @@
 </script>
 
 <div class="my-6 subpixel-antialiased">
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html highlighted}
 </div>
 
