@@ -6,66 +6,48 @@
 		RasterLayer,
 		LineLayer,
 		FillLayer,
-		Protocol
+		Protocol,
+		PMTilesProtocol
 	} from 'svelte-maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 
-	// @ts-ignore
-	import { Protocol as PmtilesProtocol } from 'pmtiles';
-	const pmtilesProtocol = new PmtilesProtocol();
-</script>
-
-<!-- add custom protocols -->
-<Protocol name="pmtiles" loadFn={pmtilesProtocol.tile} />
-<Protocol
-	name="myprotocol"
-	loadFn={async (params, _) => {
+	const myProtocolLoadFn: maplibregl.AddProtocolAction = async (params, _) => {
 		const zxy = params.url.replace('myprotocol://', '');
 		const [z, x, y] = zxy.split('/').map((v) => parseInt(v, 10));
 
 		const png = await new Promise((resolve) => {
 			const canvas = document.createElement('canvas');
-			canvas.width = 256;
-			canvas.height = 256;
+			canvas.width = 512;
+			canvas.height = 512;
 			const context = canvas.getContext('2d')!;
 
 			// checkered pattern
-			context.fillStyle = (z + x - y) % 2 === 0 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)';
+			context.fillStyle = (z + x - y) % 2 === 0 ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)';
 			context.fillRect(0, 0, canvas.width, canvas.height);
+			context.fillStyle = 'white';
+			context.font = '32px sans-serif';
+			context.fillText(`${z}/${x}/${y}`, 32, 64);
 
-			// canvas to blob (png) to buffer
+			// canvas to blob (png) to arraybuffer
 			canvas.toBlob(async (blob) => {
-				const buf = await blob!.arrayBuffer();
-				resolve(buf);
+				resolve(await blob!.arrayBuffer());
 			});
 		});
 
 		return { data: png };
-	}}
-/>
+	};
+</script>
 
-<MapLibre
-	class="h-[50vh] min-h-[200px]"
-	style={{
-		version: 8,
-		sources: {},
-		layers: []
-	}}
-	zoom={6}
-	center={{ lng: 140.09085, lat: 37.3 }}
->
+<!-- Adds a custom load resource function that will be called when using a URL that starts with a custom url schema. -->
+<PMTilesProtocol />
+<Protocol name="myprotocol" loadFn={myProtocolLoadFn} />
+
+<!-- Use custom protocols -->
+<MapLibre class="h-[50vh] min-h-[200px]" zoom={6} center={{ lng: 140.0, lat: 37.5 }}>
 	<VectorTileSource url="pmtiles://https://tile.openstreetmap.jp/static/planet.pmtiles">
-		<LineLayer
-			sourceLayer="transportation"
-			paint={{
-				'line-color': 'red'
-			}}
-		/>
-		<FillLayer
-			sourceLayer="water"
-			paint={{
-				'fill-color': 'blue'
-			}}
-		/>
+		<LineLayer sourceLayer="transportation" paint={{ 'line-color': 'orange' }} />
+		<FillLayer sourceLayer="water" paint={{ 'fill-color': 'dodgerblue' }} />
+		<LineLayer sourceLayer="building" paint={{ 'line-color': 'lime' }} />
 	</VectorTileSource>
 	<RasterTileSource tiles={['myprotocol://{z}/{x}/{y}']} tileSize={256}>
 		<RasterLayer />
