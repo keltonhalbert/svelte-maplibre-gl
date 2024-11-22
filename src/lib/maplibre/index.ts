@@ -1,7 +1,7 @@
 // Reexport your entry components here
 
-// protocol
-export { default as Protocol } from './Protocol.svelte';
+// global
+export { default as Protocol } from './global/Protocol.svelte';
 
 // map
 export { default as MapLibre } from './map/MapLibre.svelte';
@@ -48,6 +48,9 @@ export { default as ScaleControl } from './controls/ScaleControl.svelte';
 export { default as LogoControl } from './controls/LogoControl.svelte';
 export { default as CustomControl } from './controls/CustomControl.svelte';
 export { default as Hash } from './controls/Hash.svelte';
+
+// extensions
+export { default as PMTilesProtocol } from './extensions/PMTilesProtocol.svelte';
 
 // contexts
 export { getMapContext, getSourceContext, getMarkerContext } from './contexts.svelte.js';
