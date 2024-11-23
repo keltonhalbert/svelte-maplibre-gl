@@ -11,7 +11,7 @@
 	} from 'svelte-maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 
-	const myProtocolLoadFn: maplibregl.AddProtocolAction = async (params, _) => {
+	const myProtocolLoadFn: maplibregl.AddProtocolAction = async (params) => {
 		const zxy = params.url.replace('myprotocol://', '');
 		const [z, x, y] = zxy.split('/').map((v) => parseInt(v, 10));
 
