@@ -35,7 +35,6 @@
 		fog-ground-blend={0.6}
 	/>
 	<RasterDEMTileSource
-		id="terrain"
 		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
 		minzoom={0}
 		maxzoom={12}
@@ -53,7 +52,7 @@
 			paint={{
 				'hillshade-exaggeration': hillshade[0],
 				'hillshade-illumination-anchor': 'map',
-				'hillshade-shadow-color': '#204050'
+				'hillshade-shadow-color': '#004050'
 			}}
 		/>
 	</RasterDEMTileSource>

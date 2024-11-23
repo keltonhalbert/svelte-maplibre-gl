@@ -59,6 +59,9 @@ importers:
       lucide-svelte:
         specifier: ^0.460.1
         version: 0.460.1(svelte@5.2.7)
+      maplibre-contour:
+        specifier: ^0.0.8
+        version: 0.0.8
       maplibre-gl:
         specifier: 5.0.0-pre.7
         version: 5.0.0-pre.7
@@ -1413,6 +1416,9 @@ packages:
 
   magic-string@0.30.13:
     resolution: {integrity: sha512-8rYBO+MsWkgjDSOvLomYnzhdwEG51olQ4zL5KXnNJWV5MNmrb4rTZdrtkhxjnD/QyZUqR/Z/XDsUs/4ej2nx0g==}
+
+  maplibre-contour@0.0.8:
+    resolution: {integrity: sha512-X9hFN2SAMZPoK4gRYPuC0nLTuGdUxH6n8yiIA3/7hnb1gGF+ZqNmcREAeDKHt7zQWGpvcJbRhzLXwuEa1Owkcw==}
 
   maplibre-gl@5.0.0-pre.7:
     resolution: {integrity: sha512-AemtrnaBgVMKjGwP4ciOZg2P/mK679Tbe+A+4NzPxJ7+4ezNbTdrnWrNjcAxo4/WsYOZrrU2ye5l5wnu/duZeQ==}
@@ -3502,6 +3508,8 @@ snapshots:
   magic-string@0.30.13:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  maplibre-contour@0.0.8: {}
 
   maplibre-gl@5.0.0-pre.7:
     dependencies:

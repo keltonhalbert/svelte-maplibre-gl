@@ -51,6 +51,7 @@ export { default as Hash } from './controls/Hash.svelte';
 
 // extensions
 export { default as PMTilesProtocol } from './extensions/PMTilesProtocol.svelte';
+export { default as MapLibreContourSource } from './extensions/MapLibreContourSource.svelte';
 
 // contexts
 export { getMapContext, getSourceContext, getMarkerContext } from './contexts.svelte.js';

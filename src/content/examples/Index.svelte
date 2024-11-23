@@ -16,4 +16,5 @@
 	<li><a href="/examples/geolocate">Locate the User</a></li>
 	<li><a href="/examples/custom-control">Custom Control</a></li>
 	<li><a href="/examples/custom-protocol">Custom Protocols</a></li>
+	<li><a href="/examples/contour">Contour Lines</a></li>
 </ul>

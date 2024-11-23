@@ -13,6 +13,9 @@
 
 	$effect(() => {
 		mapCtx.userProjection = $state.snapshot(spec) as maplibregl.ProjectionSpecification;
+		if (!mapCtx.userProjection.type) {
+			mapCtx.userProjection.type = 'mercator';
+		}
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setProjection(mapCtx.userProjection as maplibregl.ProjectionSpecification);
 		});
