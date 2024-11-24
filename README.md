@@ -1,6 +1,7 @@
 # Svelte MapLibre GL
 
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
+![NPM License](https://img.shields.io/npm/l/svelte-maplibre-gl?color=96C902)
 
 [Svelte](https://svelte.dev/) library for using [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) as reactive components.
 
@@ -36,7 +37,7 @@ Everyone is welcomed to contribute to this project! There are many ways to suppo
 
 ## Acknowledgements
 
-This project `svelte-maplibre-gl` is inspired by the efforts and innovations of the following libraries:
+This project `svelte-maplibre-gl` is built from scratch, while drawing inspiration from the work of the following libraries:
 
 - [`dimfeld/svelte-maplibre`](https://github.com/dimfeld/svelte-maplibre) &mdash; A library offering idiomatic Svelte support for the MapLibre GL mapping software
-- [`visgl/react-map-gl`](https://github.com/visgl/react-map-gl) &mdash; React friendly API wrapper around Mapbox GL JS
+- [`visgl/react-map-gl`](https://github.com/visgl/react-map-gl) &mdash; React friendly API wrapper around Mapbox/MapLibre GL JS
