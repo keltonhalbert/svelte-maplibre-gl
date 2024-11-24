@@ -38,9 +38,9 @@
 	};
 </script>
 
-<!-- Adds a custom load resource function that will be called when using a URL that starts with a custom url schema. -->
+<!-- Adds a custom resource loading function to handle URLs that start with a custom URL scheme. -->
 <PMTilesProtocol />
-<Protocol name="myprotocol" loadFn={myProtocolLoadFn} />
+<Protocol scheme="myprotocol" loadFn={myProtocolLoadFn} />
 
 <!-- Use custom protocols -->
 <MapLibre class="h-[50vh] min-h-[200px]" zoom={6} center={{ lng: 140.0, lat: 37.5 }}>

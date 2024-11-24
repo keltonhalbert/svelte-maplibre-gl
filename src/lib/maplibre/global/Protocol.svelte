@@ -1,11 +1,11 @@
 <script lang="ts">
 	import maplibregl from 'maplibre-gl';
 
-	const { name, loadFn }: { name: string; loadFn: maplibregl.AddProtocolAction } = $props();
+	const { scheme, loadFn }: { scheme: string; loadFn: maplibregl.AddProtocolAction } = $props();
 
 	$effect(() => {
-		maplibregl.addProtocol(name, loadFn);
-		const prevName = name;
+		maplibregl.addProtocol(scheme, loadFn);
+		const prevName = scheme;
 		return () => {
 			maplibregl.removeProtocol(prevName);
 		};

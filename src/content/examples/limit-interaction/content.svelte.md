@@ -1,6 +1,6 @@
 ---
 title: Limit Map Interactions
-description: Set zoom and pitch range, and enable or disable UI handlers on a map.
+description: Set the zoom/pitch range and enable or disable UI handlers on the map.
 ---
 
 <script lang="ts">

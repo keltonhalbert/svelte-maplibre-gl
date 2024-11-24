@@ -2,9 +2,9 @@
 	import { Protocol as MapLibreProtocol } from 'svelte-maplibre-gl';
 	import { Protocol } from 'pmtiles';
 
-	let { name = 'pmtiles' }: { name?: string } = $props();
+	let { scheme = 'pmtiles' }: { scheme?: string } = $props();
 
 	const protocol = new Protocol();
 </script>
 
-<MapLibreProtocol {name} loadFn={protocol.tile} />
+<MapLibreProtocol {scheme} loadFn={protocol.tile} />

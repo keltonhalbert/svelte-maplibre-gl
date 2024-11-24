@@ -6,9 +6,7 @@
 
 <div class="mx-auto grid grid-cols-[220px_minmax(0,1fr)] gap-10 px-8 2xl:container">
 	<aside class="sticky bottom-0 top-16 h-[calc(100vh-4rem)] py-8">
-		<nav>
-			<Index />
-		</nav>
+		<Index />
 	</aside>
 	<main class="grid-cols-[1fr_220px]">
 		{@render children()}

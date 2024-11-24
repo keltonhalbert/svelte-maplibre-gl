@@ -6,7 +6,7 @@
 
 ⚠️ This project is currently in the early stages of development. Features and APIs are subject to change.
 
-Documentaion and Examples: https://svelte-maplibre-gl.pages.dev/examples/
+Documentaion and Examples: https://svelte-maplibre-gl.mierune.dev/examples/
 
 License: MIT or Apache 2.0
 

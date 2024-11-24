@@ -15,7 +15,7 @@
 	style="https://demotiles.maplibre.org/styles/osm-bright-gl-style/style.json"
 	zoom={12}
 	minZoom={10}
-	center={{ lng: 11.39085, lat: 47.3 }}
+	center={{ lng: 11.35, lat: 47.3 }}
 >
 	<MapLibreContourSource
 		url={'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png'}
