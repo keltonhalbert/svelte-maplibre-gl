@@ -1,6 +1,6 @@
 {
 	"name": "svelte-maplibre-gl",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Svelte library for using MapLibre GL JS as reactive components",
 	"scripts": {
