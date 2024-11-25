@@ -312,32 +312,32 @@
 
 	// Accessors
 	$effect(() => {
-		if (map && showTileBoundaries !== undefined) {
+		if (map && showTileBoundaries !== undefined && !firstRun) {
 			map.showTileBoundaries = showTileBoundaries;
 		}
 	});
 	$effect(() => {
-		if (map && showPadding !== undefined) {
+		if (map && showPadding !== undefined && !firstRun) {
 			map.showPadding = showPadding;
 		}
 	});
 	$effect(() => {
-		if (map && showCollisionBoxes !== undefined) {
+		if (map && showCollisionBoxes !== undefined && !firstRun) {
 			map.showCollisionBoxes = showCollisionBoxes;
 		}
 	});
 	$effect(() => {
-		if (map && showOverdrawInspector !== undefined) {
+		if (map && showOverdrawInspector !== undefined && !firstRun) {
 			map.showOverdrawInspector = showOverdrawInspector;
 		}
 	});
 	$effect(() => {
-		if (map && repaint !== undefined) {
+		if (map && repaint !== undefined && !firstRun) {
 			map.repaint = repaint;
 		}
 	});
 	$effect(() => {
-		if (map && vertices !== undefined) {
+		if (map && vertices !== undefined && !firstRun) {
 			map.vertices = vertices;
 		}
 	});
