@@ -96,8 +96,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(svelte@5.2.7)(typescript@5.7.2)
       tailwind-merge:
-        specifier: ^2.5.4
-        version: 2.5.4
+        specifier: ^2.5.5
+        version: 2.5.5
       tailwind-variants:
         specifier: ^0.3.0
         version: 0.3.0(tailwindcss@3.4.15)
@@ -1969,8 +1969,8 @@ packages:
     resolution: {integrity: sha512-cEhPGuLHiH2+Z8B1FwQgiZJgA39uUmJR4516TKrM5zrp0/cuwJkfhUfcTxhAkznanAF5fXUKzvYR4o+Ksx3ZCQ==}
     engines: {node: '>=18'}
 
-  tailwind-merge@2.5.4:
-    resolution: {integrity: sha512-0q8cfZHMu9nuYP/b5Shb7Y7Sh1B7Nnl5GqNr1U+n2p6+mybvRtayrQ+0042Z5byvTA8ihjlP8Odo8/VnHbZu4Q==}
+  tailwind-merge@2.5.5:
+    resolution: {integrity: sha512-0LXunzzAZzo0tEPxV3I297ffKZPlKDrjj7NXphC8V5ak9yHC5zRmxnOe2m/Rd/7ivsOMJe3JZ2JVocoDdQTRBA==}
 
   tailwind-variants@0.3.0:
     resolution: {integrity: sha512-ho2k5kn+LB1fT5XdNS3Clb96zieWxbStE9wNLK7D0AV64kdZMaYzAKo0fWl6fXLPY99ffF9oBJnIj5escEl/8A==}
@@ -2030,8 +2030,8 @@ packages:
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
-  ts-api-utils@1.4.0:
-    resolution: {integrity: sha512-032cPxaEKwM+GT3vA5JXNzIaizx388rhsSW79vGRNGXfRRAdEAn2mvk36PvK5HnOchyWZ7afLEXqYCvPCrzuzQ==}
+  ts-api-utils@1.4.1:
+    resolution: {integrity: sha512-5RU2/lxTA3YUZxju61HO2U6EoZLvBLtmV2mbTvqyu4a/7s7RmJPT+1YekhMVsQhznRWk/czIwDUg+V8Q9ZuG4w==}
     engines: {node: '>=16'}
     peerDependencies:
       typescript: '>=4.2.0'
@@ -2779,7 +2779,7 @@ snapshots:
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 1.4.0(typescript@5.7.2)
+      ts-api-utils: 1.4.1(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -2809,7 +2809,7 @@ snapshots:
       '@typescript-eslint/utils': 8.15.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       debug: 4.3.7
       eslint: 9.15.0(jiti@1.21.6)
-      ts-api-utils: 1.4.0(typescript@5.7.2)
+      ts-api-utils: 1.4.1(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -2826,7 +2826,7 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.4.0(typescript@5.7.2)
+      ts-api-utils: 1.4.1(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -4039,11 +4039,11 @@ snapshots:
       magic-string: 0.30.13
       zimmerframe: 1.1.2
 
-  tailwind-merge@2.5.4: {}
+  tailwind-merge@2.5.5: {}
 
   tailwind-variants@0.3.0(tailwindcss@3.4.15):
     dependencies:
-      tailwind-merge: 2.5.4
+      tailwind-merge: 2.5.5
       tailwindcss: 3.4.15
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.15):
@@ -4110,7 +4110,7 @@ snapshots:
 
   trim-lines@3.0.1: {}
 
-  ts-api-utils@1.4.0(typescript@5.7.2):
+  ts-api-utils@1.4.1(typescript@5.7.2):
     dependencies:
       typescript: 5.7.2
 
