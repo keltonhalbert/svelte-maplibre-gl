@@ -3,6 +3,9 @@
 	"version": "0.0.8",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Svelte library for using MapLibre GL JS as reactive components",
+	"repository": {
+		"url": "https://github.com/MIERUNE/svelte-maplibre-gl"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
