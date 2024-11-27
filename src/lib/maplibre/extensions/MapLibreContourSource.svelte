@@ -3,7 +3,7 @@
 
 	import type { Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
-	import mlcontour from 'maplibre-contour';
+	import type mlcontour from 'maplibre-contour';
 
 	import VectorTileSource from '$lib/maplibre/sources/VectorTileSource.svelte';
 
@@ -35,6 +35,11 @@
 
 	$effect(() => {
 		(async () => {
+			const mlcontour = (
+				await import('maplibre-contour').catch((reason) => {
+					throw new Error('Failed to load maplibre-contour', reason);
+				})
+			).default;
 			demSource = new mlcontour.DemSource({
 				url,
 				id,

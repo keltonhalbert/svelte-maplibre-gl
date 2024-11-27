@@ -29,6 +29,7 @@
 
 <style>
 	:global(.shiki code) {
+		font-size: 13px;
 		tab-size: 2;
 		counter-reset: step;
 		counter-increment: step 0;

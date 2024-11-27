@@ -1,20 +1,31 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	const items = {
-		'/components/markdown': 'Markdown test'
-	};
+	const toc = [
+		{
+			title: 'Basic',
+			items: {
+				'/components/markdown': 'Markdown test'
+			}
+		}
+	];
 </script>
 
 <nav>
 	<h2 class="mb-4 text-lg font-bold">Components</h2>
-	<ul class="flex flex-col gap-y-2">
-		{#each Object.entries(items) as [path, title]}
-			<li>
-				<a class="data-[active=true]:font-medium" data-active={$page.url.pathname === path} href={path}>{title}</a>
-			</li>
-		{/each}
-	</ul>
+	{#each toc as subtoc}
+		<h3 class="my-3">{subtoc.title}</h3>
+		<ul class="flex flex-col text-sm">
+			{#each Object.entries(subtoc.items) as [path, title]}
+				<li
+					class="border-l border-foreground/10 py-1 pl-4 data-[active=true]:border-foreground"
+					data-active={$page.url.pathname === path}
+				>
+					<a class="data-[active=true]:font-medium" data-active={$page.url.pathname === path} href={path}>{title}</a>
+				</li>
+			{/each}
+		</ul>
+	{/each}
 </nav>
 
 <style>

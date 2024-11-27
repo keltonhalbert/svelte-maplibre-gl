@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      maplibre-contour:
-        specifier: '>=0.0.0'
-        version: 0.0.8
     devDependencies:
       '@deck.gl/layers':
         specifier: ^9.0.36
@@ -72,6 +68,9 @@ importers:
       lucide-svelte:
         specifier: ^0.462.0
         version: 0.462.0(svelte@5.2.9)
+      maplibre-contour:
+        specifier: ^0.0.8
+        version: 0.0.8
       maplibre-gl:
         specifier: 5.0.0-pre.8
         version: 5.0.0-pre.8

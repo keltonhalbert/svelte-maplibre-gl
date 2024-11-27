@@ -18,3 +18,7 @@
 		<div class="font-medium">On This Page</div>
 	</aside>
 </div>
+
+<svelte:head>
+	<title>{data.meta.title} - Svelte MapLibre GL</title>
+</svelte:head>

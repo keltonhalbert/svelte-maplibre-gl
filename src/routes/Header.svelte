@@ -9,6 +9,7 @@
 	import '@docsearch/css/dist/modal.css';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	if (browser) {
 		docsearch({
@@ -33,8 +34,18 @@
 				<MapPinned class="inline-block !size-6 pb-1" /> <span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
-		<a href="/examples/" class="text-sm text-foreground/70 transition-colors hover:text-foreground">Examples</a>
-		<a href="/components" class="text-sm text-foreground/70 transition-colors hover:text-foreground">Components</a>
+		<a
+			href="/examples/"
+			data-active={$page.url.pathname.startsWith('/examples/')}
+			class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
+			>Examples</a
+		>
+		<a
+			href="/components/"
+			data-active={$page.url.pathname.startsWith('/components/')}
+			class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
+			>Components</a
+		>
 	</div>
 	<div class="flex items-center text-xs leading-none">
 		<div class="mr-4">

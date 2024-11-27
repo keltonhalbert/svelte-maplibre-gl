@@ -1,5 +1,5 @@
 ---
-title: Loading Images
+title: Load Images from URLs
 description: Utility for loading images from URLs
 ---
 
