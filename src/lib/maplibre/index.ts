@@ -49,6 +49,9 @@ export { default as LogoControl } from './controls/LogoControl.svelte';
 export { default as CustomControl } from './controls/CustomControl.svelte';
 export { default as Hash } from './controls/Hash.svelte';
 
+// utilities
+export { default as ImageLoader } from './utilities/ImageLoader.svelte';
+
 // extensions
 export { default as PMTilesProtocol } from './extensions/PMTilesProtocol.svelte';
 export { default as MapLibreContourSource } from './extensions/MapLibreContourSource.svelte';

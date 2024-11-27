@@ -1,7 +1,7 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addimage
 
-	import { onDestroy } from 'svelte';
+	import { onDestroy, untrack } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
@@ -13,12 +13,14 @@
 			| ImageData
 			| { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
 			| maplibregl.StyleImageInterface;
+		options?: Partial<maplibregl.StyleImageMetadata>;
 	}
 
-	let { id, image: srcImage }: Props = $props();
+	let { id, image: srcImage, options }: Props = $props();
 
 	const mapCtx = getMapContext();
 	let prevId = id;
+	let firstRun = true;
 
 	$effect(() => {
 		if (!mapCtx.map) {
@@ -36,10 +38,37 @@
 		}
 
 		if (!prevImage) {
-			mapCtx.map.addImage(id, srcImage);
+			mapCtx.map.addImage(
+				id,
+				srcImage,
+				untrack(() => options)
+			);
+			firstRun = true;
 		} else {
 			mapCtx.map.updateImage(id, srcImage);
 		}
+	});
+
+	$effect(() => {
+		options;
+		if (!firstRun) {
+			const image = mapCtx.map?.getImage(id);
+			if (!image) {
+				return;
+			}
+			image.pixelRatio = options?.pixelRatio ?? 1;
+			image.sdf = options?.sdf ?? false;
+			image.stretchX = options?.stretchX;
+			image.stretchY = options?.stretchY;
+			image.content = options?.content;
+			image.textFitWidth = options?.textFitWidth;
+			image.textFitHeight = options?.textFitHeight;
+			mapCtx.map?.style.updateImage(id, image);
+		}
+	});
+
+	$effect(() => {
+		firstRun = false;
 	});
 
 	onDestroy(() => {
