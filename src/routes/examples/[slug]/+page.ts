@@ -1,9 +1,15 @@
 import { error } from '@sveltejs/kit';
 import type { Component } from 'svelte';
 
-import { createHighlighterCoreSync, createOnigurumaEngine, type HighlighterCore } from 'shiki';
+import {
+	createHighlighterCoreSync,
+	createOnigurumaEngine,
+	createJavaScriptRegexEngine,
+	type HighlighterCore
+} from 'shiki';
 import svelte from 'shiki/langs/svelte.mjs';
 import dark from 'shiki/themes/github-dark-default.mjs';
+import { browser } from '$app/environment';
 
 export const load = async ({ params }) => {
 	const { slug } = params;
@@ -11,7 +17,8 @@ export const load = async ({ params }) => {
 	const shiki = createHighlighterCoreSync({
 		themes: [dark],
 		langs: [svelte],
-		engine: await createOnigurumaEngine(import('shiki/wasm'))
+		// Use the WASM version of Oniguruma on the browser, and the JS engine on the server
+		engine: browser ? await createOnigurumaEngine(import('shiki/wasm')) : createJavaScriptRegexEngine()
 	});
 
 	try {
