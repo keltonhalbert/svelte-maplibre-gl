@@ -13,11 +13,11 @@ License: MIT or Apache 2.0
 
 ## Installation
 
-⚠️ Using `svelte-maplibre-gl` requires `svelte >= 5.0.0`.
-
 ```bash
 npm install --dev svelte-maplibre-gl
 ```
+
+⚠ `svelte-maplibre-gl` only works with Svelte **5** and above.
 
 ## License
 
