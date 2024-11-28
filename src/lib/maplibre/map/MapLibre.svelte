@@ -151,51 +151,49 @@
 			return;
 		}
 		const options: maplibregl.MapOptions = {
-			// Map Options (reactive)
-			bearing,
-			bearingSnap,
-			center,
-			centerClampedToGround,
 			container,
-			elevation,
-			interactive,
-			maxBounds,
-			maxPitch,
-			maxZoom,
-			minPitch,
-			minZoom,
-			pitch,
-			pixelRatio,
-			renderWorldCopies,
-			roll,
-			style,
-			transformRequest,
-			zoom,
-			// Map Options (Map properties)
-			boxZoom,
-			cancelPendingTileRequestsWhileZooming,
-			cooperativeGestures,
-			doubleClickZoom,
-			dragPan,
-			dragRotate,
-			keyboard,
-			scrollZoom,
-			touchPitch,
-			touchZoomRotate,
-			transformCameraUpdate,
-			// Map Options (others)
-			...restOptions
-		};
-		const filteredOptions: maplibregl.MapOptions = {
-			container
-		};
-		for (const key of Object.keys(options) as (keyof maplibregl.MapOptions)[]) {
-			if (options[key] !== undefined) {
-				filteredOptions[key] = options[key];
-			}
-		}
+			...Object.fromEntries(
+				Object.entries({
+					// Map Options (reactive)
+					bearing,
+					bearingSnap,
+					center,
+					centerClampedToGround,
+					elevation,
+					interactive,
+					maxBounds,
+					maxPitch,
+					maxZoom,
+					minPitch,
+					minZoom,
+					pitch,
+					pixelRatio,
+					renderWorldCopies,
+					roll,
+					style,
+					transformRequest,
+					zoom,
+					// Map Options (Map properties)
+					boxZoom,
+					cancelPendingTileRequestsWhileZooming,
+					cooperativeGestures,
+					doubleClickZoom,
+					dragPan,
+					dragRotate,
+					keyboard,
+					scrollZoom,
+					touchPitch,
+					touchZoomRotate,
+					transformCameraUpdate,
+					// Map Options (others)
+					...restOptions
 
-		map = new maplibregl.Map(filteredOptions);
+					// filter out undefined values
+				}).filter(([_, v]) => v !== undefined)
+			)
+		};
+
+		map = new maplibregl.Map(options);
 		mapCtx.map = map ?? null;
 
 		map.on('move', () => {

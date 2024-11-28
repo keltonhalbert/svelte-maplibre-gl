@@ -1,8 +1,7 @@
 <script lang="ts">
-	import FillExtrusionLayer from '$lib/maplibre/layers/FillExtrusionLayer.svelte';
-	import { ArcLayer } from '@deck.gl/layers';
 	import { onMount } from 'svelte';
-	import { MapLibre, DeckGLOverlay } from 'svelte-maplibre-gl';
+	import { MapLibre, DeckGLOverlay, FillExtrusionLayer } from 'svelte-maplibre-gl';
+	import { ArcLayer } from '@deck.gl/layers';
 
 	const NUM = 30;
 	let data: { source: [number, number]; target: [number, number] }[] = $state([]);
