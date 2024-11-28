@@ -51,10 +51,16 @@
 		<div class="mr-4">
 			<div id="docsearch"></div>
 		</div>
-		<Button variant="ghost" size="icon">
-			<a href="https://github.com/MIERUNE/svelte-maplibre-gl" target="_blank"><GitHub class="!size-5" /></a>
+		<Button
+			variant="ghost"
+			size="icon"
+			href="https://github.com/MIERUNE/svelte-maplibre-gl"
+			target="_blank"
+			title="GitHub repository"
+		>
+			<GitHub class="!size-6" />
 		</Button>
-		<div>
+		<div class="ml-1">
 			<DarkModeSelector />
 		</div>
 	</div>

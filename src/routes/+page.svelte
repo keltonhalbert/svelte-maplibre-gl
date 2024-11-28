@@ -1,7 +1,7 @@
 <div class="mx-auto w-full p-8 py-16 2xl:container">
 	<main class="prose max-w-none dark:prose-invert">
 		<h1>Svelte MapLibre GL</h1>
-		<p>Svelte library for using MapLibre GL JS as reactive components.</p>
+		<p>Use MapLibre GL JS with the full potential of Svelte's reactivity.</p>
 		<p>
 			<a href="/examples/">Examples</a>
 		</p>
@@ -14,4 +14,5 @@
 
 <svelte:head>
 	<title>Svelte MapLibre GL</title>
+	<meta name="description" content="Svelte library for using MapLibre GL JS as reactive components" />
 </svelte:head>

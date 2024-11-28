@@ -21,4 +21,5 @@
 
 <svelte:head>
 	<title>{data.meta.title} - Svelte MapLibre GL</title>
+	<meta name="description" content={data.meta.description} />
 </svelte:head>

@@ -3,7 +3,7 @@
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
 ![NPM License](https://img.shields.io/npm/l/svelte-maplibre-gl?color=96C902)
 
-[Svelte](https://svelte.dev/) library for using [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) as reactive components.
+Use [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) with the full potential of [Svelte](https://svelte.dev/)'s reactivity.
 
 ⚠️ This project is currently in the early stages of development. Features and APIs are subject to change.
 
@@ -13,7 +13,7 @@ License: MIT or Apache 2.0
 
 ## Installation
 
-Using `svelte-maplibre-gl` requires `svelte >= 5.0.0`.
+⚠️ Using `svelte-maplibre-gl` requires `svelte >= 5.0.0`.
 
 ```bash
 npm install --dev svelte-maplibre-gl
