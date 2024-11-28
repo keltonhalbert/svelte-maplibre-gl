@@ -7,8 +7,9 @@ description: Use a series of image sources to create an animation.
   import Demo from "./AnimateImages.svelte";
   import demoRaw from "./AnimateImages.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} shiki={shiki} />

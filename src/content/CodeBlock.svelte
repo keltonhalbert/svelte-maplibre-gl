@@ -1,20 +1,14 @@
 <script lang="ts" module>
-	import { createHighlighterCoreSync, createJavaScriptRegexEngine } from 'shiki';
-	import svelte from 'shiki/langs/svelte.mjs';
-	import dark from 'shiki/themes/github-dark-default.mjs';
-
-	export const shiki = createHighlighterCoreSync({
-		themes: [dark],
-		langs: [svelte],
-		engine: createJavaScriptRegexEngine()
-	});
+	import type { HighlighterCore } from 'shiki';
 </script>
 
 <script lang="ts">
 	let {
-		content
+		content,
+		shiki
 	}: {
 		content: string;
+		shiki: HighlighterCore;
 	} = $props();
 
 	const highlighted = $derived.by(() => {
