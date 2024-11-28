@@ -83,7 +83,7 @@
 				_onMetrics
 
 				// filter out undefined values
-			}).filter(([_, v]) => v !== undefined)
+			}).filter(([, v]) => v !== undefined)
 		);
 
 		deckOverlay = new MapboxOverlay(options);
@@ -93,20 +93,14 @@
 
 	let firstRun = true;
 
+	// collect all reactive prop changes and apply them in a single update
+	let pendingChanges: MapboxOverlayProps = {};
 	let changeTrigger = $state(0);
-	let awaitingChanges: MapboxOverlayProps = {};
 
-	$effect(() => {
-		changeTrigger;
+	function reactiveProp(name: keyof MapboxOverlayProps, value: unknown) {
 		if (!firstRun) {
-			deckOverlay.setProps(awaitingChanges);
-			awaitingChanges = {};
-		}
-	});
-
-	function reactiveProp(name: keyof MapboxOverlayProps, value: any) {
-		if (!firstRun) {
-			awaitingChanges[name] = value;
+			// @ts-expect-error: awaitingChanges is a MapboxOverlayProps object
+			pendingChanges[name] = value;
 			untrack(() => (changeTrigger += 1));
 		}
 	}
@@ -142,6 +136,14 @@
 
 	$effect(() => {
 		firstRun = false;
+	});
+
+	$effect(() => {
+		changeTrigger;
+		if (!firstRun) {
+			deckOverlay.setProps(pendingChanges);
+			pendingChanges = {};
+		}
 	});
 
 	onDestroy(() => {

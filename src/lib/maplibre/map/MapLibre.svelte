@@ -189,7 +189,7 @@
 					...restOptions
 
 					// filter out undefined values
-				}).filter(([_, v]) => v !== undefined)
+				}).filter(([, v]) => v !== undefined)
 			)
 		};
 
