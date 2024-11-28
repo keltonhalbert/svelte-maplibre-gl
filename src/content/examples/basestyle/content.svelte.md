@@ -7,8 +7,9 @@ description: Dynamic contents must be preserved when the base style is changed.
   import Demo from "./BaseStyle.svelte";
   import demoRaw from "./BaseStyle.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} shiki={shiki} />
