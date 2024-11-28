@@ -2,7 +2,7 @@
 	const { data } = $props();
 </script>
 
-<div class="grid grid-cols-[1fr_220px] gap-x-10">
+<div class="grid grid-cols-[1fr_200px] gap-x-10">
 	<div class="min-h-[calc(100vh-4rem)] w-full min-w-0 py-8">
 		<h1 class="mb-2 text-3xl font-bold">{data.meta.title}</h1>
 

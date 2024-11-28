@@ -32,6 +32,7 @@ export { default as HeatmapLayer } from './layers/HeatmapLayer.svelte';
 export { default as RasterLayer } from './layers/RasterLayer.svelte';
 export { default as HillshadeLayer } from './layers/HillshadeLayer.svelte';
 export { default as BackgroundLayer } from './layers/BackgroundLayer.svelte';
+export { default as CustomLayer } from './layers/CustomLayer.svelte';
 
 // markers
 export { default as Marker } from './markers/Marker.svelte';

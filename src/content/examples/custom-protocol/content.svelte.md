@@ -4,11 +4,12 @@ description: How to add custom protocols.
 ---
 
 <script lang="ts">
-  import CustomProtocol from "./CustomProtocol.svelte";
+  import Demo from "./CustomProtocol.svelte";
   import demoRaw from "./CustomProtocol.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+  let { shiki } = $props();
 </script>
 
-<CustomProtocol />
+<Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} {shiki} />

@@ -21,7 +21,8 @@
 				'/examples/geolocate': 'Locate the User',
 				'/examples/image-loader': 'Load Images from URLs',
 				'/examples/custom-control': 'Custom Control',
-				'/examples/custom-protocol': 'Custom Protocols'
+				'/examples/custom-protocol': 'Custom Protocols',
+				'/examples/custom-layer': 'Custom Layer'
 			}
 		},
 		{
