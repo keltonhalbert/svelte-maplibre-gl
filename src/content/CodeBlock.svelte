@@ -1,32 +1,39 @@
-<script lang="ts" module>
-	import { createHighlighterCoreSync, createOnigurumaEngine, createJavaScriptRegexEngine } from 'shiki';
+<script lang="ts">
+	import { browser } from '$app/environment';
+	import { createHighlighter, type Highlighter } from 'shiki';
 	import svelte from 'shiki/langs/svelte.mjs';
 	import dark from 'shiki/themes/github-dark-default.mjs';
-	import { browser } from '$app/environment';
 
-	const shiki = createHighlighterCoreSync({
-		themes: [dark],
-		langs: [svelte],
-		// Use the WASM version of Oniguruma on the browser, and the JS engine on the server
-		engine: browser ? await createOnigurumaEngine(import('shiki/wasm')) : createJavaScriptRegexEngine()
-	});
-</script>
-
-<script lang="ts">
 	let {
 		content
 	}: {
 		content: string;
 	} = $props();
 
-	const highlighted = $derived.by(() => {
-		return shiki.codeToHtml(content.replaceAll('\t', '  ').trim(), { lang: 'svelte', theme: 'github-dark-default' });
+	let shiki: Promise<Highlighter> | undefined = $state.raw();
+	if (browser) {
+		shiki = createHighlighter({
+			themes: [dark],
+			langs: [svelte]
+		});
+	}
+
+	const _content = $derived.by(() => {
+		return content.replaceAll('\t', '  ').trim();
 	});
 </script>
 
 <div class="my-6 subpixel-antialiased">
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html highlighted}
+	{#if shiki}
+		{#await shiki then shiki}
+			{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
+		{/await}
+	{:else}
+		<pre class="shiki"><code
+				>{#each _content.split('\n') as line}<span class="line">{line + '\n'}</span>{/each}</code
+			></pre>
+	{/if}
 </div>
 
 <style>
@@ -40,8 +47,8 @@
 	:global(.shiki code .line::before) {
 		content: counter(step);
 		counter-increment: step;
-		width: 1rem;
-		margin-right: 1.5rem;
+		width: 1em;
+		margin-right: 1em;
 		display: inline-block;
 		text-align: right;
 		color: rgba(115, 138, 148, 0.5);
