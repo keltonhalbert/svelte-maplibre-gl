@@ -11,7 +11,7 @@
 		</p>
 
 		<div class="prose max-w-none dark:prose-invert">
-			<data.Content shiki={data.shiki} />
+			<data.Content />
 		</div>
 	</div>
 	<aside class="sticky top-24 h-[calc(100vh-6rem)]">

@@ -24,9 +24,9 @@
 </script>
 
 <div class="my-6 subpixel-antialiased">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{#if shiki}
 		{#await shiki then shiki}
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
 		{/await}
 	{:else}
