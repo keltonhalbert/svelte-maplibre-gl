@@ -7,8 +7,9 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiu
   import Demo from "./Complex.svelte";
   import demoRaw from "./Complex.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} {shiki} />

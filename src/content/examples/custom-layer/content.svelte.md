@@ -7,8 +7,9 @@ description: Use a custom style layer to render custom WebGL content.
   import Demo from "./CustomLayer.svelte";
   import demoRaw from "./CustomLayer.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} {shiki} />

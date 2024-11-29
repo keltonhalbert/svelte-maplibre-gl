@@ -8,8 +8,9 @@ original: https://maplibre.org/maplibre-gl-js/docs/examples/add-3d-model/
   import Demo from "./CustomLayer.svelte";
   import demoRaw from "./CustomLayer.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} {shiki} />
