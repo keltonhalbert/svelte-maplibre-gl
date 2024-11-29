@@ -7,7 +7,7 @@ description: 3D terrain and the sky.
   import Demo from "./Terrain.svelte";
   import demoRaw from "./Terrain.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
-    let { shiki } = $props();
+  let { shiki } = $props();
 </script>
 
 <Demo />

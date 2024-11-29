@@ -7,7 +7,7 @@ description: Add an icon to the map that was generated at runtime.
   import Demo from "./DynamicImage.svelte";
   import demoRaw from "./DynamicImage.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
-    let { shiki } = $props();
+  let { shiki } = $props();
 </script>
 
 <Demo />
