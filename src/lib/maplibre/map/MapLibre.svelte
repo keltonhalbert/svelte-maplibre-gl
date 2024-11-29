@@ -18,6 +18,7 @@
 		center?: LngLatLike;
 		padding?: maplibregl.PaddingOptions;
 		fov?: number;
+		cursor?: string;
 
 		// Accessors
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#accessors
@@ -96,6 +97,7 @@
 		// Others
 		padding = { top: 0, bottom: 0, left: 0, right: 0 },
 		fov,
+		cursor,
 
 		// Accessors
 		showTileBoundaries,
@@ -195,6 +197,10 @@
 
 		map = new maplibregl.Map(options);
 		mapCtx.map = map ?? null;
+
+		if (cursor) {
+			map.getCanvas().style.cursor = cursor ?? '';
+		}
 
 		map.on('move', () => {
 			if (!map) {
@@ -305,6 +311,12 @@
 	$effect(() => {
 		if (fov !== undefined) {
 			map?.setVerticalFieldOfView(fov);
+		}
+	});
+	$effect(() => {
+		cursor;
+		if (map && !firstRun) {
+			map.getCanvas().style.cursor = cursor ?? '';
 		}
 	});
 
