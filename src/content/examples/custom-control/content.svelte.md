@@ -7,8 +7,9 @@ description: Custom Control allows to easily create user defined controls.
   import Demo from "./CustomControl.svelte";
   import demoRaw from "./CustomControl.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+    let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} {shiki} />

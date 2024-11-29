@@ -1,6 +1,16 @@
 import { error } from '@sveltejs/kit';
 import type { Component } from 'svelte';
 
+import { browser } from '$app/environment';
+import { createHighlighter, createHighlighterCoreSync, createJavaScriptRegexEngine, type HighlighterCore } from 'shiki';
+import svelte from 'shiki/langs/svelte.mjs';
+import dark from 'shiki/themes/github-dark-default.mjs';
+
+const shiki = createHighlighter({
+	themes: [dark],
+	langs: [svelte]
+});
+
 export const load = async ({ params }) => {
 	const { slug } = params;
 
@@ -14,7 +24,8 @@ export const load = async ({ params }) => {
 		};
 		return {
 			Content: post.default,
-			meta: { ...post.metadata, slug }
+			meta: { ...post.metadata, slug },
+			shiki: await shiki
 		};
 	} catch {
 		error(404, `Example '${slug}' not found`);

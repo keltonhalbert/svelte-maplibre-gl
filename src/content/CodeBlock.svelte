@@ -1,22 +1,16 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { createHighlighter, type Highlighter } from 'shiki';
-	import svelte from 'shiki/langs/svelte.mjs';
-	import dark from 'shiki/themes/github-dark-default.mjs';
+	// import { browser } from '$app/environment';
+	import type { HighlighterCore } from 'shiki';
+	// import svelte from 'shiki/langs/svelte.mjs';
+	// import dark from 'shiki/themes/github-dark-default.mjs';
 
 	let {
-		content
+		content,
+		shiki
 	}: {
 		content: string;
+		shiki: HighlighterCore;
 	} = $props();
-
-	let shiki: Promise<Highlighter> | undefined = $state.raw();
-	if (browser) {
-		shiki = createHighlighter({
-			themes: [dark],
-			langs: [svelte]
-		});
-	}
 
 	const _content = $derived.by(() => {
 		return content.replaceAll('\t', '  ').trim();
@@ -25,15 +19,7 @@
 
 <div class="my-6 subpixel-antialiased">
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{#if shiki}
-		{#await shiki then shiki}
-			{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
-		{/await}
-	{:else}
-		<pre class="shiki"><code
-				>{#each _content.split('\n') as line}<span class="line">{line + '\n'}</span>{/each}</code
-			></pre>
-	{/if}
+	{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
 </div>
 
 <style>

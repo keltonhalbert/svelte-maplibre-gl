@@ -7,8 +7,9 @@ description: Set the zoom/pitch range and enable or disable UI handlers on the m
   import Demo from "./LimitInteraction.svelte";
   import demoRaw from "./LimitInteraction.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
+    let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} />
+<CodeBlock content={demoRaw} {shiki} />
