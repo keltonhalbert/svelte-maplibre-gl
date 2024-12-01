@@ -46,7 +46,8 @@
 				// Update image options if necessary
 				const image = mapCtx.map?.getImage(id);
 				if (image) {
-					const options = Array.isArray(src) ? src[1] : {};
+					const _src = $state.snapshot(src) as string | [string, Partial<maplibregl.StyleImageMetadata>];
+					const options = Array.isArray(_src) ? _src[1] : {};
 					let changed = false;
 					if (image.pixelRatio !== (options.pixelRatio ?? 1)) {
 						image.pixelRatio = options.pixelRatio ?? 1;

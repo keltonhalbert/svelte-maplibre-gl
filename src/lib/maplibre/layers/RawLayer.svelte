@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
-	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
+	import { getMapContext, getSourceContext, prepareLayerContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
 	import type { MapLayerEventProps } from './common.js';
 
@@ -51,6 +51,8 @@
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	const id = _id ?? generateLayerID();
+	const layerCtx = prepareLayerContext();
+	layerCtx.id = id;
 
 	const addLayerObj = {
 		id,
@@ -154,7 +156,7 @@
 		filter;
 		if (!firstRun) {
 			mapCtx.waitForStyleLoaded((map) => {
-				map.setFilter(id, filter);
+				map.setFilter(id, $state.snapshot(filter) as maplibregl.FilterSpecification);
 			});
 		}
 	});

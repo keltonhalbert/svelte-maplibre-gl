@@ -54,6 +54,8 @@ export { default as Hash } from './controls/Hash.svelte';
 
 // utilities
 export { default as ImageLoader } from './utilities/ImageLoader.svelte';
+export { default as QuerySourceFeatures } from './utilities/QuerySourceFeatures.svelte';
+export { default as QueryRenderedFeatures } from './utilities/QueryRenderedFeatures.svelte';
 
 // extensions
 export { default as PMTilesProtocol } from './extensions/PMTilesProtocol.svelte';

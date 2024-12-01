@@ -14,6 +14,7 @@ import { setContext, getContext } from 'svelte';
 
 const MAP_CONTEXT_KEY = Symbol('MapLibre map context');
 const SOURCE_CONTEXT_KEY = Symbol('MapLibre source context');
+const LAYER_CONTEXT_KEY = Symbol('MapLibre layer context');
 const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 
 // https://svelte.dev/docs/svelte/$state#Classes
@@ -164,7 +165,7 @@ export function prepareMapContext(): MapContext {
 
 export function getMapContext(): MapContext {
 	const mapCtx = getContext<MapContext>(MAP_CONTEXT_KEY);
-	if (!mapCtx) throw new Error('Component must be used inside MapLibre component');
+	if (!mapCtx) throw new Error('Map context not found');
 	return mapCtx;
 }
 
@@ -182,8 +183,24 @@ export function prepareSourceContext(): SourceContext {
 
 export function getSourceContext(): SourceContext {
 	const sourceCtx = getContext<SourceContext>(SOURCE_CONTEXT_KEY);
-	if (!sourceCtx || !sourceCtx.id) throw new Error('Must be used inside map Source context');
+	if (!sourceCtx || !sourceCtx.id) throw new Error('Source context not found');
 	return sourceCtx;
+}
+
+class LayerContext {
+	id: string = $state('');
+}
+
+export function prepareLayerContext(): LayerContext {
+	const layerCtx = new LayerContext();
+	setContext(LAYER_CONTEXT_KEY, layerCtx);
+	return layerCtx;
+}
+
+export function getLayerContext(): LayerContext | null {
+	const layerCtx = getContext<LayerContext>(LAYER_CONTEXT_KEY);
+	if (!layerCtx || !layerCtx.id) throw new Error('Layer context not found');
+	return layerCtx;
 }
 
 class MarkerContext {

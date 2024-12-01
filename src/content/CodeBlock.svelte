@@ -34,9 +34,9 @@
 		content: counter(step);
 		counter-increment: step;
 		width: 1em;
-		margin-right: 1em;
+		margin-right: 2em;
 		display: inline-block;
 		text-align: right;
-		color: rgba(115, 138, 148, 0.5);
+		color: rgba(115, 131, 148, 0.5);
 	}
 </style>
