@@ -99,8 +99,7 @@
 
 	function reactiveProp(name: keyof MapboxOverlayProps, value: unknown) {
 		if (!firstRun) {
-			// @ts-expect-error: awaitingChanges is a MapboxOverlayProps object
-			pendingChanges[name] = value;
+			pendingChanges[name] = $state.snapshot(value);
 			untrack(() => (changeTrigger += 1));
 		}
 	}

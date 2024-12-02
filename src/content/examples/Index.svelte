@@ -14,10 +14,15 @@
 				'/examples/limit-interaction': 'Limit Map Interactions',
 				'/examples/animate-images': 'Animate a Series of Images',
 				'/examples/video-on-a-map': 'Video on a Map',
-				'/examples/image-loader': 'Load Images from URLs',
 				'/examples/fullscreen': 'Fullscreen',
-				'/examples/geolocate': 'Locate the User',
-				'/examples/canvas-source': 'Canvas Source'
+				'/examples/geolocate': 'Locate the User'
+			}
+		},
+		{
+			title: 'Utilities',
+			items: {
+				'/examples/image-loader': 'Load Images from URLs',
+				'/examples/query-features': 'Query Features'
 			}
 		},
 		{
@@ -31,6 +36,7 @@
 			items: {
 				'/examples/custom-control': 'Custom Control',
 				'/examples/custom-protocol': 'Custom Protocols',
+				'/examples/canvas-source': 'Canvas Source',
 				'/examples/custom-layer': 'Custom Layer',
 				'/examples/dynamic-image': 'Dynamic Image',
 				'/examples/threejs-model': '3D model with three.js'

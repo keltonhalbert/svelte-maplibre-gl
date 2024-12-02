@@ -21,8 +21,8 @@
 <!-- Use custom protocols -->
 <MapLibre
 	class="h-[55vh] min-h-[200px]"
-	zoom={3}
-	center={[138.0, 36.5]}
+	zoom={10}
+	center={[12.484151635086198, 41.8960910478323]}
 	style={{
 		version: 8,
 		glyphs: 'https://tile.openstreetmap.jp/fonts/{fontstack}/{range}.pbf',
