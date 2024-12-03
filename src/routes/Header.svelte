@@ -1,5 +1,6 @@
 <script lang="ts">
 	import MapPinned from 'lucide-svelte/icons/map-pinned';
+	import Menu from 'lucide-svelte/icons/menu';
 	import GitHub from '$lib/assets/icons/GitHub.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import DarkModeSelector from './DarkModeSelector.svelte';
@@ -11,57 +12,80 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
+	let { globalTocOpen = $bindable() } = $props();
+
 	if (browser) {
-		docsearch({
-			container: '#docsearch',
-			appId: '78TOQ3W600',
-			indexName: 'svelte-maplibre-gl',
-			apiKey: '096ebe16a7ae7b573fc996e9a08edbc0',
-			navigator: {
-				navigate({ itemUrl }) {
-					const url = new URL(itemUrl);
-					goto(url.pathname + url.search + url.hash);
+		try {
+			docsearch({
+				container: '#docsearch',
+				appId: '78TOQ3W600',
+				indexName: 'svelte-maplibre-gl',
+				apiKey: '096ebe16a7ae7b573fc996e9a08edbc0',
+				navigator: {
+					navigate({ itemUrl }) {
+						const url = new URL(itemUrl);
+						goto(url.pathname + url.search + url.hash);
+					}
 				}
-			}
-		});
+			});
+		} catch (e) {
+			console.error(e);
+		}
 	}
 </script>
 
 <div class="flex h-16 w-full shrink-0 items-center justify-between leading-none">
-	<div class="flex h-full w-full items-center gap-x-4">
-		<h1 class="pr-2 text-xl font-bold">
+	<div class="flex h-full w-full items-center">
+		<div class="mr-3 md:hidden">
+			<Button variant="outline" size="icon" title="Menu" onclick={() => (globalTocOpen = !globalTocOpen)}>
+				<Menu class="!size-6" />
+			</Button>
+		</div>
+		<h1 class="text-lg font-bold md:text-xl">
 			<a href="/" class="">
-				<MapPinned class="inline-block !size-6 pb-1" /> <span>Svelte MapLibre GL</span>
+				<MapPinned class="mr-1.5 hidden !size-6 pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
-		<a
-			href="/examples/"
-			data-active={$page.url.pathname.startsWith('/examples/')}
-			class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
-			>Examples</a
-		>
-		<a
-			href="/components/"
-			data-active={$page.url.pathname.startsWith('/components/')}
-			class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
-			>Components</a
-		>
+		<nav class="ml-6 hidden gap-x-4 min-[550px]:flex">
+			<a
+				href="/examples/"
+				data-active={$page.url.pathname.startsWith('/examples/')}
+				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
+				>Examples</a
+			>
+			<a
+				href="/components/"
+				data-active={$page.url.pathname.startsWith('/components/')}
+				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
+				>Components</a
+			>
+		</nav>
 	</div>
 	<div class="flex items-center text-xs leading-none">
-		<div class="mr-4">
+		<div class="md:mr-2">
 			<div id="docsearch"></div>
 		</div>
 		<Button
+			class="-ml-0.5"
 			variant="ghost"
 			size="icon"
 			href="https://github.com/MIERUNE/svelte-maplibre-gl"
 			target="_blank"
 			title="GitHub repository"
 		>
-			<GitHub class="!size-6" />
+			<GitHub class="!size-5 md:!size-6" />
 		</Button>
-		<div class="ml-1">
+		<div class="-ml-1 -mr-1 md:ml-1">
 			<DarkModeSelector />
 		</div>
 	</div>
 </div>
+
+<style lang="postcss">
+	:global(.DocSearch-Button) {
+		margin-left: 0;
+	}
+	:global(.DocSearch-Form) {
+		border-radius: 20px;
+	}
+</style>

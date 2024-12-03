@@ -26,7 +26,7 @@
 		--radius: 0.5rem;
 	}
 	.dark {
-		--background: 221 41% 11%;
+		--background: 222.2 84% 4.9%;
 		--foreground: 210 40% 98%;
 		--card: 222.2 84% 4.9%;
 		--card-foreground: 210 40% 98%;
@@ -43,7 +43,7 @@
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 210 40% 98%;
 		--border: 217.2 32.6% 17.5%;
-		--input: 221 12.6% 33%;
+		--input: 217.2 32.6% 17.5%;
 		--ring: 212.7 26.8% 83.9%;
 	}
 
@@ -65,7 +65,7 @@
 
 		/* searchbox */
 		--docsearch-searchbox-height: 56px;
-		--docsearch-searchbox-background: rgb(235, 237, 240);
+		--docsearch-searchbox-background: transparent;
 		--docsearch-searchbox-focus-background: #fff;
 		--docsearch-searchbox-shadow: inset 0 0 0 2px var(--docsearch-primary-color);
 

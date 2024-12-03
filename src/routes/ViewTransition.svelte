@@ -24,10 +24,10 @@
 			opacity: 0;
 		}
 	}
-	:root::view-transition-old(root) {
-		animation: 350ms ease-out both fade-out;
+	:root::view-transition-old(content) {
+		animation: 300ms ease-out both fade-out;
 	}
-	:root::view-transition-new(root) {
-		animation: 350ms ease-out both fade-in;
+	:root::view-transition-new(content) {
+		animation: 300ms ease-out both fade-in;
 	}
 </style>
