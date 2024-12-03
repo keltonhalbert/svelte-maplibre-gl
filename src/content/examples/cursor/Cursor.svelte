@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { MapLibre, GeoJSONSource } from 'svelte-maplibre-gl';
 	import CircleLayer from '$lib/maplibre/layers/CircleLayer.svelte';
+	import type GeoJSON from 'geojson';
 
 	let cursor: string | undefined = $state();
 	const center = [0, 0];

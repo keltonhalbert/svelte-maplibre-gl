@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { MapLibre, GeolocateControl } from 'svelte-maplibre-gl';
 
-	let logString = $state('Tap the GeolocateControl\n');
+	let logString = $state('Press the GeolocateControl button.\n');
 	function log(s: string) {
 		logString += '» ' + s + '\n';
 	}

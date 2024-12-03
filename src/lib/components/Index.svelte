@@ -1,18 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-
-	const toc = [
-		{
-			title: 'Basic',
-			items: {
-				'/components/markdown': 'Markdown test'
-			}
-		}
-	];
+	import type { Toc } from './types';
+	let { name, toc }: { name: string; toc: Toc } = $props();
 </script>
 
 <nav>
-	<h2 class="mb-4 text-lg font-bold">Components</h2>
+	<h2 class="mb-4 text-lg font-bold">{name}</h2>
 	{#each toc as subtoc}
 		<h3 class="my-3">{subtoc.title}</h3>
 		<ul class="flex flex-col text-sm">
