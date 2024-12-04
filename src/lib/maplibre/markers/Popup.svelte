@@ -4,11 +4,11 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext, getMarkerContext } from '../contexts.svelte.js';
-	import { resetEventListener } from '../utils.js';
 
 	interface Props extends Omit<maplibregl.PopupOptions, 'className'> {
 		lnglat?: maplibregl.LngLatLike;
 		class?: string;
+		open?: boolean;
 		/** HTML content of the popup */
 		content?: Snippet;
 		children?: Snippet;
@@ -23,6 +23,7 @@
 	let {
 		lnglat,
 		class: className = undefined,
+		open = $bindable(),
 		offset,
 		closeButton,
 		closeOnClick,
@@ -69,7 +70,9 @@
 
 		if (lnglat) {
 			popup.setLngLat(lnglat);
-			popup.addTo(mapCtx.map);
+			if (open === undefined) {
+				open = true;
+			}
 		}
 	});
 
@@ -80,9 +83,48 @@
 	});
 
 	let firstRun = true;
+	let internalOpen = false;
 
-	$effect(() => resetEventListener(popup, 'open', onopen));
-	$effect(() => resetEventListener(popup, 'close', onclose));
+	$effect(() => {
+		if (open === true) {
+			if (mapCtx.map && !internalOpen) {
+				if (!popup?.getLngLat()) {
+					const lnglat = markerContext?.marker?.getLngLat();
+					if (!lnglat) return;
+					popup?.setLngLat(lnglat);
+				}
+				popup?.addTo(mapCtx.map);
+				internalOpen = true;
+			}
+		} else if (open === false && internalOpen) {
+			popup?.remove();
+			internalOpen = false;
+		}
+	});
+
+	$effect(() => {
+		function _onopen(ev: unknown) {
+			open = true;
+			internalOpen = true;
+			onopen?.(ev);
+		}
+		popup?.on('open', _onopen);
+		return () => {
+			popup?.off('open', _onopen);
+		};
+	});
+
+	$effect(() => {
+		function _onclose(ev: unknown) {
+			open = false;
+			internalOpen = false;
+			onclose?.(ev);
+		}
+		popup?.on('close', _onclose);
+		return () => {
+			popup?.off('close', _onclose);
+		};
+	});
 
 	$effect(() => {
 		if (lnglat && !firstRun) {
