@@ -49,6 +49,7 @@
 	let bearing = $state(0);
 	let controlPosition: maplibregl.ControlPosition | undefined = $state('bottom-right');
 	let markerLnglat = $state({ lng: 139.767052, lat: 35.681167 });
+	let popupOpen = $state(false);
 </script>
 
 <div class="flex items-center gap-x-2 p-1 text-sm">
@@ -127,6 +128,9 @@
 	<label>
 		z:
 		<input type="number" min="0" max="24" step="0.5" bind:value={zoom} class="w-12 rounded border p-1 leading-none" />
+	</label>
+	<label>
+		<input type="checkbox" bind:checked={popupOpen} /> Popup Open
 	</label>
 	<label>
 		<input type="checkbox" bind:checked={hash} /> Hash
@@ -277,7 +281,7 @@
 		{#snippet content()}
 			<span class="text-3xl">🐸</span>
 		{/snippet}
-		<Popup class="text-black">
+		<Popup class="text-black" bind:open={popupOpen}>
 			<span class="text-lg">
 				{`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}
 			</span>
