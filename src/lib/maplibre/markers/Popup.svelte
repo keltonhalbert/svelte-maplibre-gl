@@ -10,7 +10,6 @@
 		class?: string;
 		open?: boolean;
 		/** HTML content of the popup */
-		content?: Snippet;
 		children?: Snippet;
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/#events
