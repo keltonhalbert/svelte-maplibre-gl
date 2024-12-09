@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount, untrack } from 'svelte';
+	import maplibregl from 'maplibre-gl';
 	import { MapboxOverlay, type MapboxOverlayProps } from '@deck.gl/mapbox';
 	import { getMapContext } from '../contexts.svelte.js';
 
@@ -88,7 +89,7 @@
 
 		deckOverlay = new MapboxOverlay(options);
 
-		mapCtx.map?.addControl(deckOverlay);
+		mapCtx.map?.addControl(deckOverlay as maplibregl.IControl);
 	});
 
 	let firstRun = true;
@@ -146,6 +147,6 @@
 	});
 
 	onDestroy(() => {
-		mapCtx.map?.removeControl(deckOverlay);
+		mapCtx.map?.removeControl(deckOverlay as maplibregl.IControl);
 	});
 </script>

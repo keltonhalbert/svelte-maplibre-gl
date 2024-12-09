@@ -1,6 +1,6 @@
 ---
 title: Plain Map
-description:  A minimal example showing only the base map.
+description: A minimal example showing only the base map.
 ---
 
 <script lang="ts">
