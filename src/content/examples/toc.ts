@@ -6,6 +6,7 @@ export const toc: Toc = [
 		items: {
 			'/examples/plain': 'Plain Map',
 			'/examples/complex': 'Complex',
+			'/examples/marker-popup': 'Marker and Popup',
 			'/examples/basestyle': 'Change Base Style',
 			'/examples/hover-styles': 'Hover Styles',
 			'/examples/terrain': '3D Terrain',
