@@ -20,18 +20,22 @@
 	let container = $state<HTMLElement | null>(null);
 
 	let {
+		// reactive
 		lnglat,
 		class: className = undefined,
 		open = $bindable(),
 		offset,
+		maxWidth,
+		subpixelPositioning,
+		//
 		closeButton,
 		closeOnClick,
 		closeOnMove,
 		focusAfterOpen,
-		maxWidth,
-		subpixelPositioning,
+		// Events
 		onopen,
 		onclose,
+		// Children
 		children,
 		...restOptions
 	}: Props = $props();
