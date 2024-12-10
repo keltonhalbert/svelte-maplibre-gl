@@ -5,7 +5,6 @@
 		<p>
 			<a href="/examples/">Examples</a>
 		</p>
-		<p>⚠️ This project is currently in the early stages of development. Features and APIs are subject to change.</p>
 	</main>
 	<footer class="font-zinc-500 mt-8 border-t pt-6 text-sm">
 		<p>&copy; 2024 Svelte Maplibre GL contributors</p>

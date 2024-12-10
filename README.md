@@ -5,8 +5,6 @@
 
 Use [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) with the full potential of [Svelte](https://svelte.dev/)'s reactivity.
 
-:warning: This project is currently in the early stages of development. Features and APIs are subject to change.
-
 Documentaion and Examples: https://svelte-maplibre-gl.mierune.dev/examples/
 
 License: MIT or Apache 2.0
@@ -31,8 +29,9 @@ Everyone is welcomed to contribute to this project! There are many ways to suppo
 
 ### Authors
 
-- Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
-- TODO: Add core contributors
+- Core maintainers:
+    - Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
+    - Kanahiro Iguchi ([@Kanahiro](https://github.com/Kanahiro/))
 - And [all contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)
 
 ## Acknowledgements
