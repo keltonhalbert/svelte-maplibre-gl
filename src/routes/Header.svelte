@@ -53,12 +53,14 @@
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Examples</a
 			>
+			<!--
 			<a
 				href="/components/"
 				data-active={$page.url.pathname.startsWith('/components/')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Components</a
 			>
+			-->
 		</nav>
 	</div>
 	<div class="flex items-center text-xs leading-none">
