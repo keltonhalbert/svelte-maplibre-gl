@@ -72,8 +72,6 @@
 			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
 		}
 	}
-
-	const customLayerImpl = new CustomLayerImpl();
 </script>
 
 <MapLibre
@@ -82,5 +80,5 @@
 	zoom={3}
 	center={[20, 58]}
 >
-	<CustomLayer implementation={customLayerImpl} />
+	<CustomLayer implementation={new CustomLayerImpl()} />
 </MapLibre>
