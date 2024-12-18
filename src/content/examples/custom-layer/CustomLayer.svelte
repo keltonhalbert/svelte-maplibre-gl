@@ -81,7 +81,6 @@
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={3}
 	center={[20, 58]}
-	antialias
 >
 	<CustomLayer implementation={customLayerImpl} />
 </MapLibre>
