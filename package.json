@@ -65,7 +65,7 @@
 		"eslint": "^9.17.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.1",
-		"globals": "^15.13.0",
+		"globals": "^15.14.0",
 		"lucide-svelte": "^0.468.0",
 		"maplibre-contour": "^0.0.8",
 		"maplibre-gl": "5.0.0-pre.10",
