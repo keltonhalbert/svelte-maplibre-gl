@@ -4,7 +4,7 @@
 	import { toc } from '$content/examples/toc.js';
 </script>
 
-<div id="toc" class="p-8">
+<div id="toc" class="m-auto p-8 xl:container">
 	<Index name="Examples" {toc} />
 </div>
 

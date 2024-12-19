@@ -15,7 +15,7 @@
 <ViewTransition />
 
 <header class="sticky top-0 z-40 border-b bg-background bg-opacity-85 backdrop-blur">
-	<div class="mx-auto px-4 2xl:container md:px-8">
+	<div class="mx-auto px-4 xl:container md:px-8">
 		<Header bind:globalTocOpen />
 	</div>
 </header>
