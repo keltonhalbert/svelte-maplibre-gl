@@ -9,6 +9,8 @@ Documentaion and Examples: https://svelte-maplibre-gl.mierune.dev/examples/
 
 License: MIT or Apache 2.0
 
+<img alt="hero image" src="./src/lib/assets/hero.svg" width="100%">
+
 ## Installation
 
 ```bash
