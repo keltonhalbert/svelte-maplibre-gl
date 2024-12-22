@@ -3,7 +3,7 @@
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
 ![NPM License](https://img.shields.io/npm/l/svelte-maplibre-gl?color=96C902)
 
-:world_map: Build interactive web maps effortlessly with [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) and [Svelte 5](https://svelte.dev/) .
+:world_map: Build interactive web maps effortlessly with [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) and [Svelte 5](https://svelte.dev/).
 
 **Features:**
 
