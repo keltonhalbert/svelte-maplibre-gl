@@ -46,7 +46,7 @@
 				<MapPinned class="mr-1.5 hidden !size-6 pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
-		<nav class="ml-12 hidden gap-x-4 min-[550px]:flex">
+		<nav class="ml-12 hidden gap-x-4 font-medium min-[550px]:flex">
 			<a
 				href="/examples/"
 				data-active={page.url.pathname.startsWith('/examples/')}

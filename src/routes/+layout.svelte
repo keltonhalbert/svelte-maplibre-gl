@@ -23,6 +23,12 @@
 	{@render children()}
 </div>
 
+<footer class="font-zinc-500 border-t p-6 px-4 text-sm">
+	<div class="xl:container">
+		<p>&copy; 2024 Svelte Maplibre GL contributors</p>
+	</div>
+</footer>
+
 <GlobalToc bind:open={globalTocOpen} />
 
 <svelte:head>
