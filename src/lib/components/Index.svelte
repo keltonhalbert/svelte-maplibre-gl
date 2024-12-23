@@ -23,6 +23,5 @@
 
 <style>
 	nav {
-		view-transition-name: toc;
 	}
 </style>
