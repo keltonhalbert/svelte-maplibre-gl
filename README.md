@@ -8,8 +8,8 @@
 **Features:**
 
 - The most declarative and reactive MapLibre GL JS experience with Svelte 5
-- A flexible, less opinionated API design
-- Don’t worry — you can still fully control MapLibre imperatively whenever needed
+- A flexible, less opinionated API design for both beginners and experienced MapLibre users  
+- No restrictions — You can also control maps imperatively whenever needed  
 
 :point_right: **Documentaion and Live Demos:** https://svelte-maplibre-gl.mierune.dev/examples/
 
