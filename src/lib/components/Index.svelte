@@ -20,8 +20,3 @@
 		</ul>
 	{/each}
 </nav>
-
-<style>
-	nav {
-	}
-</style>
