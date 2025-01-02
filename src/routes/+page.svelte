@@ -32,11 +32,10 @@
 		</ul>
 		<p class="font-bold">Installation:</p>
 		<pre><code>npm install --save-dev svelte-maplibre-gl</code></pre>
-		<p>User documentation will be made available soon.</p>
 	</main>
 </div>
 
 <svelte:head>
-	<title>Svelte MapLibre GL</title>
-	<meta name="description" content="Svelte library for using MapLibre GL JS as reactive components" />
+	<title>Svelte MapLibre GL - Build interactive web maps effortlessly with MapLibre GL JS and Svelte</title>
+	<meta name="description" content="Build interactive web maps effortlessly with MapLibre GL JS and Svelte" />
 </svelte:head>
