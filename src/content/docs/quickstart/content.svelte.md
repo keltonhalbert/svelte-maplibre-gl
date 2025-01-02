@@ -19,7 +19,7 @@ Create a new SvelteKit project using the official [Svelte CLI](https://svelte.de
 ```bash
 npx sv create myapp
 # Make sure to enable the Tailwind CSS add-on,
-# as our example use it for styling.
+# as our examples use it for styling.
 
 cd myapp
 npm install
