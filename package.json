@@ -1,11 +1,21 @@
 {
 	"name": "svelte-maplibre-gl",
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Svelte library for using MapLibre GL JS as reactive components",
 	"repository": {
 		"url": "https://github.com/MIERUNE/svelte-maplibre-gl"
 	},
+	"homepage": "https://svelte-maplibre-gl.mierune.dev/",
+	"keywords": [
+		"map",
+		"svelte",
+		"maplibre-gl",
+		"maplibre-gl-js",
+		"geospatial",
+		"mapping",
+		"gis"
+	],
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
