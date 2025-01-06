@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    environment: npm
+    # environment: npm
     runs-on: ubuntu-latest
     permissions:
       contents: read
