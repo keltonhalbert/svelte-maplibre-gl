@@ -1,6 +1,6 @@
 {
 	"name": "svelte-maplibre-gl",
-	"version": "0.0.22",
+	"version": "0.0.23",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
 	"repository": {
@@ -48,17 +48,16 @@
 		}
 	},
 	"peerDependencies": {
-		"@deck.gl/layers": "^9.1.0 || <= 9.0.37",
-		"@deck.gl/mapbox": "^9.1.0 || <= 9.0.37",
+		"@deck.gl/layers": "^9.0.0",
+		"@deck.gl/mapbox": "^9.0.0",
 		"maplibre-contour": ">=0.1.0",
 		"maplibre-gl": "^4.0.0 || ^5.0.0 || ^5.0.0-pre",
 		"pmtiles": ">=3.0.0",
 		"svelte": ">=5.0.0"
 	},
 	"devDependencies": {
-		"@deck.gl/core": "^9.1.0-beta.1",
-		"@deck.gl/layers": "^9.1.0-beta.1",
-		"@deck.gl/mapbox": "^9.1.0-beta.1",
+		"@deck.gl/layers": "^9.0.38",
+		"@deck.gl/mapbox": "^9.0.38",
 		"@docsearch/css": "^3.8.2",
 		"@docsearch/js": "^3.8.2",
 		"@playwright/test": "^1.49.1",
@@ -69,7 +68,7 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
 		"@types/geojson": "^7946.0.15",
-		"@types/three": "^0.171.0",
+		"@types/three": "^0.172.0",
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "1.0.0-next.77",
 		"clsx": "^2.1.1",
@@ -91,7 +90,7 @@
 		"publint": "^0.2.12",
 		"shiki": "^1.26.1",
 		"superjson": "^2.2.2",
-		"svelte": "^5.16.1",
+		"svelte": "^5.16.2",
 		"svelte-check": "^4.1.1",
 		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@fe8b641",
 		"tailwind-merge": "^2.6.0",
