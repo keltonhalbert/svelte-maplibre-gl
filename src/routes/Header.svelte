@@ -48,19 +48,19 @@
 		</h1>
 		<nav class="ml-12 hidden gap-x-6 font-medium min-[550px]:flex">
 			<a
-				href="/docs/"
+				href="/docs/quickstart"
 				data-active={page.url.pathname.startsWith('/docs') && !page.url.pathname.startsWith('/docs/components')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Docs
 			</a>
 			<a
-				href="/examples/"
+				href="/examples/plain"
 				data-active={page.url.pathname.startsWith('/examples')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Examples</a
 			>
 			<a
-				href="/docs/components/"
+				href="/docs/components/MapLibre"
 				data-active={page.url.pathname.startsWith('/docs/components')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>API Reference</a

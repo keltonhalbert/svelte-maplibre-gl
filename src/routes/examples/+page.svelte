@@ -4,6 +4,6 @@
 	import { toc } from '$content/examples/toc.js';
 </script>
 
-<div id="toc" class="m-auto p-8 xl:container">
+<div id="toc" class="m-auto p-8 py-10 xl:container">
 	<Index name="Examples" {toc} />
 </div>
