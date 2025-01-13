@@ -1,10 +1,7 @@
 <script lang="ts">
-	import { MapLibre, GeoJSONSource } from 'svelte-maplibre-gl';
-	import CircleLayer from '$lib/maplibre/layers/CircleLayer.svelte';
+	import { MapLibre, GeoJSONSource, CircleLayer } from 'svelte-maplibre-gl';
 	import type GeoJSON from 'geojson';
 
-	let cursor: string | undefined = $state();
-	const center = [0, 0];
 	const CURSORS = [
 		'cell',
 		'col-resize',
@@ -25,7 +22,7 @@
 		'zoom-in',
 		'zoom-out'
 	];
-
+	const center = [0, 0];
 	const data: GeoJSON.FeatureCollection = {
 		type: 'FeatureCollection',
 		features: CURSORS.map((cursor, i) => ({
@@ -37,28 +34,24 @@
 					center[1] + Math.sin((i / CURSORS.length) * Math.PI * 2) * 15
 				]
 			},
-			properties: {
-				cursor
-			}
+			properties: { cursor }
 		}))
 	};
+
+	let cursor: string | undefined = $state();
 </script>
 
 <MapLibre
 	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={2}
-	{cursor}
 	center={{ lng: 0, lat: 0 }}
+	{cursor}
 >
 	<GeoJSONSource {data}>
 		<CircleLayer
-			onmousemove={(e) => {
-				cursor = e.features![0].properties.cursor;
-			}}
-			onmouseleave={() => {
-				cursor = undefined;
-			}}
+			onmousemove={(e) => (cursor = e.features![0].properties.cursor)}
+			onmouseleave={() => (cursor = undefined)}
 			paint={{
 				'circle-radius': 12,
 				'circle-color': '#007cbf',

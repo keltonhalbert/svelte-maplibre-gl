@@ -3,7 +3,7 @@
 	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
 	import type { LayerSpecification } from 'maplibre-gl';
 
-	// Get the layers spec from the OSM style
+	// Extract the layers spec from the OSM style
 	let layers: LayerSpecification[] = $state.raw([]);
 	$effect(() => {
 		fetch('https://tile.openstreetmap.jp/styles/openmaptiles/style.json')
@@ -16,10 +16,10 @@
 	});
 </script>
 
-<!-- Add pmtiles:// Protocol -->
+<!-- Add pmtiles:// Protocol globally -->
 <PMTilesProtocol />
 
-<!-- Use custom protocols -->
+<!-- Use the pmtiles:// protocol -->
 <MapLibre
 	class="h-[55vh] min-h-[200px]"
 	zoom={10}
@@ -32,7 +32,7 @@
 			openmaptiles: {
 				type: 'vector',
 				url: 'pmtiles://https://tile.openstreetmap.jp/static/planet.pmtiles',
-				attribution: '© OpenMapTiles © OpenStreetMap contributors'
+				attribution: 'OSM Japan © OpenMapTiles © OpenStreetMap contributors'
 			}
 		},
 		layers
