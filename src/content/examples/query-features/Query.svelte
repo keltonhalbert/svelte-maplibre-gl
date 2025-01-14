@@ -11,14 +11,12 @@
 	import maplibregl from 'maplibre-gl';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
-	let map: maplibregl.Map | undefined = $state();
 	let features: maplibregl.MapGeoJSONFeature[] = $state.raw([]);
 	let mode: 'source' | 'rendered' = $state('source');
 </script>
 
 <div class="flex h-[55vh] min-h-[300px] gap-x-3">
 	<MapLibre
-		bind:map
 		class="h-[55vh] min-h-[300px] grow"
 		style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 		zoom={3}

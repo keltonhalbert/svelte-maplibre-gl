@@ -1,22 +1,36 @@
 <script lang="ts">
-	import { HillshadeLayer, MapLibre, RasterDEMTileSource, Sky, Terrain } from 'svelte-maplibre-gl';
-	import { Slider } from '$lib/components/ui/slider/index.js';
+	import {
+		MapLibre,
+		Terrain,
+		TerrainControl,
+		GlobeControl,
+		Sky,
+		HillshadeLayer,
+		RasterDEMTileSource
+	} from 'svelte-maplibre-gl';
+	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import { Slider } from '$lib/components/ui/slider/index.js';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
-	let hillshade = $state(0.5);
+	let mode: 'terrain' | 'sky' = $state('terrain');
+	// Terrain
+	let hillshade = $state(0.7);
 	let terrain = $state(1.0);
+	let shadowColor = $state('#004050');
+	let accentColor = $state('#aaff00');
+	let highlightColor = $state('#ffffff');
+	let direction = $state(0.0);
+	// Sky
+	let skyEnabled = $state(true);
+	let skyColor = $state('#001560');
+	let horizonColor = $state('#0090c0');
+	let fogColor = $state('#ffffff');
+	let skyHorizonBlend = $state(0.5);
+	let horizonFogBlend = $state(0.7);
+	let fogGroundBlend = $state(0.5);
+	let atmosphereBlend = $state(0.3);
 </script>
-
-<div class="mb-4 flex items-center justify-between gap-x-10">
-	<div class="flex flex-1 grow flex-col gap-y-4">
-		<Label for="hillshade">Hillshade Exaggeration: {hillshade.toFixed(2)}</Label>
-		<Slider type="single" id="hillshade" bind:value={hillshade} min={0} max={1} step={0.01} />
-	</div>
-	<div class="flex flex-1 grow flex-col gap-y-4">
-		<Label for="terrain">Terrain Exaggeration: {terrain.toFixed(2)}</Label>
-		<Slider type="single" id="terrain" bind:value={terrain} min={0} max={2} step={0.01} />
-	</div>
-</div>
 
 <MapLibre
 	class="h-[55vh] min-h-[300px]"
@@ -26,22 +40,30 @@
 	maxPitch={85}
 	center={{ lng: 11.39085, lat: 47.3 }}
 >
-	<Sky
-		sky-color="#001560"
-		horizon-color="#0090c0"
-		fog-color="#ffffff"
-		sky-horizon-blend={0.9}
-		horizon-fog-blend={0.7}
-		fog-ground-blend={0.6}
-	/>
+	<GlobeControl />
+	{#if skyEnabled}
+		<Sky
+			sky-color={skyColor}
+			horizon-color={horizonColor}
+			fog-color={fogColor}
+			sky-horizon-blend={skyHorizonBlend}
+			horizon-fog-blend={horizonFogBlend}
+			fog-ground-blend={fogGroundBlend}
+			atmosphere-blend={atmosphereBlend}
+		/>
+	{/if}
+	<!-- Terrain -->
 	<RasterDEMTileSource
+		id="terrain"
 		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
 		minzoom={0}
 		maxzoom={12}
 		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
 	>
-		<Terrain exaggeration={terrain} />
+		<TerrainControl position="top-right" />
+		<Terrain />
 	</RasterDEMTileSource>
+	<!-- Hillshade -->
 	<RasterDEMTileSource
 		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
 		minzoom={0}
@@ -51,9 +73,79 @@
 		<HillshadeLayer
 			paint={{
 				'hillshade-exaggeration': hillshade,
+				'hillshade-shadow-color': shadowColor,
+				'hillshade-accent-color': accentColor,
+				'hillshade-highlight-color': highlightColor,
 				'hillshade-illumination-anchor': 'map',
-				'hillshade-shadow-color': '#004050'
+				'hillshade-illumination-direction': direction
 			}}
 		/>
 	</RasterDEMTileSource>
+
+	<div
+		class="absolute left-3 top-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur"
+	>
+		<Tabs.Root bind:value={mode} class="flex h-full flex-col">
+			<Tabs.List class="grid w-full grid-cols-2">
+				<Tabs.Trigger value="terrain">Terrain</Tabs.Trigger>
+				<Tabs.Trigger value="sky">Sky</Tabs.Trigger>
+			</Tabs.List>
+			<Tabs.Content value="terrain" class="min-h-0 shrink overflow-scroll pt-1">
+				<div class="mb-4 flex flex-col items-center space-y-2 px-2">
+					<Label for="pitch" class="leading-none">Exaggeration ({terrain.toFixed(2)})</Label>
+					<Slider type="single" id="pitch" bind:value={terrain} min={0} max={2} step={0.01} />
+				</div>
+				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+					<Label for="hillshade" class="leading-none">Hillshade ({hillshade.toFixed(2)})</Label>
+					<Slider type="single" id="hillshade" bind:value={hillshade} min={0} max={1} step={0.01} />
+				</div>
+				<div class="mb-1 flex items-center justify-between space-x-2">
+					<Label for="shadow" class="leading-none">Shadow</Label>
+					<input type="color" id="shadow" bind:value={shadowColor} />
+				</div>
+				<div class="mb-1 flex items-center justify-between space-x-2">
+					<Label for="accent" class="leading-none">Accent</Label>
+					<input type="color" id="accent" bind:value={accentColor} />
+				</div>
+				<div class="mb-2 flex items-center justify-between space-x-2">
+					<Label for="highlight" class="leading-none">Highlight</Label>
+					<input type="color" id="highlight" bind:value={highlightColor} />
+				</div>
+				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+					<Label for="direction" class="leading-none">Direction ({direction})</Label>
+					<Slider type="single" id="direction" bind:value={direction} min={0} max={360} />
+				</div>
+			</Tabs.Content>
+			<Tabs.Content value="sky" class="min-h-0 shrink overflow-scroll pt-1">
+				<div class="mb-2 flex items-center space-x-2 self-center justify-self-center">
+					<Checkbox id="skyEnabled" bind:checked={skyEnabled} />
+					<Label for="skyEnabled" class="leading-none">Enable Sky</Label>
+				</div>
+				<div class="mb-1 flex items-center justify-between space-x-2">
+					<Label for="skyColor" class="leading-none">Sky color</Label>
+					<input type="color" id="skyColor" bind:value={skyColor} />
+				</div>
+				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+					<Label for="skyHorizonBlend" class="leading-none">sky-horizon-blend ({skyHorizonBlend})</Label>
+					<Slider type="single" id="skyHorizonBlend" bind:value={skyHorizonBlend} min={0} max={1} step={0.01} />
+				</div>
+				<div class="mb-1 flex items-center justify-between space-x-2">
+					<Label for="horizonColor" class="leading-none">Horizon color</Label>
+					<input type="color" id="horizonColor" bind:value={horizonColor} />
+				</div>
+				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+					<Label for="horizonFogBlend" class="leading-none">horizon-fog-blend ({horizonFogBlend})</Label>
+					<Slider type="single" id="horizonFogBlend" bind:value={horizonFogBlend} min={0} max={1} step={0.01} />
+				</div>
+				<div class="mb-1 flex items-center justify-between space-x-2">
+					<Label for="fogColor" class="leading-none">Fog color</Label>
+					<input type="color" id="fogColor" bind:value={fogColor} />
+				</div>
+				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+					<Label for="fogGroundBlend" class="leading-none">fog-ground-blend ({fogGroundBlend})</Label>
+					<Slider type="single" id="fogGroundBlend" bind:value={fogGroundBlend} min={0} max={1} step={0.01} />
+				</div>
+			</Tabs.Content>
+		</Tabs.Root>
+	</div>
 </MapLibre>

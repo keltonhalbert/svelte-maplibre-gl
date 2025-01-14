@@ -5,8 +5,6 @@
 	import { Matrix4, Vector3 } from 'three';
 	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-	let map: maplibregl.Map | undefined = $state.raw();
-
 	const modelOrigin: [number, number] = [148.9819, -35.39847];
 	const modelAltitude = 0;
 	const modelRotate = [Math.PI / 2, 0, 0];
@@ -16,10 +14,13 @@
 		camera = new THREE.Camera();
 		scene = new THREE.Scene();
 		renderer: THREE.WebGLRenderer | null = null;
+		map: maplibregl.Map | null = null;
 
 		renderingMode = '3d' as const;
 
 		onAdd(map: maplibregl.Map, gl: WebGL2RenderingContext) {
+			this.map = map;
+
 			// create two three.js lights
 			const directionalLight1 = new THREE.DirectionalLight(0xffffff);
 			directionalLight1.position.set(0, -70, 100).normalize();
@@ -58,7 +59,7 @@
 			this.camera.projectionMatrix = world.multiply(local);
 			this.renderer!.resetState();
 			this.renderer!.render(this.scene, this.camera);
-			map!.triggerRepaint();
+			this.map!.triggerRepaint();
 		}
 	}
 
@@ -66,7 +67,6 @@
 </script>
 
 <MapLibre
-	bind:map
 	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={18}

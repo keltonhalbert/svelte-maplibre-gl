@@ -36,6 +36,6 @@
 			[-122.51423120498657, 37.56161849366671]
 		]}
 	>
-		<RasterLayer paint={{ 'raster-opacity': 0.6 }} />
+		<RasterLayer paint={{ 'raster-opacity': 0.7 }} />
 	</VideoSource>
 </MapLibre>

@@ -1,7 +1,7 @@
 ---
-title: 3D Terrain
-description: 3D terrain and the sky.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/3d-terrain/
+title: 3D Terrain and Sky
+description: Show elevation in actual 3D with the sky.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/sky-with-fog-and-terrain/
 ---
 
 <script lang="ts">

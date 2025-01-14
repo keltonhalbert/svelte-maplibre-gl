@@ -11,29 +11,40 @@
 	};
 
 	interface Props extends Omit<maplibregl.MapOptions, 'container'>, MapEventProps {
+		/**
+		 * You can access the internal MapLibre GL `Map` instance by binding a variable to this prop.
+		 *
+		 * This allows you to directly interact with the underlying Map instance, enabling imperative API calls.
+		 */
 		map?: maplibregl.Map;
 		class?: string;
 		/** Inline CSS `style` for the map container HTML element. Not to be confused with the map's style settings. */
 		inlineStyle?: string;
-		center?: LngLatLike;
+		/** The padding in pixels around the viewport */
 		padding?: maplibregl.PaddingOptions;
 		/** Vertical field of view in degrees */
 		fov?: number;
+		/** Cursor style for the map canvas */
 		cursor?: string;
 		/** Loads and applies maplibre-gl.css from a CDN. Set to false if you want to include it manually. */
 		autoloadGlobalCss?: boolean;
 
 		// Accessors
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#accessors
+		/** Whether the map will render an outline around each tile and the tile ID. These tile boundaries are useful for debugging. */
 		showTileBoundaries?: boolean;
+		/** Whether the map will visualize the padding offsets. */
 		showPadding?: boolean;
+		/** Whether the map will visualize the padding offsets. */
 		showCollisionBoxes?: boolean;
+		/** Whether the map will render boxes around all symbols in the data source */
 		showOverdrawInspector?: boolean;
+		/** Whether the map will continuously repaint. This information is useful for analyzing performance. */
 		repaint?: boolean;
 		vertices?: boolean;
 
 		// Snippets
-		children?: Snippet;
+		children?: Snippet<[maplibregl.Map]>;
 	}
 
 	let {
@@ -560,6 +571,6 @@
 
 <div class={className} style={inlineStyle} bind:this={container}>
 	{#if map}
-		{@render children?.()}
+		{@render children?.(map)}
 	{/if}
 </div>

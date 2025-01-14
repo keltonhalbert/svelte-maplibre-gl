@@ -2,7 +2,6 @@
 	import maplibregl from 'maplibre-gl';
 	import { MapLibre, Marker, Popup } from 'svelte-maplibre-gl';
 
-	let map: maplibregl.Map | undefined = $state.raw();
 	let lnglat = $state({ lng: 139.767052, lat: 35.681167 });
 	let lngLatText = $derived(`(${lnglat.lat.toFixed(3)}, ${lnglat.lng.toFixed(3)})`);
 	let popupOpen = $state(true);
@@ -32,7 +31,6 @@
 	class="h-[55vh] min-h-[300px]"
 	zoom={10}
 	center={[139.7, 35.7]}
-	bind:map
 	maxPitch={85}
 	attributionControl={false}
 >

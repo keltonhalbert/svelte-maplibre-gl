@@ -5,7 +5,7 @@
 
 <div class="grid gap-x-8 lg:grid-cols-[1fr_160px]">
 	<div class="min-h-[calc(100vh-4rem)] w-full min-w-0 py-10">
-		<Breadcrumb.Root class="mb-4">
+		<Breadcrumb.Root class="mb-3">
 			<Breadcrumb.List>
 				<Breadcrumb.Item>
 					<Breadcrumb.Link href="/examples/">Examples</Breadcrumb.Link>

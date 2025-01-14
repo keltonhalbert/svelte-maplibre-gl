@@ -17,10 +17,7 @@
 	const sourceId = $derived(source ?? getSourceContext().id);
 
 	$effect(() => {
-		mapCtx.userTerrain = $state.snapshot({
-			...spec,
-			source: sourceId
-		});
+		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
 		});

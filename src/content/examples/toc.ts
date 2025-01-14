@@ -9,7 +9,7 @@ export const toc: Toc = [
 			'/examples/marker-popup': 'Marker and Popup',
 			'/examples/basestyle': 'Change Base Style',
 			'/examples/hover-styles': 'Hover Styles',
-			'/examples/terrain': '3D Terrain',
+			'/examples/terrain': '3D Terrain and Sky',
 			'/examples/clusters': 'Clusters',
 			'/examples/limit-interaction': 'Limit Map Interactions',
 			'/examples/animate-images': 'Animate a Series of Images',

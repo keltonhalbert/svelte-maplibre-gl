@@ -28,7 +28,7 @@
 			context.font = '32px sans-serif';
 			context.fillText(`${z}/${x}/${y}`, 32, 64);
 
-			// canvas to blob (png) to arraybuffer
+			// canvas -> Blob (png) -> ArrayBuffer
 			canvas.toBlob(async (blob) => {
 				resolve(await blob!.arrayBuffer());
 			});
