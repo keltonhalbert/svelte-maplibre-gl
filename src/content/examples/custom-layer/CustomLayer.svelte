@@ -114,12 +114,12 @@
 			gl.uniformMatrix4fv(
 				gl.getUniformLocation(program, 'u_projection_matrix'),
 				false,
-				args.defaultProjectionData.mainMatrix // convert mat4 from gl-matrix to a plain array
+				args.defaultProjectionData.mainMatrix
 			);
 			gl.uniformMatrix4fv(
 				gl.getUniformLocation(program, 'u_projection_fallback_matrix'),
 				false,
-				args.defaultProjectionData.fallbackMatrix // convert mat4 from gl-matrix to a plain array
+				args.defaultProjectionData.fallbackMatrix
 			);
 			gl.uniform1f(
 				gl.getUniformLocation(program, 'u_projection_transition'),
