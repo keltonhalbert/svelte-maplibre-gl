@@ -70,7 +70,8 @@ export const toc: Toc = [
 			'/docs/components/NavigationControl': 'NavigationControl',
 			'/docs/components/ScaleControl': 'ScaleControl',
 			'/docs/components/TerrainControl': 'TerrainControl',
-			'/docs/components/DeckGLOverlay': 'DeckGLOverlay (ext)'
+			'/docs/components/DeckGLOverlay': 'DeckGLOverlay (ext)',
+			'/docs/components/TerraDraw': 'TerraDraw (ext)'
 		}
 	},
 	{

@@ -14,6 +14,7 @@
 		VectorTileSource
 	} from 'svelte-maplibre-gl';
 
+	import maplibregl from 'maplibre-gl';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
@@ -24,42 +25,7 @@
 		['Voyager', 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'],
 		['Positron', 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'],
 		['Dark Matter', 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'],
-		['Demo Tiles', 'https://demotiles.maplibre.org/style.json'],
-		[
-			'GSI Seamlessphoto',
-			{
-				version: 8,
-				sources: {
-					basemap: {
-						type: 'raster',
-						tiles: ['https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg'],
-						tileSize: 256,
-						minzoom: 2,
-						maxzoom: 18,
-						attribution:
-							"<a href='https://maps.gsi.go.jp/development/ichiran.html#seamlessphoto' target='_blank'>GSI, TSIC, AIST, NASA, USGS, GEBCO</a>"
-					}
-				},
-				layers: [{ id: 'basemap', type: 'raster', source: 'basemap' }]
-			} satisfies maplibregl.StyleSpecification
-		],
-		[
-			'GSI Standard',
-			{
-				version: 8,
-				sources: {
-					basemap: {
-						type: 'raster',
-						tiles: ['https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'],
-						tileSize: 256,
-						minzoom: 5,
-						maxzoom: 18,
-						attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html#std' target='_blank'>GSI</a>"
-					}
-				},
-				layers: [{ id: 'basemap', type: 'raster', source: 'basemap' }]
-			}
-		]
+		['Demo Tiles', 'https://demotiles.maplibre.org/style.json']
 	]);
 	let name = $state('Voyager');
 	let style = $derived(STYLES.get(name)!);
@@ -79,7 +45,7 @@
 
 <div class="mb-3 flex items-center justify-between">
 	<RadioGroup.Root bind:value={name} class="flex flex-row gap-x-3">
-		{#each STYLES as [name, _]}
+		{#each STYLES as [name]}
 			<div class="flex items-center space-x-1">
 				<RadioGroup.Item value={name} id={name} />
 				<Label class="cursor-pointer" for={name}>{name}</Label>
