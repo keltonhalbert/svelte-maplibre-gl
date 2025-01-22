@@ -16,8 +16,8 @@
 
 	let mode: 'terrain' | 'sky' = $state('terrain');
 	// Terrain
+	let exaggeration = $state(1.0);
 	let hillshade = $state(0.7);
-	let terrain = $state(1.0);
 	let shadowColor = $state('#004050');
 	let accentColor = $state('#aaff00');
 	let highlightColor = $state('#ffffff');
@@ -62,7 +62,7 @@
 		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
 	>
 		<TerrainControl position="top-right" />
-		<Terrain />
+		<Terrain {exaggeration} />
 	</RasterDEMTileSource>
 	<!-- Hillshade -->
 	<RasterDEMTileSource
@@ -93,8 +93,8 @@
 			</Tabs.List>
 			<Tabs.Content value="terrain" class="min-h-0 shrink overflow-scroll pt-1">
 				<div class="mb-4 flex flex-col items-center space-y-2 px-2">
-					<Label for="pitch" class="leading-none">Exaggeration ({terrain.toFixed(2)})</Label>
-					<Slider type="single" id="pitch" bind:value={terrain} min={0} max={2} step={0.01} />
+					<Label for="pitch" class="leading-none">Exaggeration ({exaggeration.toFixed(2)})</Label>
+					<Slider type="single" id="pitch" bind:value={exaggeration} min={0} max={2} step={0.01} />
 				</div>
 				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
 					<Label for="hillshade" class="leading-none">Hillshade ({hillshade.toFixed(2)})</Label>
