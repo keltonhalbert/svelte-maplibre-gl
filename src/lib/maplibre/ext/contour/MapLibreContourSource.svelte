@@ -3,10 +3,10 @@
 
 	import type { Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
-	import type mlcontour from 'maplibre-contour';
-
+	import { default as mlcontour } from 'maplibre-contour';
 	import VectorTileSource from '$lib/maplibre/sources/VectorTileSource.svelte';
 
+	type LocalDemManager = typeof mlcontour.LocalDemManager.prototype;
 	type DemSource = typeof mlcontour.DemSource.prototype;
 	type DemSourceConstructorParams = ConstructorParameters<typeof mlcontour.DemSource>[0];
 	type GlobalContourTileOptions = Parameters<DemSource['contourProtocolUrl']>[0];
@@ -16,6 +16,7 @@
 		demSource?: DemSource;
 		tileOptions: GlobalContourTileOptions;
 		attribution?: string;
+		getTile?: LocalDemManager['getTile'];
 	}
 
 	let {
@@ -30,16 +31,16 @@
 		worker = true,
 		actor,
 		tileOptions,
-		attribution
+		attribution,
+		/** Custom getTile function for LocalDemManager (experimental) */
+		getTile
 	}: Props = $props();
 
 	$effect(() => {
+		if (getTile) {
+			worker = false;
+		}
 		(async () => {
-			const mlcontour = (
-				await import('maplibre-contour').catch((reason) => {
-					throw new Error('Failed to load maplibre-contour', reason);
-				})
-			).default;
 			demSource = new mlcontour.DemSource({
 				url,
 				id,
@@ -50,6 +51,9 @@
 				worker, // offload isoline computation to a web worker to reduce jank
 				actor
 			});
+			if (getTile && 'getTile' in demSource.manager) {
+				demSource.manager.getTile = getTile;
+			}
 			demSource.setupMaplibre(maplibregl);
 		})();
 
