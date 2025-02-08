@@ -7,11 +7,16 @@ export const GET: RequestHandler = async ({ request }) => {
 	const urls: string[] = [];
 	const origin = new URL(request.url).origin;
 
+	urls.push(origin + '/');
+
+	urls.push(origin + '/examples/');
 	for (const section of exampleToc) {
 		for (const [path] of Object.entries(section.items)) {
 			urls.push(origin + path);
 		}
 	}
+
+	urls.push(origin + '/docs/components/');
 	for (const section of componentToc) {
 		for (const [path] of Object.entries(section.items)) {
 			urls.push(origin + path);

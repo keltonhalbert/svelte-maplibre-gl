@@ -5,13 +5,13 @@
 
 :world_map: Build interactive web maps effortlessly with [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) and [Svelte 5](https://svelte.dev/).
 
+:point_right: **Documentaion and Live Demos:** https://svelte-maplibre-gl.mierune.dev/examples/
+
 **Features:**
 
 - The most declarative and reactive MapLibre GL JS experience, powered by Svelte 5
 - A flexible, minimally opinionated API design that is suitable for both beginners and experienced MapLibre users
 - Freedom preserved — Traditional imperative MapLibre GL JS usage remains fully supported
-
-:point_right: **Documentaion and Live Demos:** https://svelte-maplibre-gl.mierune.dev/examples/
 
 License: MIT or Apache 2.0
 
