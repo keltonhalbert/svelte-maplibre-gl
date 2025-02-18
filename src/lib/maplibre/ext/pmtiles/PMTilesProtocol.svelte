@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Protocol as MapLibreProtocol } from 'svelte-maplibre-gl';
-	import { Protocol, PMTiles } from 'pmtiles';
+	import { Protocol, type PMTiles } from 'pmtiles';
 
 	let {
 		scheme = 'pmtiles',
@@ -34,8 +34,8 @@
 
 	$effect(() => {
 		if (pmtiles) {
-			for (const pmtile of pmtiles) {
-				protocol.add(pmtile);
+			for (const p of pmtiles) {
+				protocol.add(p);
 			}
 		}
 	});
