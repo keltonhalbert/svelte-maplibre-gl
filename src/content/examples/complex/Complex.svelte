@@ -30,6 +30,7 @@
 		Popup,
 		GlobeControl
 	} from 'svelte-maplibre-gl';
+	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
 
 	let map: maplibregl.Map | undefined = $state.raw();
 	let hash = $state(true);
@@ -51,6 +52,8 @@
 	let markerLnglat = $state({ lng: 139.767052, lat: 35.681167 });
 	let popupOpen = $state(false);
 </script>
+
+<PMTilesProtocol />
 
 <div class="flex items-center gap-x-2 p-1 text-sm">
 	<label>
@@ -206,7 +209,7 @@
 	<BackgroundLayer id="dummy2" layout={{ visibility: 'none' }} />
 	<BackgroundLayer id="dummy3" layout={{ visibility: 'none' }} />
 	<VectorTileSource
-		tiles={['https://jma-assets.mierune.dev/tiles/mete/{z}/{x}/{y}.pbf']}
+		url="pmtiles://https://jma-assets.mierune.dev/pmtiles/mete.pmtiles"
 		minzoom={0}
 		maxzoom={13}
 		attribution={'<a href="https://www.data.jma.go.jp/developer/gis.html">気象庁</a>'}
