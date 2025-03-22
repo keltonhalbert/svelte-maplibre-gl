@@ -4,7 +4,7 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
-	import { formatLngLat, resetEventListener } from '../utils.js';
+	import { formatLngLat, resetEventListener } from '../utils.ts';
 
 	type MapEventProps = {
 		[K in keyof maplibregl.MapEventType as `on${K}`]?: (ev: maplibregl.MapEventType[K]) => void;
